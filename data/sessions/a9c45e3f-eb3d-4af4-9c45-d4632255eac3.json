@@ -1,0 +1,96 @@
+{
+  "session_id": "a9c45e3f-eb3d-4af4-9c45-d4632255eac3",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_type": "wavy"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p152",
+      "name": "L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo 200ml",
+      "brand": "L'Oréal Paris",
+      "image_url": "https://www.refinery29.com/images/11227264.jpg",
+      "price": 4770,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Shampoos"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "all hair types",
+          "straight hair",
+          "wavy hair",
+          "curly hair",
+          "coily hair",
+          "damaged hair",
+          "colored hair"
+        ],
+        "concerns": [
+          "dullness",
+          "lifeless hair",
+          "lack of shine",
+          "rough texture",
+          "porosity",
+          "frizz",
+          "damaged cuticles"
+        ],
+        "texture": "liquid with rich lather",
+        "sensitivity_safe": [
+          "sulfate_free",
+          "gentle_cleansing",
+          "non_stripping",
+          "color_safe"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A sulfate-free shine-enhancing shampoo powered by Glycolic Acid Complex, designed as the first step in the Glycolic Gloss system. Glycolic Acid (an AHA) penetrates the hair fiber to restore internal quality, smooth and seal the cuticles, and create a mirror-like reflective surface for intense, long-lasting gloss (up to 2x shinier hair). Gently cleanses without stripping natural oils or fading color, leaving hair silky, smooth, manageable, and vibrant with a fresh fragrance (grapefruit, jasmine, cedarwood notes). Ideal for dull, rough, porous, frizzy, or color-treated hair seeking salon-level shine and smoothness at home. Imported from Canada, cruelty-free, and part of the L'Oréal Paris Hair Expertise Glycolic Gloss range.",
+      "how_to_use": "Apply a generous amount to wet hair. Gently massage into the scalp and work into a rich lather through the lengths. Rinse thoroughly with lukewarm water. For maximum shine results, follow with the L'Oréal Paris Glycolic Gloss Conditioner, optional 5 Minute Lamination Treatment, and Illuminating Serum.",
+      "key_ingredients": [
+        "Glycolic Acid",
+        "Aqua / Water",
+        "Sodium C14-16 Olefin Sulfonate",
+        "Cocamide MEA",
+        "Glycerin",
+        "Cocamidopropyl Betaine",
+        "Sodium Lauroyl Sarcosinate",
+        "Parfum / Fragrance",
+        "Sodium Benzoate",
+        "Citric Acid",
+        "Polyquaternium-7",
+        "Hydroxypropyl Guar Hydroxypropyltrimonium Chloride",
+        "Salicylic Acid"
+      ],
+      "complementary_products": [],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 0,
+        "purchase_count": 0,
+        "rating": 4.5,
+        "review_count": 0
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:16:53.110286Z",
+  "conversation_history": [
+    {
+      "user": "hi , how are u",
+      "assistant": "I'm doing great, thanks for asking! 😊 How about you, what brings you to Beauty Mart today?"
+    },
+    {
+      "user": "i am looking for shampoo for my wavy hair",
+      "assistant": "Wavy hair can be so much fun to style!\n\nWe have some great shampoos for wavy hair, including the L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo and the Garnier Whole Blends Honey Water Moisture Restoring Shampoo."
+    },
+    {
+      "user": "Tell me more about the L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo",
+      "assistant": "Hey! ✨ I think you'd really love this one: **L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo** by L'Oréal Paris, Rs.4770. If you've been struggling with dull, rough, or frizzy hair, this is exactly what you need. It's designed to restore your hair's internal quality and give you a salon-level shine at home. With its gentle, sulfate-free formula, you can say goodbye to dryness and hello to silky, smooth locks."
+    }
+  ]
+}

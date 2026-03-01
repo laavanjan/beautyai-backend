@@ -1,0 +1,286 @@
+{
+  "session_id": "603dc62b-d3aa-4678-8c79-d9ff5f1b4043",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_type": "curly"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p136",
+      "name": "Deep Repair Hair Mask",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+      "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Argan Oil",
+        "Hydrolyzed Keratin"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p129",
+      "name": "Clarifying Scalp & Hair Conditioner",
+      "brand": "ScalpBalance",
+      "image_url": "https://tse3.mm.bing.net/th/id/OIP.tqNo7CrEbhzdpjVlw_OctgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1250,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "combination hair",
+          "straight",
+          "curly"
+        ],
+        "concerns": [
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance",
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A lightweight conditioner that balances greasy roots while nourishing dry ends. Ideal for combination and styled hair types.",
+      "how_to_use": "Apply on mid-lengths and ends after shampoo, leave on for 2–3 minutes, then rinse thoroughly.",
+      "key_ingredients": [
+        "Salicylic Acid",
+        "Argan Oil",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p136",
+        "p137"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 410,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p130",
+      "name": "Repair & Shine Conditioner",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1180,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair",
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich conditioner that smooths frizz and repairs surface damage. Leaves hair soft, shiny and easy to detangle.",
+      "how_to_use": "After shampooing, apply generously from mid-lengths to ends, leave for 3–5 minutes and rinse.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Keratin"
+      ],
+      "complementary_products": [
+        "p138",
+        "p139"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 360,
+        "rating": 4.5,
+        "review_count": 185
+      }
+    },
+    {
+      "product_id": "p140",
+      "name": "Daily Curl Softening Conditioner",
+      "brand": "CurlCraft",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "curly",
+          "dry hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An everyday conditioner that softens and detangles curls. Keeps them hydrated and easier to style.",
+      "how_to_use": "Smooth through freshly washed hair, leave for 2–3 minutes and rinse. Can be used as a leave-in on very dry hair.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p138",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 160
+      }
+    },
+    {
+      "product_id": "p138",
+      "name": "Curl Defining Deep Treatment",
+      "brand": "CurlCraft",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=39",
+      "price": 1390,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich treatment mask that hydrates and defines curls without weighing them down. Helps reduce frizz and enhance bounce.",
+      "how_to_use": "Use once a week on clean, damp hair, focusing on curls and ends, then rinse after 10 minutes.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Jojoba Oil",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 300,
+        "rating": 4.5,
+        "review_count": 160
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:03:06.353898Z",
+  "conversation_history": [
+    {
+      "user": "Hi how are u doing",
+      "assistant": "I'm doing great, thanks for asking! 😊"
+    },
+    {
+      "user": "I'd love to show you our best-sellers!",
+      "assistant": "I love the enthusiasm! 😊\n\nBased on your best-sellers, I found some top products in our catalog. We have Daily Defense Sunscreen Fluid SPF 50 by SunSecure, a liquid sunscreen suitable for oily and combination skin, and HydraBoost Hyaluronic Serum by HydraCore, a serum for normal, dry, and combination skin."
+    },
+    {
+      "user": "ok i want a shampoo for my curly hair",
+      "assistant": "I'm so excited to help you find the perfect hair care for your lovely curls! 😊\n\nAlthough we don't have shampoos, we have some amazing conditioners and hair masks that can help keep your curls soft and nourished. Our Deep Repair Hair Mask by LushStrand and Curl Defining Deep Treatment by CurlCraft are great options to try."
+    }
+  ]
+}

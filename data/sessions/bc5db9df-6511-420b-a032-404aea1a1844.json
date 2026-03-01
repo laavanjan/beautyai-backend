@@ -1,0 +1,307 @@
+{
+  "session_id": "bc5db9df-6511-420b-a032-404aea1a1844",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_concern": "dryness"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p151",
+      "name": "Garnier Whole Blends Honey Water Moisture Restoring Shampoo 370 ml",
+      "brand": "Garnier Whole Blends",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.Q-is_m-HQed1ULySUQ8ZeQHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 4680,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Shampoos"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "dull hair",
+          "normal hair",
+          "slightly damaged hair"
+        ],
+        "concerns": [
+          "dryness",
+          "moisture loss",
+          "dullness",
+          "lack of shine",
+          "dehydration"
+        ],
+        "texture": "creamy liquid with rich lather",
+        "sensitivity_safe": [
+          "paraben_free",
+          "gentle_cleansing",
+          "non_stripping",
+          "lightweight_hydration"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight, deeply hydrating shampoo from the Garnier Whole Blends line, inspired by natural honey hive goodness. Enriched with Honey Water to restore essential moisture to dry, dull, or dehydrated hair without weighing it down. Gently cleanses impurities while infusing strands with hydration, softness, manageability, and natural shine. Paraben-free formula that maintains the hair's natural moisture balance, creates a rich lather, and leaves hair feeling revived, supple, and revitalized. Ideal for daily use on dry to normal hair types seeking lightweight moisture and a healthy glow. Imported from Canada.",
+      "how_to_use": "Apply a generous amount to wet hair, massage into a rich lather, and rinse thoroughly. For best results, follow with the Garnier Whole Blends Honey Water Moisture Restoring Conditioner and other products in the Honey Water line.",
+      "key_ingredients": [
+        "Water (Aqua)",
+        "Sodium Laureth Sulfate",
+        "Cocamidopropyl Betaine",
+        "Sodium Lauryl Sulfate",
+        "Honey Extract (Mel)",
+        "Amodimethicone",
+        "Arginine",
+        "Serine",
+        "Glutamic Acid",
+        "Hydroxypropyltrimonium Hydrolyzed Wheat Protein",
+        "Citric Acid",
+        "Sodium Benzoate",
+        "Fragrance (Parfum)"
+      ],
+      "complementary_products": [],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 0,
+        "purchase_count": 0,
+        "rating": 4.5,
+        "review_count": 0
+      }
+    },
+    {
+      "product_id": "p149",
+      "name": "Garnier Whole Blends Honey Water Moisture Restoring Shampoo 370 ml",
+      "brand": "Garnier Whole Blends",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.pllmAOUL2JYbQOTOOqrEqwHaHa?w=2200&h=2200&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 4680,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Shampoos"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "dull hair",
+          "normal hair",
+          "slightly damaged hair"
+        ],
+        "concerns": [
+          "dryness",
+          "moisture loss",
+          "dullness",
+          "lack of shine",
+          "dehydration"
+        ],
+        "texture": "creamy liquid with rich lather",
+        "sensitivity_safe": [
+          "paraben_free",
+          "gentle_cleansing",
+          "non_stripping",
+          "lightweight_hydration"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight, deeply hydrating shampoo from the Garnier Whole Blends line, inspired by natural honey hive goodness. Enriched with Honey Water to restore essential moisture to dry, dull, or dehydrated hair without weighing it down. Gently cleanses impurities while infusing strands with hydration, softness, manageability, and natural shine. Paraben-free formula that maintains the hair's natural moisture balance, creates a rich lather, and leaves hair feeling revived, supple, and revitalized. Ideal for daily use on dry to normal hair types seeking lightweight moisture and a healthy glow. Imported from Canada.",
+      "how_to_use": "Apply a generous amount to wet hair, massage into a rich lather, and rinse thoroughly. For best results, follow with the Garnier Whole Blends Honey Water Moisture Restoring Conditioner and other products in the Honey Water line.",
+      "key_ingredients": [
+        "Water (Aqua)",
+        "Sodium Laureth Sulfate",
+        "Cocamidopropyl Betaine",
+        "Sodium Lauryl Sulfate",
+        "Honey Extract (Mel)",
+        "Amodimethicone",
+        "Arginine",
+        "Serine",
+        "Glutamic Acid",
+        "Hydroxypropyltrimonium Hydrolyzed Wheat Protein",
+        "Citric Acid",
+        "Sodium Benzoate",
+        "Fragrance (Parfum)"
+      ],
+      "complementary_products": [],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 0,
+        "purchase_count": 0,
+        "rating": 4,
+        "review_count": 0
+      }
+    },
+    {
+      "product_id": "p136",
+      "name": "Deep Repair Hair Mask",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+      "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Argan Oil",
+        "Hydrolyzed Keratin"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p130",
+      "name": "Repair & Shine Conditioner",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1180,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair",
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich conditioner that smooths frizz and repairs surface damage. Leaves hair soft, shiny and easy to detangle.",
+      "how_to_use": "After shampooing, apply generously from mid-lengths to ends, leave for 3–5 minutes and rinse.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Keratin"
+      ],
+      "complementary_products": [
+        "p138",
+        "p139"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 360,
+        "rating": 4.5,
+        "review_count": 185
+      }
+    },
+    {
+      "product_id": "p140",
+      "name": "Daily Curl Softening Conditioner",
+      "brand": "CurlCraft",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "curly",
+          "dry hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An everyday conditioner that softens and detangles curls. Keeps them hydrated and easier to style.",
+      "how_to_use": "Smooth through freshly washed hair, leave for 2–3 minutes and rinse. Can be used as a leave-in on very dry hair.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p138",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 160
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T16:39:31.597243Z",
+  "conversation_history": [
+    {
+      "user": "hey i want a shampoo for my damaged hair",
+      "assistant": "Don't worry, we have just the thing for damaged hair! 😊\n\nWe have a range of shampoos that can help with damaged hair, let me show you some options."
+    },
+    {
+      "user": "i want to get a shampoo",
+      "assistant": "Don't worry, we have great options for dry hair! 😊\n\nWe found some amazing shampoos for dry hair! The Garnier Whole Blends Honey Water Moisture Restoring Shampoo is a great pick for hydrating and nourishing your locks."
+    },
+    {
+      "user": "hey i want a shampoo for my dry hair",
+      "assistant": "Don't worry, we have the perfect solution for dry hair! 😊\n\nI found a few great options for you! We have a creamy liquid shampoo by Garnier Whole Blends that's perfect for dry hair, a Deep Repair Hair Mask by LushStrand for intense moisture, and a Repair & Shine Conditioner by LushStrand to lock it all in."
+    }
+  ]
+}

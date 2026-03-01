@@ -1,0 +1,17 @@
+{
+  "session_id": "03c903e6-e795-45ac-97d2-30cf1e3fdf3b",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:24:53.556275Z",
+  "conversation_history": [
+    {
+      "user": "I want to build a skincare routine.",
+      "assistant": "A beauty routine tailored to your needs would be amazing! 😊"
+    }
+  ]
+}

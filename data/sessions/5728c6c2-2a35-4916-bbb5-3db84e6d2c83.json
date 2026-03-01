@@ -1,0 +1,320 @@
+{
+  "session_id": "5728c6c2-2a35-4916-bbb5-3db84e6d2c83",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_type": "curly"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p152",
+      "name": "L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo 200ml",
+      "brand": "L'Oréal Paris",
+      "image_url": "https://www.refinery29.com/images/11227264.jpg",
+      "price": 4770,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Shampoos"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "all hair types",
+          "straight hair",
+          "wavy hair",
+          "curly hair",
+          "coily hair",
+          "damaged hair",
+          "colored hair"
+        ],
+        "concerns": [
+          "dullness",
+          "lifeless hair",
+          "lack of shine",
+          "rough texture",
+          "porosity",
+          "frizz",
+          "damaged cuticles"
+        ],
+        "texture": "liquid with rich lather",
+        "sensitivity_safe": [
+          "sulfate_free",
+          "gentle_cleansing",
+          "non_stripping",
+          "color_safe"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A sulfate-free shine-enhancing shampoo powered by Glycolic Acid Complex, designed as the first step in the Glycolic Gloss system. Glycolic Acid (an AHA) penetrates the hair fiber to restore internal quality, smooth and seal the cuticles, and create a mirror-like reflective surface for intense, long-lasting gloss (up to 2x shinier hair). Gently cleanses without stripping natural oils or fading color, leaving hair silky, smooth, manageable, and vibrant with a fresh fragrance (grapefruit, jasmine, cedarwood notes). Ideal for dull, rough, porous, frizzy, or color-treated hair seeking salon-level shine and smoothness at home. Imported from Canada, cruelty-free, and part of the L'Oréal Paris Hair Expertise Glycolic Gloss range.",
+      "how_to_use": "Apply a generous amount to wet hair. Gently massage into the scalp and work into a rich lather through the lengths. Rinse thoroughly with lukewarm water. For maximum shine results, follow with the L'Oréal Paris Glycolic Gloss Conditioner, optional 5 Minute Lamination Treatment, and Illuminating Serum.",
+      "key_ingredients": [
+        "Glycolic Acid",
+        "Aqua / Water",
+        "Sodium C14-16 Olefin Sulfonate",
+        "Cocamide MEA",
+        "Glycerin",
+        "Cocamidopropyl Betaine",
+        "Sodium Lauroyl Sarcosinate",
+        "Parfum / Fragrance",
+        "Sodium Benzoate",
+        "Citric Acid",
+        "Polyquaternium-7",
+        "Hydroxypropyl Guar Hydroxypropyltrimonium Chloride",
+        "Salicylic Acid"
+      ],
+      "complementary_products": [],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 0,
+        "purchase_count": 0,
+        "rating": 4.5,
+        "review_count": 0
+      }
+    },
+    {
+      "product_id": "p136",
+      "name": "Deep Repair Hair Mask",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+      "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Argan Oil",
+        "Hydrolyzed Keratin"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p129",
+      "name": "Clarifying Scalp & Hair Conditioner",
+      "brand": "ScalpBalance",
+      "image_url": "https://tse3.mm.bing.net/th/id/OIP.tqNo7CrEbhzdpjVlw_OctgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1250,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "combination hair",
+          "straight",
+          "curly"
+        ],
+        "concerns": [
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance",
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A lightweight conditioner that balances greasy roots while nourishing dry ends. Ideal for combination and styled hair types.",
+      "how_to_use": "Apply on mid-lengths and ends after shampoo, leave on for 2–3 minutes, then rinse thoroughly.",
+      "key_ingredients": [
+        "Salicylic Acid",
+        "Argan Oil",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p136",
+        "p137"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 410,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p139",
+      "name": "Shine Boost Hair Gloss Serum",
+      "brand": "LuxeShine",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 990,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "straight",
+          "combination hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A finishing serum that adds instant gloss and smoothness to dull hair. Helps tame flyaways without greasiness.",
+      "how_to_use": "Apply 1–2 pumps on dry or damp hair, concentrating on lengths and ends, avoid roots.",
+      "key_ingredients": [
+        "Silicones",
+        "Argan Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p130",
+        "p136"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 280,
+        "rating": 4.4,
+        "review_count": 145
+      }
+    },
+    {
+      "product_id": "p151",
+      "name": "Garnier Whole Blends Honey Water Moisture Restoring Shampoo 370 ml",
+      "brand": "Garnier Whole Blends",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.Q-is_m-HQed1ULySUQ8ZeQHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 4680,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Shampoos"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "dull hair",
+          "normal hair",
+          "slightly damaged hair"
+        ],
+        "concerns": [
+          "dryness",
+          "moisture loss",
+          "dullness",
+          "lack of shine",
+          "dehydration"
+        ],
+        "texture": "creamy liquid with rich lather",
+        "sensitivity_safe": [
+          "paraben_free",
+          "gentle_cleansing",
+          "non_stripping",
+          "lightweight_hydration"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight, deeply hydrating shampoo from the Garnier Whole Blends line, inspired by natural honey hive goodness. Enriched with Honey Water to restore essential moisture to dry, dull, or dehydrated hair without weighing it down. Gently cleanses impurities while infusing strands with hydration, softness, manageability, and natural shine. Paraben-free formula that maintains the hair's natural moisture balance, creates a rich lather, and leaves hair feeling revived, supple, and revitalized. Ideal for daily use on dry to normal hair types seeking lightweight moisture and a healthy glow. Imported from Canada.",
+      "how_to_use": "Apply a generous amount to wet hair, massage into a rich lather, and rinse thoroughly. For best results, follow with the Garnier Whole Blends Honey Water Moisture Restoring Conditioner and other products in the Honey Water line.",
+      "key_ingredients": [
+        "Water (Aqua)",
+        "Sodium Laureth Sulfate",
+        "Cocamidopropyl Betaine",
+        "Sodium Lauryl Sulfate",
+        "Honey Extract (Mel)",
+        "Amodimethicone",
+        "Arginine",
+        "Serine",
+        "Glutamic Acid",
+        "Hydroxypropyltrimonium Hydrolyzed Wheat Protein",
+        "Citric Acid",
+        "Sodium Benzoate",
+        "Fragrance (Parfum)"
+      ],
+      "complementary_products": [],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 0,
+        "purchase_count": 0,
+        "rating": 4.5,
+        "review_count": 0
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T16:02:13.301169Z",
+  "conversation_history": [
+    {
+      "user": "Show me your best selling products across all categories.",
+      "assistant": "Here are our top-rated products across every category! 🌟 These are what our customers love most."
+    },
+    {
+      "user": "Show me only the best sellers for face care.",
+      "assistant": "Here are our top face best sellers! ✨"
+    },
+    {
+      "user": "Show me best sellers for Baby.",
+      "assistant": "Here are our top baby best sellers! 🍼"
+    },
+    {
+      "user": "ok i want a shapoo for my curly hair",
+      "assistant": "Sorry, could you repeat that? 😊"
+    },
+    {
+      "user": "ok i want a shapoo for my curly hair",
+      "assistant": "Curly hair can be so much fun to style! 😊\n\nWe have a few shampoos that might be perfect for your curly locks. We have the L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo and the Garnier Whole Blends Honey Water Moisture Restoring Shampoo."
+    }
+  ]
+}

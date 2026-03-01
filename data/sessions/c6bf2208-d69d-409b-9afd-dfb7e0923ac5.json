@@ -1,0 +1,273 @@
+{
+  "session_id": "c6bf2208-d69d-409b-9afd-dfb7e0923ac5",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p114",
+      "name": "Daily Defense Sunscreen Fluid SPF 50",
+      "brand": "SunSecure",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.8_NK7TsBhnpHN4ZJ9PJhZQHaJX?w=2048&h=2592&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1350,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Sun Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "non_comedogenic"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight high-protection sunscreen fluid that feels comfortable on oily skin. Helps prevent sunburn and future pigmentation.",
+      "how_to_use": "Use as the last step of your morning routine, apply generously 15 minutes before sun exposure and reapply every 2–3 hours.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Tinosorb S",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p105",
+        "p120"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 92,
+        "purchase_count": 710,
+        "rating": 4.7,
+        "review_count": 340
+      }
+    },
+    {
+      "product_id": "p104",
+      "name": "Daily Barrier Repair Day Cream",
+      "brand": "SkinShield",
+      "image_url": "https://i5.walmartimages.com/seo/Hydrating-Facial-Cleanser-Gentle-Soothing-Cleanser-Face-Wash-Acne-prone-Sensitive-Skin-Low-pH-Easy-Use-Suitable-Skin-Types-Powerful-Deep-Cleansing-Ac_7c436acf-e035-4568-b8a5-4b2a7bd41734.f799123b2497c067059cb0ff74e7e0c8.jpeg",
+      "price": 1650,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Day Creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A rich yet fast-absorbing day cream that strengthens the skin barrier. Helps reduce tightness and fine dry lines.",
+      "how_to_use": "Apply every morning on cleansed face and neck after serum. Follow with sunscreen in the daytime.",
+      "key_ingredients": [
+        "Ceramides",
+        "Hyaluronic Acid",
+        "Squalane"
+      ],
+      "complementary_products": [
+        "p111",
+        "p115"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 90,
+        "purchase_count": 610,
+        "rating": 4.7,
+        "review_count": 260
+      }
+    },
+    {
+      "product_id": "p111",
+      "name": "HydraBoost Hyaluronic Serum",
+      "brand": "HydraCore",
+      "image_url": "https://images.ctfassets.net/bcjr30vxh6td/16GNJ1nbeEciuS1gDvGMs5/a29c0425d9b597a211e58bb41207ddb9/home-cat-cleansers.webp?fm=webp&w=3840",
+      "price": 1700,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Serums & Targeted Treatments"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A powerful hydrating serum that plumps and smooths the skin's surface. Ideal as a daily moisture booster under any cream.",
+      "how_to_use": "Apply 2–3 drops to slightly damp face after cleansing and toning, then seal with moisturiser.",
+      "key_ingredients": [
+        "Multi-weight Hyaluronic Acid",
+        "Glycerin",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p104",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 89,
+        "purchase_count": 640,
+        "rating": 4.7,
+        "review_count": 320
+      }
+    },
+    {
+      "product_id": "p101",
+      "name": "Gentle Hydrating Face Cleanser",
+      "brand": "DermaSoft",
+      "image_url": "https://tse2.mm.bing.net/th/id/OIP.dYOH8cguDiDTUJU5t8Y9-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Cleansers"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A mild gel-based cleanser that removes impurities without stripping moisture. Ideal for daily use on normal to dry, sensitive skin.",
+      "how_to_use": "Use twice daily on damp face, gently massage in circular motions for 30 seconds, then rinse with lukewarm water.",
+      "key_ingredients": [
+        "Glycerin",
+        "Aloe Vera",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p111",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 520,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p119",
+      "name": "Barrier Comfort Face Moisturiser",
+      "brand": "DermaCloud",
+      "image_url": "https://m.media-amazon.com/images/I/51sHL2jf2bL._SL1080_.jpg",
+      "price": 1550,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Moisturisers"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A cushiony moisturiser that wraps skin in long-lasting comfort. Ideal for compromised and dryness-prone skin.",
+      "how_to_use": "Apply morning and night after serums, using upward strokes over face and neck.",
+      "key_ingredients": [
+        "Ceramides",
+        "Shea Butter",
+        "Cholesterol"
+      ],
+      "complementary_products": [
+        "p111",
+        "p109"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 460,
+        "rating": 4.6,
+        "review_count": 230
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:00:34.677189Z",
+  "conversation_history": [
+    {
+      "user": "hi, how are u",
+      "assistant": "I'm doing great, thanks for asking! 😊"
+    },
+    {
+      "user": "What brings you to our store today?",
+      "assistant": "Welcome to Beauty Mart Sri Lanka! 😊\n\nWe have a few great products for you to consider, including Daily Defense Sunscreen Fluid SPF 50 by SunSecure and Gentle Hydrating Face Cleanser by DermaSoft."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "session_id": "5b528dbb-360f-430d-a1c8-1a20c352074c",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Face",
+    "skin_type": "sensitive"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:42:38.042761Z",
+  "conversation_history": [
+    {
+      "user": "HI",
+      "assistant": "Hi, welcome to Beauty Mart! 😊 I'd love to help you find your perfect beauty match"
+    },
+    {
+      "user": "You're looking for skincare products",
+      "assistant": "I'm excited to help you find the perfect skincare products!\n\nWe have a wide range of products to choose from, let me help you narrow down the options. Since you're looking for skincare products, I can suggest some popular categories to get you started."
+    },
+    {
+      "user": "i want to buy a Face Cleanser",
+      "assistant": "Great choice, a good face cleanser is essential for a skincare routine!\n\nWe have a variety of face cleansers from different brands, let me help you find the perfect one for you. Unfortunately, I didn't find any products matching your exact criteria, but I can suggest some options."
+    },
+    {
+      "user": "it is from DermaSoft brand",
+      "assistant": "Great choice, DermaSoft is a wonderful brand!\n\nWe have a range of products from DermaSoft, let me see what I can find for you. Unfortunately, I couldn't find any face products from DermaSoft in our catalog."
+    },
+    {
+      "user": "What products do you have from DermaSoft for sensitive skin?",
+      "assistant": "I'm so sorry we couldn't find any DermaSoft products for sensitive skin initially!\n\nWe have a wide range of products from various brands that cater to sensitive skin, let me see what I can find for you. I love this opportunity to explore more options for you!"
+    }
+  ]
+}

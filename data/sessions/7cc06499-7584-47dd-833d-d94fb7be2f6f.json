@@ -1,0 +1,25 @@
+{
+  "session_id": "7cc06499-7584-47dd-833d-d94fb7be2f6f",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:49:37.714939Z",
+  "conversation_history": [
+    {
+      "user": "hi",
+      "assistant": "Sorry, could you repeat that? 😊"
+    },
+    {
+      "user": "i said hi",
+      "assistant": "Sorry, could you repeat that? 😊"
+    },
+    {
+      "user": "Hi",
+      "assistant": "Sorry, could you repeat that? 😊"
+    }
+  ]
+}

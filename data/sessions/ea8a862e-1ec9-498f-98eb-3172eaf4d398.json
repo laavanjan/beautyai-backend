@@ -1,0 +1,20 @@
+{
+  "session_id": "ea8a862e-1ec9-498f-98eb-3172eaf4d398",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Face|Hair|Body|Baby",
+    "baby_section": "Baby Bath & Shampoo|Baby Lotions & creams|Baby Milk Powder"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T11:13:31.064038Z",
+  "conversation_history": [
+    {
+      "user": "What categories do you carry? Show me Face, Hair, Body and Baby products.",
+      "assistant": "What can I help you find today?\n\nWe have Face, Hair, Body, and Baby products available. Let me show you some of our popular items."
+    }
+  ]
+}

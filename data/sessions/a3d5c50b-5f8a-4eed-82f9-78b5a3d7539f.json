@@ -1,0 +1,271 @@
+{
+  "session_id": "a3d5c50b-5f8a-4eed-82f9-78b5a3d7539f",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Body"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p126",
+      "name": "SPF 30 Body Lotion",
+      "brand": "BodyGuard",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "broad_spectrum"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A hydrating body lotion with added SPF for everyday protection. Keeps skin soft while helping prevent tanning and dark spots.",
+      "how_to_use": "Apply generously over exposed body areas 15 minutes before sun exposure and reapply every few hours.",
+      "key_ingredients": [
+        "Avobenzone",
+        "Glycerin",
+        "Shea Butter"
+      ],
+      "complementary_products": [
+        "p131",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 380,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p127",
+      "name": "Deep Moisture Body Cream",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+      "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Sweet Almond Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p133",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 175
+      }
+    },
+    {
+      "product_id": "p134",
+      "name": "Daily Hydrating Body Wash",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 820,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A creamy body wash that cleanses while respecting the skin barrier. Leaves skin feeling clean yet comfortable.",
+      "how_to_use": "Lather on wet skin with hands or loofah and rinse thoroughly. Follow with body cream or lotion.",
+      "key_ingredients": [
+        "Glycerin",
+        "Coconut-derived Cleansers",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p128"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 180
+      }
+    },
+    {
+      "product_id": "p131",
+      "name": "Restorative Hand Cream",
+      "brand": "HandTreat",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 420,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Hand and Foot Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A fast-absorbing hand cream that softens dry, overwashed hands. Helps reduce roughness and fine lines over time.",
+      "how_to_use": "Massage a pea-sized amount onto hands whenever needed, focusing on knuckles and cuticles.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p132"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 330,
+        "rating": 4.5,
+        "review_count": 170
+      }
+    },
+    {
+      "product_id": "p128",
+      "name": "Soothing Body Milk for Sensitive Skin",
+      "brand": "DermaBody",
+      "image_url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
+      "price": 1120,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin.eczema",
+          "psoriasis"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A fluid body milk created for easily irritated, redness-prone skin. Supports barrier recovery on arms, legs and torso.",
+      "how_to_use": "Apply once or twice daily on clean, dry skin, using gentle strokes until fully absorbed.",
+      "key_ingredients": [
+        "Ceramides",
+        "Niacinamide",
+        "Oat Extract"
+      ],
+      "complementary_products": [
+        "p131",
+        "p135"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 78,
+        "purchase_count": 270,
+        "rating": 4.4,
+        "review_count": 130
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T14:26:03.932698Z",
+  "conversation_history": [
+    {
+      "user": "Hi",
+      "assistant": "Welcome to Beauty Mart! 😊 We have a wide range of beauty products to help you look and feel your best."
+    },
+    {
+      "user": "hey i want a deodrant for me",
+      "assistant": "Don't worry, I've got you covered for a deodorant!\n\nWe have a variety of deodorants available in our catalog. Let me see what I can find for you!"
+    },
+    {
+      "user": "do u have old spice brand's deodrant",
+      "assistant": "Sorry to hear you're having trouble finding what you need! 😊\n\nUnfortunately, we don't have any Old Spice brand's deodorant in our catalog."
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "session_id": "04a87272-5609-42a8-ae87-6adc7c6e52d8",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "baby_section": "Baby Lotions & creams",
+    "skin_concern": "dry skin",
+    "sensitivity": "gentle on sensitive skin",
+    "hair_type": "wavy",
+    "hair_concern": "damaged hair"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p122",
+      "name": "Soft Baby Lotion",
+      "brand": "TinyCare",
+      "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 720,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A silky baby lotion that keeps skin soft and comfortable all day. Formulated to support the developing skin barrier.",
+      "how_to_use": "Massage onto baby’s skin after bath or whenever required, focusing on dry areas.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Sunflower Oil"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 150
+      }
+    },
+    {
+      "product_id": "p125",
+      "name": "Ultra Rich Baby Cream",
+      "brand": "MilkCloud",
+      "image_url": "https://th.bing.com/th/id/OIP.xmRM-olgb7yQUXXt-I79UAHaHa?w=192&h=192&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+      "price": 760,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A thick but spreadable baby cream for very dry patches. Helps comfort rough elbows, knees and cheeks.",
+      "how_to_use": "Use a small amount on problem areas throughout the day or as a nightly intensive treatment.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Cocoa Butter",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 72,
+        "purchase_count": 220,
+        "rating": 4.3,
+        "review_count": 110
+      }
+    },
+    {
+      "product_id": "p123",
+      "name": "Baby Barrier Cream",
+      "brand": "TinyCare",
+      "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 690,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin",
+          "eczema",
+          "psoriasis"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A protective barrier cream that helps prevent dryness and irritation in delicate areas. Creates a breathable shield on baby’s skin.",
+      "how_to_use": "Apply a thin layer on clean, dry skin as often as needed, especially after diaper changes.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Petrolatum",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p121",
+        "p122"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 74,
+        "purchase_count": 260,
+        "rating": 4.4,
+        "review_count": 130
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T16:17:12.219532Z",
+  "conversation_history": [
+    {
+      "user": "Hi , how are u",
+      "assistant": "I'm doing great, thanks! 😊"
+    },
+    {
+      "user": "i want a baby milk cream powder",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nWe have a range of baby milk powders that are gentle on sensitive skin. The Gentle Baby Milk Powder Cleanser by MilkCloud is a great pick for dry skin."
+    },
+    {
+      "user": "Tell me more about the Gentle Baby Milk Powder Cleanser by MilkCloud",
+      "assistant": "Hey! I think you'd really love this one:\n\n**Gentle Baby Milk Powder Cleanser** by MilkCloud\nRs.540\n\nIf you've been struggling with finding a gentle cleanser for your little one's sensitive skin, this is exactly what you need. This soothing milk powder cleanser makes quick sponge baths a breeze, leaving your baby's skin feeling fresh and comfortable.\n\n🌟 **What makes it special for you:**\n• Visibly calms and soothes sensitive skin\n• Gently cleanses without stripping natural oils\n• Fragrance-free — no risk of irritation for reactive skin\n• Irritant-free formula\n\n🧴 **Best match for:**\nSensitive skin → Dry skin\nMain concerns: Dryness, sensitive skin, dehydration\n\n🌿 **The hero ingredients people talk about most:**\n• Milk Proteins → Nourishes and moisturizes skin\n• Rice Starch → Soothes and calms irritation\n• Oat Flour → Gentle exfoliant for sensitive skin\n\n**How most people use it:**\n→ Mix with warm water to form a milky liquid, then sponge gently over baby's skin and pat dry.\n→ Always follow with a moisturizer to lock in hydration!\n\n💬 **Real customer love** (from 85 reviews averaging 4.2 ⭐)\nCustomers rave about how gentle and effective this cleanser is for their little ones' sensitive skin, making bath time a stress-free experience.\n\n"
+    },
+    {
+      "user": "How does this cleanser help with dry skin in babies?",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nWe have found a Gentle Baby Milk Powder Cleanser by MilkCloud that's suitable for dry skin. It's a powder texture, gentle on sensitive skin, and effective for cleaning."
+    },
+    {
+      "user": "ok, what are the types of shampoos u have",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nI found some wonderful shampoos for you. We have the Nourishing Baby Bath & Shampoo by TinyCare, which is gentle on sensitive skin."
+    },
+    {
+      "user": "shampoo is not for baby it is for me",
+      "assistant": "Don't worry, we'll find something perfect for your skin!\n\nWe have some lovely products for dry skin, let's explore the Baby Lotions & creams section together."
+    },
+    {
+      "user": "i want a shampoo for my wavy hair",
+      "assistant": "Wavy hair is so lovely! 😊\n\nWe have a few shampoos that might suit your wavy locks. You can consider the Garnier Whole Blends Honey Water Moisture Restoring Shampoo or the L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo."
+    },
+    {
+      "user": "Do you have a sulfate-free option for damaged hair?",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nI found some sulfate-free hair care options. We have a few shampoos that might be perfect for damaged hair."
+    }
+  ]
+}

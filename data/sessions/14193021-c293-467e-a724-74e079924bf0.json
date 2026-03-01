@@ -1,0 +1,631 @@
+{
+  "session_id": "14193021-c293-467e-a724-74e079924bf0",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p114",
+      "name": "Daily Defense Sunscreen Fluid SPF 50",
+      "brand": "SunSecure",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.8_NK7TsBhnpHN4ZJ9PJhZQHaJX?w=2048&h=2592&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1350,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Sun Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "non_comedogenic"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight high-protection sunscreen fluid that feels comfortable on oily skin. Helps prevent sunburn and future pigmentation.",
+      "how_to_use": "Use as the last step of your morning routine, apply generously 15 minutes before sun exposure and reapply every 2–3 hours.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Tinosorb S",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p105",
+        "p120"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 92,
+        "purchase_count": 710,
+        "rating": 4.7,
+        "review_count": 340
+      }
+    },
+    {
+      "product_id": "p104",
+      "name": "Daily Barrier Repair Day Cream",
+      "brand": "SkinShield",
+      "image_url": "https://i5.walmartimages.com/seo/Hydrating-Facial-Cleanser-Gentle-Soothing-Cleanser-Face-Wash-Acne-prone-Sensitive-Skin-Low-pH-Easy-Use-Suitable-Skin-Types-Powerful-Deep-Cleansing-Ac_7c436acf-e035-4568-b8a5-4b2a7bd41734.f799123b2497c067059cb0ff74e7e0c8.jpeg",
+      "price": 1650,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Day Creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A rich yet fast-absorbing day cream that strengthens the skin barrier. Helps reduce tightness and fine dry lines.",
+      "how_to_use": "Apply every morning on cleansed face and neck after serum. Follow with sunscreen in the daytime.",
+      "key_ingredients": [
+        "Ceramides",
+        "Hyaluronic Acid",
+        "Squalane"
+      ],
+      "complementary_products": [
+        "p111",
+        "p115"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 90,
+        "purchase_count": 610,
+        "rating": 4.7,
+        "review_count": 260
+      }
+    },
+    {
+      "product_id": "p111",
+      "name": "HydraBoost Hyaluronic Serum",
+      "brand": "HydraCore",
+      "image_url": "https://images.ctfassets.net/bcjr30vxh6td/16GNJ1nbeEciuS1gDvGMs5/a29c0425d9b597a211e58bb41207ddb9/home-cat-cleansers.webp?fm=webp&w=3840",
+      "price": 1700,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Serums & Targeted Treatments"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A powerful hydrating serum that plumps and smooths the skin's surface. Ideal as a daily moisture booster under any cream.",
+      "how_to_use": "Apply 2–3 drops to slightly damp face after cleansing and toning, then seal with moisturiser.",
+      "key_ingredients": [
+        "Multi-weight Hyaluronic Acid",
+        "Glycerin",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p104",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 89,
+        "purchase_count": 640,
+        "rating": 4.7,
+        "review_count": 320
+      }
+    },
+    {
+      "product_id": "p136",
+      "name": "Deep Repair Hair Mask",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+      "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Argan Oil",
+        "Hydrolyzed Keratin"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p129",
+      "name": "Clarifying Scalp & Hair Conditioner",
+      "brand": "ScalpBalance",
+      "image_url": "https://tse3.mm.bing.net/th/id/OIP.tqNo7CrEbhzdpjVlw_OctgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1250,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "combination hair",
+          "straight",
+          "curly"
+        ],
+        "concerns": [
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance",
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A lightweight conditioner that balances greasy roots while nourishing dry ends. Ideal for combination and styled hair types.",
+      "how_to_use": "Apply on mid-lengths and ends after shampoo, leave on for 2–3 minutes, then rinse thoroughly.",
+      "key_ingredients": [
+        "Salicylic Acid",
+        "Argan Oil",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p136",
+        "p137"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 410,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p130",
+      "name": "Repair & Shine Conditioner",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1180,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair",
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich conditioner that smooths frizz and repairs surface damage. Leaves hair soft, shiny and easy to detangle.",
+      "how_to_use": "After shampooing, apply generously from mid-lengths to ends, leave for 3–5 minutes and rinse.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Keratin"
+      ],
+      "complementary_products": [
+        "p138",
+        "p139"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 360,
+        "rating": 4.5,
+        "review_count": 185
+      }
+    },
+    {
+      "product_id": "p126",
+      "name": "SPF 30 Body Lotion",
+      "brand": "BodyGuard",
+      "image_url": "https://th.bing.com/th/id/OIP.xmRM-olgb7yQUXXt-I79UAHaHa?w=192&h=192&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "broad_spectrum"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A hydrating body lotion with added SPF for everyday protection. Keeps skin soft while helping prevent tanning and dark spots.",
+      "how_to_use": "Apply generously over exposed body areas 15 minutes before sun exposure and reapply every few hours.",
+      "key_ingredients": [
+        "Avobenzone",
+        "Glycerin",
+        "Shea Butter"
+      ],
+      "complementary_products": [
+        "p131",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 380,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p127",
+      "name": "Deep Moisture Body Cream",
+      "brand": "SilkBody",
+      "image_url": "https://tse3.mm.bing.net/th/id/OIP.j_1Rps1KR_qAdv4xaWXATAHaKL?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+      "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Sweet Almond Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p133",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 175
+      }
+    },
+    {
+      "product_id": "p134",
+      "name": "Daily Hydrating Body Wash",
+      "brand": "SilkBody",
+      "image_url": "https://static.beautytocare.com/media/catalog/product/cache/global/image/1300x1300/85e4522595efc69f496374d01ef2bf13/p/a/pantene-pro-v-miracles-grow-strong-hair-conditioner-460ml_1.jpg",
+      "price": 820,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A creamy body wash that cleanses while respecting the skin barrier. Leaves skin feeling clean yet comfortable.",
+      "how_to_use": "Lather on wet skin with hands or loofah and rinse thoroughly. Follow with body cream or lotion.",
+      "key_ingredients": [
+        "Glycerin",
+        "Coconut-derived Cleansers",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p128"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 180
+      }
+    },
+    {
+      "product_id": "p121",
+      "name": "Nourishing Baby Bath & Shampoo",
+      "brand": "TinyCare",
+      "image_url": "https://th.bing.com/th/id/OIP.n2cc9stF2k2N2TDu3yC9fAHaHa?w=198&h=198&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+      "price": 780,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Bath & Shampoo"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [
+          "combination hair"
+        ],
+        "concerns": [
+          "sensitive skin",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "tear_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "An ultra-gentle 2-in-1 bath and shampoo for babies' delicate skin and hair. Cleanses without disrupting the natural barrier.",
+      "how_to_use": "Dilute in warm bath water or apply directly to wet hair and skin, lather lightly and rinse well.",
+      "key_ingredients": [
+        "Oat Extract",
+        "Glycerin",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p122",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 83,
+        "purchase_count": 360,
+        "rating": 4.6,
+        "review_count": 190
+      }
+    },
+    {
+      "product_id": "p122",
+      "name": "Soft Baby Lotion",
+      "brand": "TinyCare",
+      "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 720,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A silky baby lotion that keeps skin soft and comfortable all day. Formulated to support the developing skin barrier.",
+      "how_to_use": "Massage onto baby’s skin after bath or whenever required, focusing on dry areas.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Sunflower Oil"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 150
+      }
+    },
+    {
+      "product_id": "p123",
+      "name": "Baby Barrier Cream",
+      "brand": "TinyCare",
+      "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 690,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin",
+          "eczema",
+          "psoriasis"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A protective barrier cream that helps prevent dryness and irritation in delicate areas. Creates a breathable shield on baby’s skin.",
+      "how_to_use": "Apply a thin layer on clean, dry skin as often as needed, especially after diaper changes.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Petrolatum",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p121",
+        "p122"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 74,
+        "purchase_count": 260,
+        "rating": 4.4,
+        "review_count": 130
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:54:33.735115Z",
+  "conversation_history": [
+    {
+      "user": "Show me your best selling products across all categories.",
+      "assistant": "Here are our top-rated products across every category! 🌟 These are what our customers love most."
+    },
+    {
+      "user": "Show me only the best sellers for hair care.",
+      "assistant": "Here are our top-rated products across every category! 🌟 These are what our customers love most."
+    }
+  ]
+}

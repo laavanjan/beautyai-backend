@@ -1,0 +1,298 @@
+{
+  "session_id": "caefe196-198e-492a-a77c-08dbe19f0d40",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Face",
+    "skin_concern": "dry skin",
+    "skin_type": "dry",
+    "sensitivity": "fragrance_free"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p104",
+      "name": "Daily Barrier Repair Day Cream",
+      "brand": "SkinShield",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 1650,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Day Creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A rich yet fast-absorbing day cream that strengthens the skin barrier. Helps reduce tightness and fine dry lines.",
+      "how_to_use": "Apply every morning on cleansed face and neck after serum. Follow with sunscreen in the daytime.",
+      "key_ingredients": [
+        "Ceramides",
+        "Hyaluronic Acid",
+        "Squalane"
+      ],
+      "complementary_products": [
+        "p111",
+        "p115"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 90,
+        "purchase_count": 610,
+        "rating": 4.7,
+        "review_count": 260
+      }
+    },
+    {
+      "product_id": "p111",
+      "name": "HydraBoost Hyaluronic Serum",
+      "brand": "HydraCore",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 1700,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Serums & Targeted Treatments"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A powerful hydrating serum that plumps and smooths the skin's surface. Ideal as a daily moisture booster under any cream.",
+      "how_to_use": "Apply 2–3 drops to slightly damp face after cleansing and toning, then seal with moisturiser.",
+      "key_ingredients": [
+        "Multi-weight Hyaluronic Acid",
+        "Glycerin",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p104",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 89,
+        "purchase_count": 640,
+        "rating": 4.7,
+        "review_count": 320
+      }
+    },
+    {
+      "product_id": "p101",
+      "name": "Gentle Hydrating Face Cleanser",
+      "brand": "DermaSoft",
+      "image_url": "https://images.unsplash.com/photo-1585386959984-a4155223f3f8",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Cleansers"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A mild gel-based cleanser that removes impurities without stripping moisture. Ideal for daily use on normal to dry, sensitive skin.",
+      "how_to_use": "Use twice daily on damp face, gently massage in circular motions for 30 seconds, then rinse with lukewarm water.",
+      "key_ingredients": [
+        "Glycerin",
+        "Aloe Vera",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p111",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 520,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p119",
+      "name": "Barrier Comfort Face Moisturiser",
+      "brand": "DermaCloud",
+      "image_url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
+      "price": 1550,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Moisturisers"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A cushiony moisturiser that wraps skin in long-lasting comfort. Ideal for compromised and dryness-prone skin.",
+      "how_to_use": "Apply morning and night after serums, using upward strokes over face and neck.",
+      "key_ingredients": [
+        "Ceramides",
+        "Shea Butter",
+        "Cholesterol"
+      ],
+      "complementary_products": [
+        "p111",
+        "p109"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 460,
+        "rating": 4.6,
+        "review_count": 230
+      }
+    },
+    {
+      "product_id": "p109",
+      "name": "Nourishing Night Repair Cream",
+      "brand": "MoonGlow",
+      "image_url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
+      "price": 1900,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Night Cream"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A rich night cream that supports overnight barrier repair. Skin wakes up soft, supple and more resilient.",
+      "how_to_use": "Apply in the evening as the last step of your routine, massage over face and neck.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Ceramides",
+        "Peptides"
+      ],
+      "complementary_products": [
+        "p106",
+        "p112"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T11:05:21.248090Z",
+  "conversation_history": [
+    {
+      "user": "Hi, how are u",
+      "assistant": "I'm doing great, thanks for asking! 😊"
+    },
+    {
+      "user": "What brings you to our store today?",
+      "assistant": "Love to help you find what you need! We have a wide range of beauty products from various brands."
+    },
+    {
+      "user": "Let's start with skincare, what's your main concern?",
+      "assistant": "Dry skin can be so uncomfortable!\n\nWe have a range of face products suitable for dry skin. Our top picks include the Daily Barrier Repair Day Cream by SkinShield, HydraBoost Hyaluronic Serum by HydraCore, and Gentle Hydrating Face Cleanser by DermaSoft."
+    },
+    {
+      "user": "Let's take a closer look at the Daily Barrier Repair Day Cream by SkinShield.",
+      "assistant": "Great choice! 🌿\n\nWe have the Daily Barrier Repair Day Cream by SkinShield. It's a great pick for dry skin and normal skin, providing long-lasting hydration and repairing the skin's barrier."
+    },
+    {
+      "user": "What else does SkinShield offer for dry skin?",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nWe have more products from SkinShield that might help with dry skin. Their Daily Barrier Repair Day Cream is a great pick for dry skin, but we also found a Night Repair Cream that's perfect for repairing skin while you sleep."
+    },
+    {
+      "user": "Can you recommend some gentle cleansers for dry skin?",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nWe have some gentle cleansers that might be perfect for your dry skin. I found a few options that are specifically designed to be gentle and hydrating."
+    },
+    {
+      "user": "I'm looking for a fragrance-free cleanser. Do you have any options?",
+      "assistant": "Don't worry, I've got you covered! 😊\n\nWe have a fragrance-free cleanser that might interest you. I found the Gentle Hydrating Face Cleanser by DermaSoft, which is a great option for dry skin like yours."
+    }
+  ]
+}

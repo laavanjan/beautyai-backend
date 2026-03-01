@@ -1,0 +1,1663 @@
+[
+  {
+    "product_id": "p101",
+    "name": "Gentle Hydrating Face Cleanser",
+    "brand": "DermaSoft",
+    "image_url": "https://tse2.mm.bing.net/th/id/OIP.dYOH8cguDiDTUJU5t8Y9-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1450,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Cleansers" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin", "sensitive skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier", "sensitive skin"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": ["fragrance_free", "soap_free"],
+      "contains_irritants": false
+    },
+    "description": "A mild gel-based cleanser that removes impurities without stripping moisture. Ideal for daily use on normal to dry, sensitive skin.",
+    "how_to_use": "Use twice daily on damp face, gently massage in circular motions for 30 seconds, then rinse with lukewarm water.",
+    "key_ingredients": ["Glycerin", "Aloe Vera", "Panthenol"],
+    "complementary_products": ["p111", "p119"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 88,
+      "purchase_count": 520,
+      "rating": 4.6,
+      "review_count": 210
+    }
+  },
+  {
+    "product_id": "p102",
+    "name": "Balancing Foam Face Wash",
+    "brand": "PureBalance",
+    "image_url": "https://tse2.mm.bing.net/th/id/OIP.dYOH8cguDiDTUJU5t8Y9-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 890,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Cleansers" },
+    "attributes": {
+      "skin_types": ["oily skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Sunburn", "sun damage", "uneven skin tone",
+        "sensitive to greasy or thick formulas"
+      ],
+      "texture": "foam",
+      "sensitivity_safe": ["oil_free"],
+      "contains_irritants": false
+    },
+    "description": "A lightweight foaming cleanser that helps control excess oil while maintaining clarity. Leaves skin feeling fresh without tightness.",
+    "how_to_use": "Dispense one to two pumps onto wet hands, lather and massage over face, then rinse thoroughly.",
+    "key_ingredients": ["Green Tea Extract", "Niacinamide", "Zinc PCA"],
+    "complementary_products": ["p120", "p114"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 81,
+      "purchase_count": 410,
+      "rating": 4.4,
+      "review_count": 167
+    }
+  },
+  {
+    "product_id": "p103",
+    "name": "Soothing Micellar Cleansing Gel",
+    "brand": "CalmSkin",
+    "image_url": "https://tse2.mm.bing.net/th/id/OIP.dYOH8cguDiDTUJU5t8Y9-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1100,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Cleansers" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin.eczema",
+        "psoriasis"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": ["alcohol_free", "paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A gentle micellar gel that lifts away makeup, pollution and sunscreen. Formulated for easily irritated and reactive skin types.",
+    "how_to_use": "Apply a small amount on damp skin, massage gently and rinse, or tissue off for a no-rinse cleanse.",
+    "key_ingredients": ["Chamomile Extract", "Allantoin", "Panthenol"],
+    "complementary_products": ["p112", "p116"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 76,
+      "purchase_count": 295,
+      "rating": 4.3,
+      "review_count": 124
+    }
+  },
+  {
+    "product_id": "p104",
+    "name": "Daily Barrier Repair Day Cream",
+    "brand": "SkinShield",
+    "image_url": "https://i5.walmartimages.com/seo/Hydrating-Facial-Cleanser-Gentle-Soothing-Cleanser-Face-Wash-Acne-prone-Sensitive-Skin-Low-pH-Easy-Use-Suitable-Skin-Types-Powerful-Deep-Cleansing-Ac_7c436acf-e035-4568-b8a5-4b2a7bd41734.f799123b2497c067059cb0ff74e7e0c8.jpeg",
+    "price": 1650,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Day Creams" },
+    "attributes": {
+      "skin_types": ["dry skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Premature aging"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A rich yet fast-absorbing day cream that strengthens the skin barrier. Helps reduce tightness and fine dry lines.",
+    "how_to_use": "Apply every morning on cleansed face and neck after serum. Follow with sunscreen in the daytime.",
+    "key_ingredients": ["Ceramides", "Hyaluronic Acid", "Squalane"],
+    "complementary_products": ["p111", "p115"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 90,
+      "purchase_count": 610,
+      "rating": 4.7,
+      "review_count": 260
+    }
+  },
+  {
+    "product_id": "p105",
+    "name": "Oil Control Mattifying Day Gel",
+    "brand": "ClarityLab",
+    "image_url": "https://i5.walmartimages.com/seo/Hydrating-Facial-Cleanser-Gentle-Soothing-Cleanser-Face-Wash-Acne-prone-Sensitive-Skin-Low-pH-Easy-Use-Suitable-Skin-Types-Powerful-Deep-Cleansing-Ac_7c436acf-e035-4568-b8a5-4b2a7bd41734.f799123b2497c067059cb0ff74e7e0c8.jpeg",
+    "price": 1320,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Day Creams" },
+    "attributes": {
+      "skin_types": ["oily skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive to greasy or thick formulas",
+        "Sunburn", "sun damage", "uneven skin tone"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": ["oil_free"],
+      "contains_irritants": false
+    },
+    "description": "A lightweight gel-cream that instantly absorbs excess sebum. Keeps skin comfortable and shine-free through the day.",
+    "how_to_use": "Use every morning after cleansing and toning, apply a thin layer over face, avoiding eye area.",
+    "key_ingredients": ["Niacinamide", "Silica Micro-Spheres", "Green Tea"],
+    "complementary_products": ["p102", "p114"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 83,
+      "purchase_count": 430,
+      "rating": 4.5,
+      "review_count": 188
+    }
+  },
+  {
+    "product_id": "p106",
+    "name": "Brightening Exfoliating Serum",
+    "brand": "GlowScience",
+    "image_url": "https://i5.walmartimages.com/seo/Hydrating-Facial-Cleanser-Gentle-Soothing-Cleanser-Face-Wash-Acne-prone-Sensitive-Skin-Low-pH-Easy-Use-Suitable-Skin-Types-Powerful-Deep-Cleansing-Ac_7c436acf-e035-4568-b8a5-4b2a7bd41734.f799123b2497c067059cb0ff74e7e0c8.jpeg",
+    "price": 1750,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Exfoliators" },
+    "attributes": {
+      "skin_types": ["normal skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "uneven skin tone", "Hyperpigmentation",
+        "Premature aging"
+      ],
+      "texture": "serum",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A leave-on exfoliating serum that gently resurfaces dull skin. Promotes a more even tone and refined texture over time.",
+    "how_to_use": "Use at night, two to three times a week on dry skin after cleansing, avoid eye area and always follow with sunscreen next day.",
+    "key_ingredients": ["Lactic Acid", "Glycolic Acid", "Licorice Root"],
+    "complementary_products": ["p111", "p126"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 84,
+      "purchase_count": 380,
+      "rating": 4.5,
+      "review_count": 192
+    }
+  },
+  {
+    "product_id": "p107",
+    "name": "Gentle Enzyme Exfoliator",
+    "brand": "SoftPeel",
+    "image_url": "https://tse1.mm.bing.net/th/id/OIP.-iMUfbXb5-vT_uA6cj7bdwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1600,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Exfoliators" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "dry skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin", "eczema",
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": ["fragrance_free", "paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A non-abrasive exfoliator powered by fruit enzymes to smooth flaky patches. Designed for delicate, easily irritated skin.",
+    "how_to_use": "Apply a thin layer on clean, dry skin once or twice a week, leave on for 5–10 minutes, then rinse off.",
+    "key_ingredients": ["Papaya Enzymes", "Aloe Vera", "Allantoin"],
+    "complementary_products": ["p103", "p112"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 71,
+      "purchase_count": 210,
+      "rating": 4.2,
+      "review_count": 98
+    }
+  },
+  {
+    "product_id": "p108",
+    "name": "Revive Peptide Eye Serum",
+    "brand": "EyeCare+",
+    "image_url": "https://tse1.mm.bing.net/th/id/OIP.-iMUfbXb5-vT_uA6cj7bdwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1850,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Eye Care" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Premature aging",
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier"
+      ],
+      "texture": "serum",
+      "sensitivity_safe": ["ophthalmologist_tested"],
+      "contains_irritants": false
+    },
+    "description": "A lightweight eye serum that targets fine lines and dullness. Helps keep the under-eye area smooth and hydrated.",
+    "how_to_use": "Use a rice-grain amount around the eye contour morning and night, gently tap until absorbed.",
+    "key_ingredients": ["Peptides", "Caffeine", "Hyaluronic Acid"],
+    "complementary_products": ["p104", "p116"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 79,
+      "purchase_count": 260,
+      "rating": 4.4,
+      "review_count": 130
+    }
+  },
+  {
+    "product_id": "p109",
+    "name": "Nourishing Night Repair Cream",
+    "brand": "MoonGlow",
+    "image_url": "https://tse2.mm.bing.net/th/id/OIP.v-niOf_A4e2bqoMoNyvX9wHaHa?w=1080&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1900,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Night Cream" },
+    "attributes": {
+      "skin_types": ["dry skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Premature aging"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A rich night cream that supports overnight barrier repair. Skin wakes up soft, supple and more resilient.",
+    "how_to_use": "Apply in the evening as the last step of your routine, massage over face and neck.",
+    "key_ingredients": ["Shea Butter", "Ceramides", "Peptides"],
+    "complementary_products": ["p106", "p112"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 86,
+      "purchase_count": 390,
+      "rating": 4.6,
+      "review_count": 210
+    }
+  },
+  {
+    "product_id": "p110",
+    "name": "Clarifying Night Gel for Oily Skin",
+    "brand": "ClearNite",
+    "image_url": "https://tse2.mm.bing.net/th/id/OIP.v-niOf_A4e2bqoMoNyvX9wHaHa?w=1080&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1500,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Night Cream" },
+    "attributes": {
+      "skin_types": ["oily skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Sunburn", "sun damage", "uneven skin tone",
+        "sensitive to greasy or thick formulas"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": ["oil_free"],
+      "contains_irritants": false
+    },
+    "description": "A cooling night gel that refines texture and reduces the look of enlarged pores. Designed to feel weightless on oilier skin.",
+    "how_to_use": "Use at night on cleansed skin, apply a thin layer and avoid eye area. Follow with spot treatments if needed.",
+    "key_ingredients": ["Salicylic Acid", "Niacinamide", "Green Tea"],
+    "complementary_products": ["p102", "p117"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 82,
+      "purchase_count": 335,
+      "rating": 4.4,
+      "review_count": 176
+    }
+  },
+  {
+    "product_id": "p111",
+    "name": "HydraBoost Hyaluronic Serum",
+    "brand": "HydraCore",
+    "image_url": "https://images.ctfassets.net/bcjr30vxh6td/16GNJ1nbeEciuS1gDvGMs5/a29c0425d9b597a211e58bb41207ddb9/home-cat-cleansers.webp?fm=webp&w=3840",
+    "price": 1700,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Serums & Targeted Treatments" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Premature aging"
+      ],
+      "texture": "serum",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A powerful hydrating serum that plumps and smooths the skin's surface. Ideal as a daily moisture booster under any cream.",
+    "how_to_use": "Apply 2–3 drops to slightly damp face after cleansing and toning, then seal with moisturiser.",
+    "key_ingredients": ["Multi-weight Hyaluronic Acid", "Glycerin", "Panthenol"],
+    "complementary_products": ["p104", "p119"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 89,
+      "purchase_count": 640,
+      "rating": 4.7,
+      "review_count": 320
+    }
+  },
+  {
+    "product_id": "p112",
+    "name": "Calming Barrier Serum",
+    "brand": "DermaRelief",
+    "image_url": "https://images.ctfassets.net/bcjr30vxh6td/16GNJ1nbeEciuS1gDvGMs5/a29c0425d9b597a211e58bb41207ddb9/home-cat-cleansers.webp?fm=webp&w=3840",
+    "price": 1800,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Serums & Targeted Treatments" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin", "eczema",
+        "psoriasis"
+      ],
+      "texture": "serum",
+      "sensitivity_safe": ["fragrance_free", "paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A serum designed to comfort compromised skin and visible redness. Strengthens the barrier and reduces feelings of discomfort.",
+    "how_to_use": "Use morning and night after cleansing, press gently into face and neck before moisturiser.",
+    "key_ingredients": ["Centella Asiatica", "Ceramides", "Madecassoside"],
+    "complementary_products": ["p103", "p109"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 78,
+      "purchase_count": 260,
+      "rating": 4.4,
+      "review_count": 135
+    }
+  },
+  {
+    "product_id": "p113",
+    "name": "TonePerfect Brightening Serum",
+    "brand": "EvenTone Lab",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.8_NK7TsBhnpHN4ZJ9PJhZQHaJX?w=2048&h=2592&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1950,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Serums & Targeted Treatments" },
+    "attributes": {
+      "skin_types": ["normal skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "uneven skin tone", "Hyperpigmentation",
+        "Sunburn", "sun damage", "uneven skin tone"
+      ],
+      "texture": "serum",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A brightening serum that targets dark spots and dull patches. Helps reveal a more even, radiant complexion.",
+    "how_to_use": "Apply a thin layer on areas of concern once daily in the evening, followed by a gentle moisturiser.",
+    "key_ingredients": ["Vitamin C", "Alpha Arbutin", "Licorice Extract"],
+    "complementary_products": ["p106", "p115"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 87,
+      "purchase_count": 420,
+      "rating": 4.6,
+      "review_count": 230
+    }
+  },
+  {
+    "product_id": "p114",
+    "name": "Daily Defense Sunscreen Fluid SPF 50",
+    "brand": "SunSecure",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.8_NK7TsBhnpHN4ZJ9PJhZQHaJX?w=2048&h=2592&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1350,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Sun Care" },
+    "attributes": {
+      "skin_types": ["oily skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Sunburn", "sun damage", "uneven skin tone",
+        "sensitive to greasy or thick formulas"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["non_comedogenic"],
+      "contains_irritants": false
+    },
+    "description": "A lightweight high-protection sunscreen fluid that feels comfortable on oily skin. Helps prevent sunburn and future pigmentation.",
+    "how_to_use": "Use as the last step of your morning routine, apply generously 15 minutes before sun exposure and reapply every 2–3 hours.",
+    "key_ingredients": ["Zinc Oxide", "Tinosorb S", "Vitamin E"],
+    "complementary_products": ["p105", "p120"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 92,
+      "purchase_count": 710,
+      "rating": 4.7,
+      "review_count": 340
+    }
+  },
+  {
+    "product_id": "p115",
+    "name": "Comfort Cream Sunscreen SPF 30",
+    "brand": "SunHug",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.bq11ej63HNqh2eB3sSuCSQHaHV?pid=ImgDet&w=184&h=182&c=7&dpr=1.3&o=7&rm=3",
+    "price": 1250,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Sun Care" },
+    "attributes": {
+      "skin_types": ["dry skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Sunburn", "sun damage", "uneven skin tone"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A moisturising sunscreen cream that cushions dry skin while protecting from UV rays. Leaves a soft, non-greasy finish.",
+    "how_to_use": "Apply evenly on face and neck every morning after moisturiser, reapply if outdoors for long durations.",
+    "key_ingredients": ["Titanium Dioxide", "Shea Butter", "Glycerin"],
+    "complementary_products": ["p104", "p111"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 85,
+      "purchase_count": 390,
+      "rating": 4.5,
+      "review_count": 190
+    }
+  },
+  {
+    "product_id": "p116",
+    "name": "Hydrating Face Toner Mist",
+    "brand": "MistAura",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.bq11ej63HNqh2eB3sSuCSQHaHV?pid=ImgDet&w=184&h=182&c=7&dpr=1.3&o=7&rm=3",
+    "price": 980,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Toners" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin", "sensitive skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "sensitive skin"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["alcohol_free"],
+      "contains_irritants": false
+    },
+    "description": "A fine facial mist that instantly refreshes and hydrates the skin. Can be used between skincare steps or over makeup.",
+    "how_to_use": "Hold bottle 15–20 cm away and spritz evenly over face whenever skin feels tight or dull.",
+    "key_ingredients": ["Rose Water", "Hyaluronic Acid", "Aloe Vera"],
+    "complementary_products": ["p101", "p111"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 77,
+      "purchase_count": 275,
+      "rating": 4.3,
+      "review_count": 120
+    }
+  },
+  {
+    "product_id": "p117",
+    "name": "Pore Refining Toner",
+    "brand": "Clarify+",
+    "image_url": "https://m.media-amazon.com/images/I/51sHL2jf2bL._SL1080_.jpg",
+    "price": 920,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Toners" },
+    "attributes": {
+      "skin_types": ["oily skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Sunburn", "sun damage", "uneven skin tone",
+        "sensitive to greasy or thick formulas"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["oil_free"],
+      "contains_irritants": false
+    },
+    "description": "A refreshing toner that helps minimise the appearance of pores and shine. Preps the skin for serums and gels.",
+    "how_to_use": "After cleansing, apply with a cotton pad or hands, gently press into skin and avoid eye area.",
+    "key_ingredients": ["Niacinamide", "Witch Hazel Extract", "Green Tea"],
+    "complementary_products": ["p102", "p105"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 80,
+      "purchase_count": 310,
+      "rating": 4.4,
+      "review_count": 145
+    }
+  },
+  {
+    "product_id": "p118",
+    "name": "Gentle Facial Cleansing Foam",
+    "brand": "BabySoft",
+    "image_url": "https://m.media-amazon.com/images/I/51sHL2jf2bL._SL1080_.jpg",
+    "price": 650,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "toiletries" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin",
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier"
+      ],
+      "texture": "foam",
+      "sensitivity_safe": ["soap_free", "tear_free"],
+      "contains_irritants": false
+    },
+    "description": "A very mild foaming cleanser inspired by baby skincare. Suitable for ultra-sensitive and reactive faces.",
+    "how_to_use": "Use a small amount on wet skin, massage gently and rinse thoroughly with lukewarm water.",
+    "key_ingredients": ["Glycerin", "Oat Extract", "Panthenol"],
+    "complementary_products": ["p112", "p116"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 69,
+      "purchase_count": 180,
+      "rating": 4.2,
+      "review_count": 90
+    }
+  },
+  {
+    "product_id": "p119",
+    "name": "Barrier Comfort Face Moisturiser",
+    "brand": "DermaCloud",
+    "image_url": "https://m.media-amazon.com/images/I/51sHL2jf2bL._SL1080_.jpg",
+    "price": 1550,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Moisturisers" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin", "sensitive skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "sensitive skin", "eczema"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["fragrance_free", "paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A cushiony moisturiser that wraps skin in long-lasting comfort. Ideal for compromised and dryness-prone skin.",
+    "how_to_use": "Apply morning and night after serums, using upward strokes over face and neck.",
+    "key_ingredients": ["Ceramides", "Shea Butter", "Cholesterol"],
+    "complementary_products": ["p111", "p109"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 88,
+      "purchase_count": 460,
+      "rating": 4.6,
+      "review_count": 230
+    }
+  },
+  {
+    "product_id": "p120",
+    "name": "Lightweight Gel Moisturiser",
+    "brand": "AquaVeil",
+    "image_url": "https://th.bing.com/th/id/OIP.n2cc9stF2k2N2TDu3yC9fAHaHa?w=198&h=198&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+    "price": 1300,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Face", "section": "Moisturisers" },
+    "attributes": {
+      "skin_types": ["oily skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive to greasy or thick formulas",
+        "Dryness, dehydration, and maintaining the skin's moisture barrier"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": ["non_comedogenic"],
+      "contains_irritants": false
+    },
+    "description": "An ultra-light gel moisturiser that gives a burst of hydration without heaviness. Perfect under makeup in humid weather.",
+    "how_to_use": "Use twice daily after toner and serum, apply a pea-sized amount over face.",
+    "key_ingredients": ["Hyaluronic Acid", "Aloe Vera", "Glycerin"],
+    "complementary_products": ["p102", "p114"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 86,
+      "purchase_count": 430,
+      "rating": 4.5,
+      "review_count": 210
+    }
+  },
+
+  {
+    "product_id": "p121",
+    "name": "Nourishing Baby Bath & Shampoo",
+    "brand": "TinyCare",
+    "image_url": "https://th.bing.com/th/id/OIP.n2cc9stF2k2N2TDu3yC9fAHaHa?w=198&h=198&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+    "price": 780,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Baby", "section": "Baby Bath & Shampoo" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": ["combination hair"],
+      "concerns": [
+        "sensitive skin",
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["tear_free", "soap_free"],
+      "contains_irritants": false
+    },
+    "description": "An ultra-gentle 2-in-1 bath and shampoo for babies' delicate skin and hair. Cleanses without disrupting the natural barrier.",
+    "how_to_use": "Dilute in warm bath water or apply directly to wet hair and skin, lather lightly and rinse well.",
+    "key_ingredients": ["Oat Extract", "Glycerin", "Aloe Vera"],
+    "complementary_products": ["p122", "p123"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 83,
+      "purchase_count": 360,
+      "rating": 4.6,
+      "review_count": 190
+    }
+  },
+  {
+    "product_id": "p122",
+    "name": "Soft Baby Lotion",
+    "brand": "TinyCare",
+    "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 720,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Baby", "section": "Baby Lotions & creams" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "dry skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "sensitive skin", "eczema"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["fragrance_free", "paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A silky baby lotion that keeps skin soft and comfortable all day. Formulated to support the developing skin barrier.",
+    "how_to_use": "Massage onto baby’s skin after bath or whenever required, focusing on dry areas.",
+    "key_ingredients": ["Shea Butter", "Glycerin", "Sunflower Oil"],
+    "complementary_products": ["p121", "p123"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 79,
+      "purchase_count": 310,
+      "rating": 4.5,
+      "review_count": 150
+    }
+  },
+  {
+    "product_id": "p123",
+    "name": "Baby Barrier Cream",
+    "brand": "TinyCare",
+    "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 690,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Baby", "section": "Baby Lotions & creams" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin", "eczema",
+        "psoriasis"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A protective barrier cream that helps prevent dryness and irritation in delicate areas. Creates a breathable shield on baby’s skin.",
+    "how_to_use": "Apply a thin layer on clean, dry skin as often as needed, especially after diaper changes.",
+    "key_ingredients": ["Zinc Oxide", "Petrolatum", "Panthenol"],
+    "complementary_products": ["p121", "p122"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 74,
+      "purchase_count": 260,
+      "rating": 4.4,
+      "review_count": 130
+    }
+  },
+  {
+    "product_id": "p124",
+    "name": "Gentle Baby Milk Powder Cleanser",
+    "brand": "MilkCloud",
+    "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 540,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Baby", "section": "Baby Milk Powder" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "dry skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness, dehydration, and maintaining the skin's moisture barrier",
+        "sensitive skin"
+      ],
+      "texture": "powder",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A soothing milk powder cleanser for quick sponge baths. Leaves baby’s skin feeling fresh and comfortable.",
+    "how_to_use": "Mix with warm water to form a milky liquid, then sponge gently over baby’s skin and pat dry.",
+    "key_ingredients": ["Milk Proteins", "Rice Starch", "Oat Flour"],
+    "complementary_products": ["p121", "p122"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 68,
+      "purchase_count": 190,
+      "rating": 4.2,
+      "review_count": 85
+    }
+  },
+  {
+    "product_id": "p125",
+    "name": "Ultra Rich Baby Cream",
+    "brand": "MilkCloud",
+    "image_url": "https://th.bing.com/th/id/OIP.xmRM-olgb7yQUXXt-I79UAHaHa?w=192&h=192&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+    "price": 760,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Baby", "section": "Baby Lotions & creams" },
+    "attributes": {
+      "skin_types": ["dry skin", "sensitive skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "sensitive skin", "eczema"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": ["paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A thick but spreadable baby cream for very dry patches. Helps comfort rough elbows, knees and cheeks.",
+    "how_to_use": "Use a small amount on problem areas throughout the day or as a nightly intensive treatment.",
+    "key_ingredients": ["Shea Butter", "Cocoa Butter", "Vitamin E"],
+    "complementary_products": ["p121", "p123"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 72,
+      "purchase_count": 220,
+      "rating": 4.3,
+      "review_count": 110
+    }
+  },
+
+  {
+    "product_id": "p126",
+    "name": "SPF 30 Body Lotion",
+    "brand": "BodyGuard",
+    "image_url": "https://th.bing.com/th/id/OIP.xmRM-olgb7yQUXXt-I79UAHaHa?w=192&h=192&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+    "price": 1150,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Body Creams & Lotions" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Sunburn", "sun damage", "uneven skin tone",
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["broad_spectrum"],
+      "contains_irritants": false
+    },
+    "description": "A hydrating body lotion with added SPF for everyday protection. Keeps skin soft while helping prevent tanning and dark spots.",
+    "how_to_use": "Apply generously over exposed body areas 15 minutes before sun exposure and reapply every few hours.",
+    "key_ingredients": ["Avobenzone", "Glycerin", "Shea Butter"],
+    "complementary_products": ["p131", "p134"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 84,
+      "purchase_count": 380,
+      "rating": 4.5,
+      "review_count": 200
+    }
+  },
+  {
+    "product_id": "p127",
+    "name": "Deep Moisture Body Cream",
+    "brand": "SilkBody",
+    "image_url": "https://tse3.mm.bing.net/th/id/OIP.j_1Rps1KR_qAdv4xaWXATAHaKL?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 980,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Body Creams & Lotions" },
+    "attributes": {
+      "skin_types": ["dry skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Premature aging"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+    "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+    "key_ingredients": ["Shea Butter", "Sweet Almond Oil", "Vitamin E"],
+    "complementary_products": ["p133", "p134"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 82,
+      "purchase_count": 340,
+      "rating": 4.5,
+      "review_count": 175
+    }
+  },
+  {
+    "product_id": "p128",
+    "name": "Soothing Body Milk for Sensitive Skin",
+    "brand": "DermaBody",
+    "image_url": "https://tse3.mm.bing.net/th/id/OIP.tqNo7CrEbhzdpjVlw_OctgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1120,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Body Creams & Lotions" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin.eczema",
+        "psoriasis"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["fragrance_free", "paraben_free"],
+      "contains_irritants": false
+    },
+    "description": "A fluid body milk created for easily irritated, redness-prone skin. Supports barrier recovery on arms, legs and torso.",
+    "how_to_use": "Apply once or twice daily on clean, dry skin, using gentle strokes until fully absorbed.",
+    "key_ingredients": ["Ceramides", "Niacinamide", "Oat Extract"],
+    "complementary_products": ["p131", "p135"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 78,
+      "purchase_count": 270,
+      "rating": 4.4,
+      "review_count": 130
+    }
+  },
+  {
+    "product_id": "p129",
+    "name": "Clarifying Scalp & Hair Conditioner",
+    "brand": "ScalpBalance",
+    "image_url": "https://tse3.mm.bing.net/th/id/OIP.tqNo7CrEbhzdpjVlw_OctgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1250,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Conditioners" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["combination hair", "straight", "curly"],
+      "concerns": [
+        "Excess oil", "sebum", "greasy roots", "product build-up", "and scalp imbalance",
+        "Dry hair", "damaged hair", "frizz",  "dullness", "lifeless", "and porous hair"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A lightweight conditioner that balances greasy roots while nourishing dry ends. Ideal for combination and styled hair types.",
+    "how_to_use": "Apply on mid-lengths and ends after shampoo, leave on for 2–3 minutes, then rinse thoroughly.",
+    "key_ingredients": ["Salicylic Acid", "Argan Oil", "Panthenol"],
+    "complementary_products": ["p136", "p137"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 86,
+      "purchase_count": 410,
+      "rating": 4.5,
+      "review_count": 200
+    }
+  },
+  {
+    "product_id": "p130",
+    "name": "Repair & Shine Conditioner",
+    "brand": "LushStrand",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1180,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Conditioners" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["dry hair", "damaged hair", "curly"],
+      "concerns": [
+        "Dry hair", "damaged hair", "frizz",  "dullness", "lifeless", "and porous hair",
+        "Excess oil", "sebum", "greasy roots", "product build-up", "and scalp imbalance"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A rich conditioner that smooths frizz and repairs surface damage. Leaves hair soft, shiny and easy to detangle.",
+    "how_to_use": "After shampooing, apply generously from mid-lengths to ends, leave for 3–5 minutes and rinse.",
+    "key_ingredients": ["Shea Butter", "Coconut Oil", "Keratin"],
+    "complementary_products": ["p138", "p139"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 84,
+      "purchase_count": 360,
+      "rating": 4.5,
+      "review_count": 185
+    }
+  },
+  {
+    "product_id": "p131",
+    "name": "Restorative Hand Cream",
+    "brand": "HandTreat",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 420,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Hand and Foot Care" },
+    "attributes": {
+      "skin_types": ["dry skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Premature aging"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A fast-absorbing hand cream that softens dry, overwashed hands. Helps reduce roughness and fine lines over time.",
+    "how_to_use": "Massage a pea-sized amount onto hands whenever needed, focusing on knuckles and cuticles.",
+    "key_ingredients": ["Shea Butter", "Glycerin", "Vitamin E"],
+    "complementary_products": ["p127", "p132"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 80,
+      "purchase_count": 330,
+      "rating": 4.5,
+      "review_count": 170
+    }
+  },
+  {
+    "product_id": "p132",
+    "name": "Overnight Foot Repair Cream",
+    "brand": "FootSpa",
+    "image_url": "https://images-static.nykaa.com/media/catalog/product/tr:h-800,w-800,cm-pad_resize/3/c/3c46141LOREA00000393-z_1.jpg",
+    "price": 520,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Hand and Foot Care" },
+    "attributes": {
+      "skin_types": ["dry skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "psoriasis"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A thick overnight cream that softens cracked heels and rough soles. Ideal as a weekly repair treatment.",
+    "how_to_use": "Apply a generous layer on clean feet before bed and wear cotton socks for enhanced absorption.",
+    "key_ingredients": ["Urea", "Shea Butter", "Lactic Acid"],
+    "complementary_products": ["p127", "p131"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 77,
+      "purchase_count": 260,
+      "rating": 4.4,
+      "review_count": 140
+    }
+  },
+  {
+    "product_id": "p133",
+    "name": "Cooling Hand & Foot Gel",
+    "brand": "ChillCare",
+    "image_url": "https://images-static.nykaa.com/media/catalog/product/tr:h-800,w-800,cm-pad_resize/3/c/3c46141LOREA00000393-z_1.jpg",
+    "price": 460,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Hand and Foot Care" },
+    "attributes": {
+      "skin_types": ["normal skin", "combination skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "Sunburn", "sun damage", "uneven skin tone"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A refreshing gel that soothes tired hands and feet after a long day. Provides a light veil of hydration without stickiness.",
+    "how_to_use": "Massage onto clean hands and feet as often as desired, focusing on areas that feel hot or tired.",
+    "key_ingredients": ["Aloe Vera", "Menthol", "Glycerin"],
+    "complementary_products": ["p131", "p132"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 73,
+      "purchase_count": 210,
+      "rating": 4.3,
+      "review_count": 115
+    }
+  },
+  {
+    "product_id": "p134",
+    "name": "Daily Hydrating Body Wash",
+    "brand": "SilkBody",
+    "image_url": "https://static.beautytocare.com/media/catalog/product/cache/global/image/1300x1300/85e4522595efc69f496374d01ef2bf13/p/a/pantene-pro-v-miracles-grow-strong-hair-conditioner-460ml_1.jpg",
+    "price": 820,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Body Creams & Lotions" },
+    "attributes": {
+      "skin_types": ["normal skin", "dry skin"],
+      "hair_types": [],
+      "concerns": [
+        "Dryness", "dehydration", "maintaining the skin's moisture barrier",
+        "sensitive skin"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["soap_free"],
+      "contains_irritants": false
+    },
+    "description": "A creamy body wash that cleanses while respecting the skin barrier. Leaves skin feeling clean yet comfortable.",
+    "how_to_use": "Lather on wet skin with hands or loofah and rinse thoroughly. Follow with body cream or lotion.",
+    "key_ingredients": ["Glycerin", "Coconut-derived Cleansers", "Vitamin E"],
+    "complementary_products": ["p127", "p128"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 81,
+      "purchase_count": 340,
+      "rating": 4.5,
+      "review_count": 180
+    }
+  },
+  {
+    "product_id": "p135",
+    "name": "Anti-Itch Body Spray",
+    "brand": "DermaBody",
+    "image_url": "https://static.beautytocare.com/media/catalog/product/cache/global/image/1300x1300/85e4522595efc69f496374d01ef2bf13/p/a/pantene-pro-v-miracles-grow-strong-hair-conditioner-460ml_1.jpg",
+    "price": 760,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Body", "section": "Body Creams & Lotions" },
+    "attributes": {
+      "skin_types": ["sensitive skin", "normal skin"],
+      "hair_types": [],
+      "concerns": [
+        "sensitive skin", "eczema",
+        "psoriasis"
+      ],
+      "texture": "liquid",
+      "sensitivity_safe": ["fragrance_free"],
+      "contains_irritants": false
+    },
+    "description": "A fine mist for quick relief on itchy, irritated patches. Ideal for use between emollient applications.",
+    "how_to_use": "Spray directly on affected areas as needed, allow to dry before dressing.",
+    "key_ingredients": ["Colloidal Oatmeal", "Allantoin", "Panthenol"],
+    "complementary_products": ["p128", "p132"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 70,
+      "purchase_count": 190,
+      "rating": 4.2,
+      "review_count": 90
+    }
+  },
+
+  {
+    "product_id": "p136",
+    "name": "Deep Repair Hair Mask",
+    "brand": "LushStrand",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1450,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Hair Masks & Deep Treatments" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["dry hair", "damaged hair", "curly"],
+      "concerns": [
+        "Dry hair", "damaged hair", "frizz",  "dullness", "lifeless", "porous hair"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+    "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+    "key_ingredients": ["Shea Butter", "Argan Oil", "Hydrolyzed Keratin"],
+    "complementary_products": ["p130", "p129"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 88,
+      "purchase_count": 390,
+      "rating": 4.6,
+      "review_count": 210
+    }
+  },
+  {
+    "product_id": "p137",
+    "name": "Oil Balancing Scalp Mask",
+    "brand": "ScalpBalance",
+    "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1320,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Hair Masks & Deep Treatments" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["combination hair", "straight"],
+      "concerns": [
+        "Excess oil", "sebum", "greasy roots", "product build-up", "and scalp imbalance"
+      ],
+      "texture": "gel",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A refreshing mask that purifies the scalp and helps extend time between washes. Ideal for oily roots with drier lengths.",
+    "how_to_use": "Apply directly on scalp before shampooing, leave on for 5–10 minutes and rinse thoroughly.",
+    "key_ingredients": ["Clay", "Tea Tree Oil", "Peppermint Extract"],
+    "complementary_products": ["p129", "p130"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 82,
+      "purchase_count": 320,
+      "rating": 4.5,
+      "review_count": 165
+    }
+  },
+  {
+    "product_id": "p138",
+    "name": "Curl Defining Deep Treatment",
+    "brand": "CurlCraft",
+    "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=39",
+    "price": 1390,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Hair Masks & Deep Treatments" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["curly"],
+      "concerns": [
+        "Dry hair", "damaged hair", "frizz",  "dullness", "lifeless", "porous hair"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A rich treatment mask that hydrates and defines curls without weighing them down. Helps reduce frizz and enhance bounce.",
+    "how_to_use": "Use once a week on clean, damp hair, focusing on curls and ends, then rinse after 10 minutes.",
+    "key_ingredients": ["Shea Butter", "Jojoba Oil", "Aloe Vera"],
+    "complementary_products": ["p130", "p129"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 80,
+      "purchase_count": 300,
+      "rating": 4.5,
+      "review_count": 160
+    }
+  },
+  {
+    "product_id": "p139",
+    "name": "Shine Boost Hair Gloss Serum",
+    "brand": "LuxeShine",
+    "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 990,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Hair Masks & Deep Treatments" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["straight", "combination hair"],
+      "concerns": [
+        "Dry hair", "damaged hair", "frizz",  "dullness", "lifeless", "porous hair"
+      ],
+      "texture": "serum",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "A finishing serum that adds instant gloss and smoothness to dull hair. Helps tame flyaways without greasiness.",
+    "how_to_use": "Apply 1–2 pumps on dry or damp hair, concentrating on lengths and ends, avoid roots.",
+    "key_ingredients": ["Silicones", "Argan Oil", "Vitamin E"],
+    "complementary_products": ["p130", "p136"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 79,
+      "purchase_count": 280,
+      "rating": 4.4,
+      "review_count": 145
+    }
+  },
+  {
+    "product_id": "p140",
+    "name": "Daily Curl Softening Conditioner",
+    "brand": "CurlCraft",
+    "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "price": 1150,
+    "currency": "Rs",
+    "in_stock": true,
+    "categories": { "main_category": "Hair", "section": "Conditioners" },
+    "attributes": {
+      "skin_types": [],
+      "hair_types": ["curly", "dry hair"],
+      "concerns": [
+        "Dry hair", "damaged hair", "frizz",  "dullness", "lifeless", "porous hair"
+      ],
+      "texture": "cream",
+      "sensitivity_safe": [],
+      "contains_irritants": false
+    },
+    "description": "An everyday conditioner that softens and detangles curls. Keeps them hydrated and easier to style.",
+    "how_to_use": "Smooth through freshly washed hair, leave for 2–3 minutes and rinse. Can be used as a leave-in on very dry hair.",
+    "key_ingredients": ["Shea Butter", "Coconut Oil", "Aloe Vera"],
+    "complementary_products": ["p138", "p129"],
+    "ranking_signals": {
+      "base_score": 0,
+      "trending_score": 81,
+      "purchase_count": 310,
+      "rating": 4.5,
+      "review_count": 160
+    }
+  },
+  {
+  "product_id": "p141",
+  "name": "Neutrogena Makeup Remover Cleansing Towelettes Wipes 25 Pack",
+  "brand": "Neutrogena",
+  "image_url": "https://images.ctfassets.net/bcjr30vxh6td/o2w7Iy4OFba40eEicmhCp/7c162041eadf24bd3f09685290ad77d0/NTG_NA_US_086800687900_115801_686879090_UltraSheer_SPF55_p3oz_00000.webp?fm=webp&w=640",
+  "price": 2250,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Face",
+    "section": "Makeup Removers"
+  },
+  "attributes": {
+    "skin_types": ["all skin types", "sensitive skin"],
+    "hair_types": [],
+    "concerns": ["makeup residue", "impurities buildup", "irritation from harsh cleansers", "on-the-go cleansing"],
+    "texture": "pre-moistened towelettes / wipes",
+    "sensitivity_safe": ["alcohol_free", "hypoallergenic", "dermatologist_tested", "ophthalmologist_tested", "fragrance_free_or_low"],
+    "contains_irritants": false
+  },
+  "description": "Gentle, pre-moistened cleansing towelettes that effortlessly remove makeup (including waterproof mascara and long-wear foundation), dirt, and impurities without harsh rubbing or stripping the skin's natural moisture balance. Suitable for face and eyes, alcohol-free, hypoallergenic, and ideal for all skin types, including sensitive skin. Imported from Australia and perfect for daily use, travel, or quick cleansing.",
+  "how_to_use": "Gently wipe your face and eyes to remove makeup and impurities. No need to rinse. Follow with your usual skincare routine. Dispose of each wipe after use. Use daily for clean, refreshed skin.",
+  "key_ingredients": ["Glycerin", "Mild cleansing agents", "Soothing extracts"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.6,
+    "review_count": 1
+  }
+},
+{
+  "product_id": "p142",
+  "name": "Neutrogena Night Calming Makeup Remover Cleansing Towelettes Wipes 25 Pack",
+  "brand": "Neutrogena",
+  "image_url": "https://m.media-amazon.com/images/I/71WUvOOvzbL.jpg",
+  "price": 2250,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Face",
+    "section": "Makeup Removers"
+  },
+  "attributes": {
+    "skin_types": ["all skin types", "sensitive skin", "dry skin"],
+    "hair_types": [],
+    "concerns": ["makeup residue", "impurities buildup", "irritation from harsh cleansers", "on-the-go cleansing", "redness", "dryness after cleansing"],
+    "texture": "pre-moistened towelettes / wipes",
+    "sensitivity_safe": ["alcohol_free", "hypoallergenic", "dermatologist_tested", "soothing", "fragrance_with_relaxing_scent"],
+    "contains_irritants": false
+  },
+  "description": "Pre-moistened cleansing towelettes designed for nighttime use, gently dissolving makeup (including waterproof mascara and long-wear foundation), dirt, and impurities without harsh rubbing or stripping moisture. Infused with soothing agents like Aloe Vera and Chamomile for calming sensitive skin, plus a relaxing scent to turn makeup removal into a soothing ritual. Alcohol-free, hypoallergenic, dermatologist-tested, and suitable for all skin types, including sensitive and dry. Imported from Australia, ideal for daily evening cleansing, travel, or quick routines.",
+  "how_to_use": "Gently wipe your entire face, including eyes and lips, to remove makeup and impurities. No rinsing required. Follow with your usual skincare routine. Dispose of the wipe after use. Use daily for optimal cleansing and skin comfort.",
+  "key_ingredients": ["Aloe Vera Extract", "Chamomile Extract", "Glycerin", "Mild Surfactants"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.5,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p143",
+  "name": "Neutrogena Oil-Free Eye Make-Up Remover 112ml",
+  "brand": "Neutrogena",
+  "image_url": "https://m.media-amazon.com/images/I/81oivjiqZXL._AC_UF1000,1000_QL80_.jpg",
+  "price": 5175,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Face",
+    "section": "Makeup Removers"
+  },
+  "attributes": {
+    "skin_types": ["all skin types", "sensitive skin"],
+    "hair_types": [],
+    "concerns": ["stubborn eye makeup", "waterproof mascara", "long-wearing eyeliner", "irritation or stinging around eyes", "dryness in eye area", "greasy residue"],
+    "texture": "dual-phase liquid (shake to activate)",
+    "sensitivity_safe": ["oil_free", "non_irritating", "ophthalmologist_tested", "dermatologist_tested", "safe_for_contact_lenses", "no_tugging_pulling_stinging"],
+    "contains_irritants": false
+  },
+  "description": "A gentle, dual-phase oil-free liquid eye makeup remover that activates when shaken to effectively dissolve even stubborn waterproof mascara, eyeliner, and other eye makeup without tugging, pulling, or stinging the delicate eye area. Leaves no greasy or oily residue, making it ideal for contact lens wearers. Enriched with soothing Aloe Vera and Cucumber extracts to calm, refresh, and protect against dryness and irritation. Ophthalmologist- and dermatologist-tested, suitable for all skin types including sensitive eyes. Imported from Australia, perfect for a clean, fresh, and comfortable eye area.",
+  "how_to_use": "Shake the bottle well to activate the dual-phase formula. Apply to a cotton pad and gently wipe over closed eyelids. Hold the pad over the eye for a few seconds to dissolve stubborn makeup before wiping away. Repeat as needed until all makeup is removed. No rinsing required. Follow with your regular facial cleanser as the first step in your evening routine.",
+  "key_ingredients": ["Water", "Cyclopentasiloxane", "Cyclohexasiloxane", "Aloe Barbadensis Leaf Juice", "Cucumis Sativus (Cucumber) Fruit Extract", "Glycerin", "Allantoin", "Benzyl Alcohol", "Sodium Chloride", "Dipropylene Glycol", "Poloxamer 182", "Tripotassium EDTA", "Benzalkonium Chloride", "Potassium Phosphate", "Dipotassium Phosphate"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 5,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p144",
+  "name": "Old Spice Men's Antiperspirant & Deodorant Wilderness with Lavender, 2.6oz",
+  "brand": "Old Spice",
+  "image_url": "https://images.ctfassets.net/bcjr30vxh6td/7pjU7YqRs6rm43Soklr6Ap/d32e5389116872daf20a3cecd83bcea9/6812121_Carousel1.webp?fm=webp&w=640",
+  "price": 4950,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Body",
+    "section": "Deodorants & Antiperspirants"
+  },
+  "attributes": {
+    "skin_types": ["all skin types"],
+    "hair_types": [],
+    "concerns": ["underarm sweat", "body odor", "white marks on clothes", "all-day freshness"],
+    "texture": "invisible solid stick",
+    "sensitivity_safe": ["glides_on_dry", "no_white_residue", "gentle_on_skin"],
+    "contains_irritants": false
+  },
+  "description": "An invisible solid antiperspirant and deodorant stick from the Fresher Collection, providing 24/7 sweat and odor protection with daily use. Features a unique masculine scent blending rugged wilderness freshness with soothing lavender notes. Goes on clear and dry, glides smoothly without leaving white marks on clothes, and offers a dry feel for comfort. Contains Aluminum Zirconium Tetrachlorohydrex Gly (15%) as the active antiperspirant ingredient. Ideal for men seeking long-lasting dryness, odor control, and a distinctive, nature-inspired fragrance to escape the everyday.",
+  "how_to_use": "Apply a few swipes to clean, dry underarms only. Use daily for maximum effectiveness and all-day protection.",
+  "key_ingredients": ["Aluminum Zirconium Tetrachlorohydrex Gly (15%)", "Cyclopentasiloxane", "Stearyl Alcohol", "Mineral Oil", "Lavender (fragrance blend with lavender oil)"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p145",
+  "name": "Cetaphil Ultra Gentle Refreshing Body Wash 1L",
+  "brand": "Cetaphil",
+  "image_url": "https://finestservices.com.sg/wordpress/wp-content/uploads/2023/05/Cetaphil-Ultra-Gentle-Body-Wash-2048x2048.jpg",
+  "price": 8073,
+  "currency": "Rs",
+  "in_stock": false,
+  "categories": {
+    "main_category": "Body",
+    "section": "Body Washes & Cleansers"
+  },
+  "attributes": {
+    "skin_types": ["all skin types", "sensitive skin", "dry skin"],
+    "hair_types": [],
+    "concerns": ["dryness", "stripped moisture barrier", "irritation from harsh cleansers", "need for gentle daily cleansing", "pore clogging"],
+    "texture": "gel",
+    "sensitivity_safe": ["hypoallergenic", "non_comedogenic", "soap_free", "paraben_free", "fragrance_light_refreshing", "dermatologist_tested"],
+    "contains_irritants": false
+  },
+  "description": "A gentle, hypoallergenic gel body wash with a light refreshing scent that cleanses effectively without stripping the skin's natural moisture. Enriched with Aloe Vera, Vitamin B5 (Panthenol), and Glycerin to hydrate, soothe, and maintain the skin's moisture barrier, leaving skin feeling clean, soft, replenished, and refreshed. Soap-free, non-comedogenic, and free from parabens, it's dermatologist-tested and ideal for daily use on all skin types, especially sensitive and dry skin. Imported from Australia, perfect for a clearer, smoother, and healthier complexion without irritation.",
+  "how_to_use": "Apply an adequate amount to a loofah, washcloth, or hands. Work into a rich lather and gently massage onto wet skin. Rinse thoroughly with water. Use daily. For enhanced results, follow with a Cetaphil moisturizer.",
+  "key_ingredients": ["Aqua", "Glycerin", "Sodium Laureth Sulfate", "Cocamidopropyl Betaine", "Disodium Laureth Sulfosuccinate", "Betaine", "Aloe Barbadensis Leaf Juice Powder", "Panthenol (Vitamin B5)", "Glycol Distearate", "Lauryl Lactate", "Acrylates/C10-30 Alkyl Acrylate Crosspolymer", "Citric Acid", "Sodium Benzoate", "Phenoxyethanol", "Sodium Citrate", "Laureth-4"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.5,
+    "review_count": 1
+  }
+},
+{
+  "product_id": "p146",
+  "name": "Neutrogena Ultra Sheer Face Lotion Sunscreen SPF 50 88ml",
+  "brand": "Neutrogena",
+  "image_url": "https://www.netpharmacy.co.nz/cdn/shop/files/neutrogena-hydro-boost-face-lotion-sunscreen-spf-50-85ml.png?v=1701742948&width=2400",
+  "price": 7187,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Face",
+    "section": "Sunscreens"
+  },
+  "attributes": {
+    "skin_types": ["all skin types", "oily skin", "acne-prone skin"],
+    "hair_types": [],
+    "concerns": ["sunburn", "photoaging", "UVA/UVB damage", "excess shine", "pore clogging", "greasy feel"],
+    "texture": "lightweight lotion",
+    "sensitivity_safe": ["non_comedogenic", "oil_free", "dry_touch_technology", "helioplex_stabilized", "water_resistant_up_to_4_hours"],
+    "contains_irritants": false
+  },
+  "description": "A lightweight, oil-free face lotion sunscreen with SPF 50 broad-spectrum UVA/UVB protection using Helioplex technology for stable, high-level defense against sun damage, photoaging, and sunburn. Features Dry-Touch technology for a non-greasy, non-shiny, clean matte finish that absorbs quickly and feels fresh on the skin. Non-comedogenic (won't clog pores), ideal for daily use on all skin types, especially oily and acne-prone. Water-resistant for up to 4 hours. Imported from Australia.",
+  "how_to_use": "Apply liberally to all exposed areas 20 minutes before sun exposure. Reapply frequently (at least every 2 hours) and immediately after swimming, excessive perspiration, or toweling.",
+  "key_ingredients": ["Hyaluronic Acid", "Avobenzone", "Octocrylene", "Glycerin", "Vitamin E (Tocopherol)"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.5,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p147",
+  "name": "Neutrogena Hydro Boost Face Lotion Sunscreen SPF 50 85ml",
+  "brand": "Neutrogena",
+  "image_url": "https://www.netpharmacy.co.nz/cdn/shop/files/neutrogena-hydro-boost-face-lotion-sunscreen-spf-50-85ml.png?v=1701742948&width=2400",
+  "price": 4410,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Face",
+    "section": "Sunscreens"
+  },
+  "attributes": {
+    "skin_types": ["normal skin", "dry skin", "sensitive skin"],
+    "hair_types": [],
+    "concerns": ["dryness and dehydration", "moisture loss from sun exposure", "sun damage", "premature aging", "fine lines", "hyperpigmentation", "irritation from harsh sunscreens"],
+    "texture": "lightweight lotion",
+    "sensitivity_safe": ["oil_free", "non_comedogenic", "dermatologist_tested", "fast_absorbing", "no_white_cast", "non_greasy", "non_sticky"],
+    "contains_irritants": false
+  },
+  "description": "A lightweight, hydrating face lotion sunscreen with SPF 50 broad-spectrum UVA/UVB protection, enriched with hyaluronic acid to deliver intense, long-lasting moisture and keep skin plump, radiant, and hydrated even in tropical climates. Combines effective sun protection with skincare benefits — absorbs quickly with a smooth, non-greasy, non-sticky finish and no white cast. Oil-free and non-comedogenic to avoid clogging pores or causing breakouts. Ideal as a daily facial sunscreen and moisturizer hybrid for normal, dry, and sensitive skin. Imported from Australia, dermatologist-tested, and suitable for use under makeup or alone.",
+  "how_to_use": "Apply generously to the face and neck 15 minutes before sun exposure. Reapply every 2 hours, or immediately after swimming, sweating, or towel drying. Use daily for effective protection and hydration, even on cloudy days.",
+  "key_ingredients": ["Hyaluronic Acid", "Avobenzone", "Octocrylene", "Glycerin", "Vitamin E (Tocopherol)"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.5,
+    "review_count": 1
+  }
+},
+{
+  "product_id": "p148",
+  "name": "Neutrogena Ultra Sheer Body Lotion Sunscreen SPF 50 85ml",
+  "brand": "Neutrogena",
+  "image_url": "https://www.netpharmacy.co.nz/cdn/shop/files/neutrogena-hydro-boost-face-lotion-sunscreen-spf-50-85ml.png?v=1701742948&width=2400",
+  "price": 3510,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Body",
+    "section": "Sunscreens"
+  },
+  "attributes": {
+    "skin_types": ["normal skin", "oily skin", "combination skin", "acne-prone skin"],
+    "hair_types": [],
+    "concerns": ["sunburn", "sun damage", "hyperpigmentation", "uneven skin tone", "premature aging", "fine lines", "dark spots", "greasy or heavy formulas", "white cast"],
+    "texture": "lightweight lotion",
+    "sensitivity_safe": ["non_comedogenic", "dry_touch_technology", "helioplex_technology", "water_resistant_up_to_80_minutes", "sweat_resistant", "dermatologist_tested", "no_white_cast"],
+    "contains_irritants": false
+  },
+  "description": "An ultra-lightweight, dry-touch body lotion sunscreen with SPF 50 broad-spectrum UVA/UVB protection powered by Helioplex® technology to prevent sunburn, premature aging, hyperpigmentation, and long-term sun damage. Absorbs quickly with a non-greasy, matte finish that feels weightless and comfortable all day — no heavy residue, white cast, or shine, even in humid tropical climates. Non-comedogenic and suitable for normal, oily, combination, and acne-prone skin. Water- and sweat-resistant for up to 80 minutes. Can be used on body (arms, legs, shoulders, neck) and even face for oil-free daily sun care. Imported from Australia, dermatologist-tested and recommended.",
+  "how_to_use": "Apply generously 15 minutes before sun exposure. Smooth over exposed areas of the body, including arms, shoulders, neck, and legs. Reapply every 2 hours, especially after swimming, sweating, or towel drying. Use daily as part of your morning routine, even on cloudy days.",
+  "key_ingredients": ["Avobenzone (3%)", "Homosalate (10%)", "Octocrylene (2.8%)", "Octisalate (5%)", "Glycerin", "Silica", "Vitamin E (Tocopherol)"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": null,
+    "review_count": 1
+  }
+},
+{
+  "product_id": "p149",
+  "name": "Garnier Whole Blends Honey Water Moisture Restoring Shampoo 370 ml",
+  "brand": "Garnier Whole Blends",
+  "image_url": "https://tse4.mm.bing.net/th/id/OIP.pllmAOUL2JYbQOTOOqrEqwHaHa?w=2200&h=2200&rs=1&pid=ImgDetMain&o=7&rm=3",
+  "price": 4680,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Hair",
+    "section": "Shampoos"
+  },
+  "attributes": {
+    "skin_types": [],
+    "hair_types": ["dry hair", "dull hair", "normal hair", "slightly damaged hair"],
+    "concerns": ["dryness", "moisture loss", "dullness", "lack of shine", "dehydration"],
+    "texture": "creamy liquid with rich lather",
+    "sensitivity_safe": ["paraben_free", "gentle_cleansing", "non_stripping", "lightweight_hydration"],
+    "contains_irritants": false
+  },
+  "description": "A lightweight, deeply hydrating shampoo from the Garnier Whole Blends line, inspired by natural honey hive goodness. Enriched with Honey Water to restore essential moisture to dry, dull, or dehydrated hair without weighing it down. Gently cleanses impurities while infusing strands with hydration, softness, manageability, and natural shine. Paraben-free formula that maintains the hair's natural moisture balance, creates a rich lather, and leaves hair feeling revived, supple, and revitalized. Ideal for daily use on dry to normal hair types seeking lightweight moisture and a healthy glow. Imported from Canada.",
+  "how_to_use": "Apply a generous amount to wet hair, massage into a rich lather, and rinse thoroughly. For best results, follow with the Garnier Whole Blends Honey Water Moisture Restoring Conditioner and other products in the Honey Water line.",
+  "key_ingredients": ["Water (Aqua)", "Sodium Laureth Sulfate", "Cocamidopropyl Betaine", "Sodium Lauryl Sulfate", "Honey Extract (Mel)", "Amodimethicone", "Arginine", "Serine", "Glutamic Acid", "Hydroxypropyltrimonium Hydrolyzed Wheat Protein", "Citric Acid", "Sodium Benzoate", "Fragrance (Parfum)"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p150",
+  "name": "L'Oréal Paris Hair Expertise Bond Repair Rescue Pre-Shampoo for Damaged Hair - 200ml",
+  "brand": "L'Oréal Paris",
+  "image_url": "https://tse4.mm.bing.net/th/id/OIP.pllmAOUL2JYbQOTOOqrEqwHaHa?w=2200&h=2200&rs=1&pid=ImgDetMain&o=7&rm=3",
+  "price": 4770,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Hair",
+    "section": "Shampoos"
+  },
+  "attributes": {
+    "skin_types": [],
+    "hair_types": ["damaged hair", "bleached hair", "colored hair", "heat-damaged hair", "weak and fragile hair"],
+    "concerns": ["breakage", "split ends", "weakened hair structure", "lack of strength", "lack of shine", "porosity", "internal bond damage"],
+    "texture": "creamy treatment",
+    "sensitivity_safe": ["intensive_repair", "rinse_off", "clinically_proven", "high_concentration_complex"],
+    "contains_irritants": false
+  },
+  "description": "An intensive rinse-off pre-shampoo treatment that serves as the first step in the Bond Repair routine, featuring the highest concentration (12%) of Bond Repair Complex powered by Citric Acid. It penetrates deep into the hair cortex to neutralize bond-breaking mineral ions, rebuild inner broken disulfide bonds, and reconstruct hair structure from within for maximum repair before cleansing. Oversaturates damp hair for deep absorption, significantly reducing breakage (up to 98% less with full routine), boosting shine (up to 90%), and strengthening hair (up to 82%). Ideal for chemically treated, heat-damaged, or chronically weakened hair, leaving it stronger, healthier, softer, and more resilient. Imported from Canada, part of the L'Oréal Paris Hair Expertise Bond Repair line.",
+  "how_to_use": "Apply to damp hair before shampooing. Massage in thoroughly to oversaturate strands. Leave on as directed (typically a few minutes for penetration), then rinse. Follow with the Bond Repair shampoo and conditioner for complete results. Use 1-2 times per week or as needed for severely damaged hair.",
+  "key_ingredients": ["Citric Acid (in 12% Bond Repair Complex)", "Cetearyl Alcohol", "Glycerin", "Behentrimonium Chloride", "Stearyl Alcohol", "Cetyl Esters", "Sodium Citrate", "Hydroxypropyl Guar", "Phenoxyethanol", "Polyquaternium-10", "Polysorbate 20", "Parfum / Fragrance"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 3,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p151",
+  "name": "Garnier Whole Blends Honey Water Moisture Restoring Shampoo 370 ml",
+  "brand": "Garnier Whole Blends",
+  "image_url": "https://tse4.mm.bing.net/th/id/OIP.Q-is_m-HQed1ULySUQ8ZeQHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+  "price": 4680,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Hair",
+    "section": "Shampoos"
+  },
+  "attributes": {
+    "skin_types": [],
+    "hair_types": ["dry hair", "dull hair", "normal hair", "slightly damaged hair"],
+    "concerns": ["dryness", "moisture loss", "dullness", "lack of shine", "dehydration"],
+    "texture": "creamy liquid with rich lather",
+    "sensitivity_safe": ["paraben_free", "gentle_cleansing", "non_stripping", "lightweight_hydration"],
+    "contains_irritants": false
+  },
+  "description": "A lightweight, deeply hydrating shampoo from the Garnier Whole Blends line, inspired by natural honey hive goodness. Enriched with Honey Water to restore essential moisture to dry, dull, or dehydrated hair without weighing it down. Gently cleanses impurities while infusing strands with hydration, softness, manageability, and natural shine. Paraben-free formula that maintains the hair's natural moisture balance, creates a rich lather, and leaves hair feeling revived, supple, and revitalized. Ideal for daily use on dry to normal hair types seeking lightweight moisture and a healthy glow. Imported from Canada.",
+  "how_to_use": "Apply a generous amount to wet hair, massage into a rich lather, and rinse thoroughly. For best results, follow with the Garnier Whole Blends Honey Water Moisture Restoring Conditioner and other products in the Honey Water line.",
+  "key_ingredients": ["Water (Aqua)", "Sodium Laureth Sulfate", "Cocamidopropyl Betaine", "Sodium Lauryl Sulfate", "Honey Extract (Mel)", "Amodimethicone", "Arginine", "Serine", "Glutamic Acid", "Hydroxypropyltrimonium Hydrolyzed Wheat Protein", "Citric Acid", "Sodium Benzoate", "Fragrance (Parfum)"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.5,
+    "review_count": 0
+  }
+},
+{
+  "product_id": "p152",
+  "name": "L'Oréal Paris Hair Expertise Glycolic Gloss Shine Sulfate-Free Shampoo 200ml",
+  "brand": "L'Oréal Paris",
+  "image_url": "https://www.refinery29.com/images/11227264.jpg",
+  "price": 4770,
+  "currency": "Rs",
+  "in_stock": true,
+  "categories": {
+    "main_category": "Hair",
+    "section": "Shampoos"
+  },
+  "attributes": {
+    "skin_types": [],
+    "hair_types": ["all hair types", "straight hair", "wavy hair", "curly hair", "coily hair", "damaged hair", "colored hair"],
+    "concerns": ["dullness", "lifeless hair", "lack of shine", "rough texture", "porosity", "frizz", "damaged cuticles"],
+    "texture": "liquid with rich lather",
+    "sensitivity_safe": ["sulfate_free", "gentle_cleansing", "non_stripping", "color_safe"],
+    "contains_irritants": false
+  },
+  "description": "A sulfate-free shine-enhancing shampoo powered by Glycolic Acid Complex, designed as the first step in the Glycolic Gloss system. Glycolic Acid (an AHA) penetrates the hair fiber to restore internal quality, smooth and seal the cuticles, and create a mirror-like reflective surface for intense, long-lasting gloss (up to 2x shinier hair). Gently cleanses without stripping natural oils or fading color, leaving hair silky, smooth, manageable, and vibrant with a fresh fragrance (grapefruit, jasmine, cedarwood notes). Ideal for dull, rough, porous, frizzy, or color-treated hair seeking salon-level shine and smoothness at home. Imported from Canada, cruelty-free, and part of the L'Oréal Paris Hair Expertise Glycolic Gloss range.",
+  "how_to_use": "Apply a generous amount to wet hair. Gently massage into the scalp and work into a rich lather through the lengths. Rinse thoroughly with lukewarm water. For maximum shine results, follow with the L'Oréal Paris Glycolic Gloss Conditioner, optional 5 Minute Lamination Treatment, and Illuminating Serum.",
+  "key_ingredients": ["Glycolic Acid", "Aqua / Water", "Sodium C14-16 Olefin Sulfonate", "Cocamide MEA", "Glycerin", "Cocamidopropyl Betaine", "Sodium Lauroyl Sarcosinate", "Parfum / Fragrance", "Sodium Benzoate", "Citric Acid", "Polyquaternium-7", "Hydroxypropyl Guar Hydroxypropyltrimonium Chloride", "Salicylic Acid"],
+  "complementary_products": [],
+  "ranking_signals": {
+    "base_score": 0,
+    "trending_score": 0,
+    "purchase_count": 0,
+    "rating": 4.5,
+    "review_count": 0
+  }
+}
+]

@@ -1,0 +1,290 @@
+{
+  "session_id": "486c69b9-239d-4a10-be82-1a00c34bfe65",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Baby",
+    "hair_concern": "dryness",
+    "hair_type": "Dry",
+    "baby_section": "Baby Milk Powder",
+    "skin_type": "dry",
+    "skin_concern": "dryness",
+    "sensitivity": "sensitive skin"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p124",
+      "name": "Gentle Baby Milk Powder Cleanser",
+      "brand": "MilkCloud",
+      "image_url": "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+      "price": 540,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Milk Powder"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness, dehydration, and maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "powder",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A soothing milk powder cleanser for quick sponge baths. Leaves baby’s skin feeling fresh and comfortable.",
+      "how_to_use": "Mix with warm water to form a milky liquid, then sponge gently over baby’s skin and pat dry.",
+      "key_ingredients": [
+        "Milk Proteins",
+        "Rice Starch",
+        "Oat Flour"
+      ],
+      "complementary_products": [
+        "p121",
+        "p122"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 68,
+        "purchase_count": 190,
+        "rating": 4.2,
+        "review_count": 85
+      }
+    },
+    {
+      "product_id": "p121",
+      "name": "Nourishing Baby Bath & Shampoo",
+      "brand": "TinyCare",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 780,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Bath & Shampoo"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [
+          "combination hair"
+        ],
+        "concerns": [
+          "sensitive skin",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "tear_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "An ultra-gentle 2-in-1 bath and shampoo for babies' delicate skin and hair. Cleanses without disrupting the natural barrier.",
+      "how_to_use": "Dilute in warm bath water or apply directly to wet hair and skin, lather lightly and rinse well.",
+      "key_ingredients": [
+        "Oat Extract",
+        "Glycerin",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p122",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 83,
+        "purchase_count": 360,
+        "rating": 4.6,
+        "review_count": 190
+      }
+    },
+    {
+      "product_id": "p122",
+      "name": "Soft Baby Lotion",
+      "brand": "TinyCare",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 720,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A silky baby lotion that keeps skin soft and comfortable all day. Formulated to support the developing skin barrier.",
+      "how_to_use": "Massage onto baby’s skin after bath or whenever required, focusing on dry areas.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Sunflower Oil"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 150
+      }
+    },
+    {
+      "product_id": "p125",
+      "name": "Ultra Rich Baby Cream",
+      "brand": "MilkCloud",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 760,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A thick but spreadable baby cream for very dry patches. Helps comfort rough elbows, knees and cheeks.",
+      "how_to_use": "Use a small amount on problem areas throughout the day or as a nightly intensive treatment.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Cocoa Butter",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 72,
+        "purchase_count": 220,
+        "rating": 4.3,
+        "review_count": 110
+      }
+    },
+    {
+      "product_id": "p123",
+      "name": "Baby Barrier Cream",
+      "brand": "TinyCare",
+      "image_url": "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa3",
+      "price": 690,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin",
+          "eczema",
+          "psoriasis"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A protective barrier cream that helps prevent dryness and irritation in delicate areas. Creates a breathable shield on baby’s skin.",
+      "how_to_use": "Apply a thin layer on clean, dry skin as often as needed, especially after diaper changes.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Petrolatum",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p121",
+        "p122"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 74,
+        "purchase_count": 260,
+        "rating": 4.4,
+        "review_count": 130
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T12:52:02.884201Z",
+  "conversation_history": [
+    {
+      "user": "Good evening, i want a shampoo",
+      "assistant": "Don't worry, I'm here to help you find the perfect hair care product!\n\nWe don't currently carry shampoos, but I found some amazing hair care products that might interest you. We have a Deep Repair Hair Mask by LushStrand that's perfect for dry hair, a Clarifying Scalp & Hair Conditioner by ScalpBalance for a fresh start, and a Repair & Shine Conditioner by LushStrand to add some extra moisture."
+    },
+    {
+      "user": "also i want a milk powder",
+      "assistant": "Great choice! I love this one for you!\n\nWe have a range of products that can help with dry hair. I found a few options that might interest you."
+    },
+    {
+      "user": "i want a milk powder",
+      "assistant": "We have milk powder options, let me show you!\n\nSince you're looking for a milk powder, I found some great options in our Baby Milk Powder section that you might be interested in. We have a variety of textures and prices to choose from."
+    },
+    {
+      "user": "hey what Milk powder for my baaby",
+      "assistant": "Great choice! 😊\n\nWe have a variety of milk powders for your baby, but it seems like you're looking for one. Let me show you some options."
+    },
+    {
+      "user": "Gentle Baby Milk Powder Cleanser",
+      "assistant": "Great choice! I love this Gentle Baby Milk Powder Cleanser for dry skin!\n\nWe have a few options that might interest you. This Gentle Baby Milk Powder Cleanser by MilkCloud is a great pick for dry skin, and it's also gentle enough for sensitive skin."
+    }
+  ]
+}

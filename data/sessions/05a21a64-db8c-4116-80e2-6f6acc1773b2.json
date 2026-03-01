@@ -1,0 +1,21 @@
+{
+  "session_id": "05a21a64-db8c-4116-80e2-6f6acc1773b2",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T08:17:40.258036Z",
+  "conversation_history": [
+    {
+      "user": "hi",
+      "assistant": "Hi, welcome to Beauty Mart! I'd love to help you find something beautiful today 😊"
+    },
+    {
+      "user": "I need help with haircare",
+      "assistant": "Sorry, could you repeat that? 😊"
+    }
+  ]
+}

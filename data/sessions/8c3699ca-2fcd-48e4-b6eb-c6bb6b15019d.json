@@ -1,0 +1,509 @@
+{
+  "session_id": "8c3699ca-2fcd-48e4-b6eb-c6bb6b15019d",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p102",
+      "name": "Balancing Foam Face Wash",
+      "brand": "PureBalance",
+      "image_url": "https://tse2.mm.bing.net/th/id/OIP.dYOH8cguDiDTUJU5t8Y9-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 890,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Cleansers"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "foam",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight foaming cleanser that helps control excess oil while maintaining clarity. Leaves skin feeling fresh without tightness.",
+      "how_to_use": "Dispense one to two pumps onto wet hands, lather and massage over face, then rinse thoroughly.",
+      "key_ingredients": [
+        "Green Tea Extract",
+        "Niacinamide",
+        "Zinc PCA"
+      ],
+      "complementary_products": [
+        "p120",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 410,
+        "rating": 4.4,
+        "review_count": 167
+      }
+    },
+    {
+      "product_id": "p117",
+      "name": "Pore Refining Toner",
+      "brand": "Clarify+",
+      "image_url": "https://m.media-amazon.com/images/I/51sHL2jf2bL._SL1080_.jpg",
+      "price": 920,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Toners"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A refreshing toner that helps minimise the appearance of pores and shine. Preps the skin for serums and gels.",
+      "how_to_use": "After cleansing, apply with a cotton pad or hands, gently press into skin and avoid eye area.",
+      "key_ingredients": [
+        "Niacinamide",
+        "Witch Hazel Extract",
+        "Green Tea"
+      ],
+      "complementary_products": [
+        "p102",
+        "p105"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 310,
+        "rating": 4.4,
+        "review_count": 145
+      }
+    },
+    {
+      "product_id": "p116",
+      "name": "Hydrating Face Toner Mist",
+      "brand": "MistAura",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.bq11ej63HNqh2eB3sSuCSQHaHV?pid=ImgDet&w=184&h=182&c=7&dpr=1.3&o=7&rm=3",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Toners"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "alcohol_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A fine facial mist that instantly refreshes and hydrates the skin. Can be used between skincare steps or over makeup.",
+      "how_to_use": "Hold bottle 15–20 cm away and spritz evenly over face whenever skin feels tight or dull.",
+      "key_ingredients": [
+        "Rose Water",
+        "Hyaluronic Acid",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p101",
+        "p111"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 77,
+        "purchase_count": 275,
+        "rating": 4.3,
+        "review_count": 120
+      }
+    },
+    {
+      "product_id": "p139",
+      "name": "Shine Boost Hair Gloss Serum",
+      "brand": "LuxeShine",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 990,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "straight",
+          "combination hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A finishing serum that adds instant gloss and smoothness to dull hair. Helps tame flyaways without greasiness.",
+      "how_to_use": "Apply 1–2 pumps on dry or damp hair, concentrating on lengths and ends, avoid roots.",
+      "key_ingredients": [
+        "Silicones",
+        "Argan Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p130",
+        "p136"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 280,
+        "rating": 4.4,
+        "review_count": 145
+      }
+    },
+    {
+      "product_id": "p127",
+      "name": "Deep Moisture Body Cream",
+      "brand": "SilkBody",
+      "image_url": "https://tse3.mm.bing.net/th/id/OIP.j_1Rps1KR_qAdv4xaWXATAHaKL?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+      "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Sweet Almond Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p133",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 175
+      }
+    },
+    {
+      "product_id": "p134",
+      "name": "Daily Hydrating Body Wash",
+      "brand": "SilkBody",
+      "image_url": "https://static.beautytocare.com/media/catalog/product/cache/global/image/1300x1300/85e4522595efc69f496374d01ef2bf13/p/a/pantene-pro-v-miracles-grow-strong-hair-conditioner-460ml_1.jpg",
+      "price": 820,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A creamy body wash that cleanses while respecting the skin barrier. Leaves skin feeling clean yet comfortable.",
+      "how_to_use": "Lather on wet skin with hands or loofah and rinse thoroughly. Follow with body cream or lotion.",
+      "key_ingredients": [
+        "Glycerin",
+        "Coconut-derived Cleansers",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p128"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 180
+      }
+    },
+    {
+      "product_id": "p131",
+      "name": "Restorative Hand Cream",
+      "brand": "HandTreat",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 420,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Hand and Foot Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A fast-absorbing hand cream that softens dry, overwashed hands. Helps reduce roughness and fine lines over time.",
+      "how_to_use": "Massage a pea-sized amount onto hands whenever needed, focusing on knuckles and cuticles.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p132"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 330,
+        "rating": 4.5,
+        "review_count": 170
+      }
+    },
+    {
+      "product_id": "p121",
+      "name": "Nourishing Baby Bath & Shampoo",
+      "brand": "TinyCare",
+      "image_url": "https://th.bing.com/th/id/OIP.n2cc9stF2k2N2TDu3yC9fAHaHa?w=198&h=198&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+      "price": 780,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Bath & Shampoo"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [
+          "combination hair"
+        ],
+        "concerns": [
+          "sensitive skin",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "tear_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "An ultra-gentle 2-in-1 bath and shampoo for babies' delicate skin and hair. Cleanses without disrupting the natural barrier.",
+      "how_to_use": "Dilute in warm bath water or apply directly to wet hair and skin, lather lightly and rinse well.",
+      "key_ingredients": [
+        "Oat Extract",
+        "Glycerin",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p122",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 83,
+        "purchase_count": 360,
+        "rating": 4.6,
+        "review_count": 190
+      }
+    },
+    {
+      "product_id": "p122",
+      "name": "Soft Baby Lotion",
+      "brand": "TinyCare",
+      "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 720,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A silky baby lotion that keeps skin soft and comfortable all day. Formulated to support the developing skin barrier.",
+      "how_to_use": "Massage onto baby’s skin after bath or whenever required, focusing on dry areas.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Sunflower Oil"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 150
+      }
+    },
+    {
+      "product_id": "p123",
+      "name": "Baby Barrier Cream",
+      "brand": "TinyCare",
+      "image_url": "https://tse1.mm.bing.net/th/id/OIP._YFnBHuWPyOXPLOYgbXfLgHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 690,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin",
+          "eczema",
+          "psoriasis"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A protective barrier cream that helps prevent dryness and irritation in delicate areas. Creates a breathable shield on baby’s skin.",
+      "how_to_use": "Apply a thin layer on clean, dry skin as often as needed, especially after diaper changes.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Petrolatum",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p121",
+        "p122"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 74,
+        "purchase_count": 260,
+        "rating": 4.4,
+        "review_count": 130
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T16:04:59.656272Z",
+  "conversation_history": [
+    {
+      "user": "Show me budget picks under Rs.1000.",
+      "assistant": "Here are our best budget-friendly picks under Rs.1000, sorted by category! ✨ Great quality doesn't have to break the bank."
+    }
+  ]
+}

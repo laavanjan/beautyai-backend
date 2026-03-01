@@ -1,0 +1,282 @@
+{
+  "session_id": "46838136-21aa-4ec1-9a46-8c0d13f05970",
+  "current_node": "conversation",
+  "slots": {
+    "_concern_step": "done",
+    "main_category": "Face",
+    "skin_concern": "Hyperpigmentation",
+    "skin_type": "oily"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p114",
+      "name": "Daily Defense Sunscreen Fluid SPF 50",
+      "brand": "SunSecure",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.8_NK7TsBhnpHN4ZJ9PJhZQHaJX?w=2048&h=2592&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1350,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Sun Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "non_comedogenic"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight high-protection sunscreen fluid that feels comfortable on oily skin. Helps prevent sunburn and future pigmentation.",
+      "how_to_use": "Use as the last step of your morning routine, apply generously 15 minutes before sun exposure and reapply every 2–3 hours.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Tinosorb S",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p105",
+        "p120"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 92,
+        "purchase_count": 710,
+        "rating": 4.7,
+        "review_count": 340
+      }
+    },
+    {
+      "product_id": "p120",
+      "name": "Lightweight Gel Moisturiser",
+      "brand": "AquaVeil",
+      "image_url": "https://th.bing.com/th/id/OIP.n2cc9stF2k2N2TDu3yC9fAHaHa?w=198&h=198&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+      "price": 1300,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Moisturisers"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive to greasy or thick formulas",
+          "Dryness, dehydration, and maintaining the skin's moisture barrier"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "non_comedogenic"
+        ],
+        "contains_irritants": false
+      },
+      "description": "An ultra-light gel moisturiser that gives a burst of hydration without heaviness. Perfect under makeup in humid weather.",
+      "how_to_use": "Use twice daily after toner and serum, apply a pea-sized amount over face.",
+      "key_ingredients": [
+        "Hyaluronic Acid",
+        "Aloe Vera",
+        "Glycerin"
+      ],
+      "complementary_products": [
+        "p102",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 430,
+        "rating": 4.5,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p105",
+      "name": "Oil Control Mattifying Day Gel",
+      "brand": "ClarityLab",
+      "image_url": "https://i5.walmartimages.com/seo/Hydrating-Facial-Cleanser-Gentle-Soothing-Cleanser-Face-Wash-Acne-prone-Sensitive-Skin-Low-pH-Easy-Use-Suitable-Skin-Types-Powerful-Deep-Cleansing-Ac_7c436acf-e035-4568-b8a5-4b2a7bd41734.f799123b2497c067059cb0ff74e7e0c8.jpeg",
+      "price": 1320,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Day Creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive to greasy or thick formulas",
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight gel-cream that instantly absorbs excess sebum. Keeps skin comfortable and shine-free through the day.",
+      "how_to_use": "Use every morning after cleansing and toning, apply a thin layer over face, avoiding eye area.",
+      "key_ingredients": [
+        "Niacinamide",
+        "Silica Micro-Spheres",
+        "Green Tea"
+      ],
+      "complementary_products": [
+        "p102",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 83,
+        "purchase_count": 430,
+        "rating": 4.5,
+        "review_count": 188
+      }
+    },
+    {
+      "product_id": "p110",
+      "name": "Clarifying Night Gel for Oily Skin",
+      "brand": "ClearNite",
+      "image_url": "https://tse2.mm.bing.net/th/id/OIP.v-niOf_A4e2bqoMoNyvX9wHaHa?w=1080&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1500,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Night Cream"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A cooling night gel that refines texture and reduces the look of enlarged pores. Designed to feel weightless on oilier skin.",
+      "how_to_use": "Use at night on cleansed skin, apply a thin layer and avoid eye area. Follow with spot treatments if needed.",
+      "key_ingredients": [
+        "Salicylic Acid",
+        "Niacinamide",
+        "Green Tea"
+      ],
+      "complementary_products": [
+        "p102",
+        "p117"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 335,
+        "rating": 4.4,
+        "review_count": 176
+      }
+    },
+    {
+      "product_id": "p102",
+      "name": "Balancing Foam Face Wash",
+      "brand": "PureBalance",
+      "image_url": "https://tse2.mm.bing.net/th/id/OIP.dYOH8cguDiDTUJU5t8Y9-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 890,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Cleansers"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "foam",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight foaming cleanser that helps control excess oil while maintaining clarity. Leaves skin feeling fresh without tightness.",
+      "how_to_use": "Dispense one to two pumps onto wet hands, lather and massage over face, then rinse thoroughly.",
+      "key_ingredients": [
+        "Green Tea Extract",
+        "Niacinamide",
+        "Zinc PCA"
+      ],
+      "complementary_products": [
+        "p120",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 410,
+        "rating": 4.4,
+        "review_count": 167
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:52:12.575328Z",
+  "conversation_history": [
+    {
+      "user": "I want to shop by concern. What concerns do you cover?",
+      "assistant": "I'd love to help you find exactly what you need! 😊\n\nFirst, which area are you shopping for?"
+    },
+    {
+      "user": "face care",
+      "assistant": "Great — face care it is! ✨\n\nWhat's your main skin concern right now?"
+    },
+    {
+      "user": "I want to reduce dark spots and uneven skin tone.",
+      "assistant": "Almost there! One last thing — what's your skin type?"
+    },
+    {
+      "user": "i have oily skin",
+      "assistant": "Sorry, could you repeat that? 😊"
+    },
+    {
+      "user": "i have oily skin",
+      "assistant": "Don't worry, oily skin can be challenging, but we have just the right products for you! 😊\n\nWe found some great options for oily skin with hyperpigmentation concerns. Our top picks include a lightweight gel moisturiser, an oil control mattifying day gel, and a clarifying night gel."
+    }
+  ]
+}

@@ -1,0 +1,427 @@
+{
+  "session_id": "df2c5eb8-94b5-4666-8639-b65ddcca31b5",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Face",
+    "skin_type": "oily",
+    "baby_section": "Baby Bath & Shampoo"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p102",
+      "name": "Balancing Foam Face Wash",
+      "brand": "PureBalance",
+      "image_url": "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa3",
+      "price": 890,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Cleansers"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "foam",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight foaming cleanser that helps control excess oil while maintaining clarity. Leaves skin feeling fresh without tightness.",
+      "how_to_use": "Dispense one to two pumps onto wet hands, lather and massage over face, then rinse thoroughly.",
+      "key_ingredients": [
+        "Green Tea Extract",
+        "Niacinamide",
+        "Zinc PCA"
+      ],
+      "complementary_products": [
+        "p120",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 410,
+        "rating": 4.4,
+        "review_count": 167
+      }
+    },
+    {
+      "product_id": "p117",
+      "name": "Pore Refining Toner",
+      "brand": "Clarify+",
+      "image_url": "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa3",
+      "price": 920,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Toners"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A refreshing toner that helps minimise the appearance of pores and shine. Preps the skin for serums and gels.",
+      "how_to_use": "After cleansing, apply with a cotton pad or hands, gently press into skin and avoid eye area.",
+      "key_ingredients": [
+        "Niacinamide",
+        "Witch Hazel Extract",
+        "Green Tea"
+      ],
+      "complementary_products": [
+        "p102",
+        "p105"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 310,
+        "rating": 4.4,
+        "review_count": 145
+      }
+    },
+    {
+      "product_id": "p106",
+      "name": "Brightening Exfoliating Serum",
+      "brand": "GlowScience",
+      "image_url": "https://images.unsplash.com/photo-1601049313729-4726f8141040",
+      "price": 1750,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Exfoliators"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "uneven skin tone",
+          "Hyperpigmentation",
+          "Premature aging"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A leave-on exfoliating serum that gently resurfaces dull skin. Promotes a more even tone and refined texture over time.",
+      "how_to_use": "Use at night, two to three times a week on dry skin after cleansing, avoid eye area and always follow with sunscreen next day.",
+      "key_ingredients": [
+        "Lactic Acid",
+        "Glycolic Acid",
+        "Licorice Root"
+      ],
+      "complementary_products": [
+        "p111",
+        "p126"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 380,
+        "rating": 4.5,
+        "review_count": 192
+      }
+    },
+    {
+      "product_id": "p111",
+      "name": "HydraBoost Hyaluronic Serum",
+      "brand": "HydraCore",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 1700,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Serums & Targeted Treatments"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A powerful hydrating serum that plumps and smooths the skin's surface. Ideal as a daily moisture booster under any cream.",
+      "how_to_use": "Apply 2–3 drops to slightly damp face after cleansing and toning, then seal with moisturiser.",
+      "key_ingredients": [
+        "Multi-weight Hyaluronic Acid",
+        "Glycerin",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p104",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 89,
+        "purchase_count": 640,
+        "rating": 4.7,
+        "review_count": 320
+      }
+    },
+    {
+      "product_id": "p108",
+      "name": "Revive Peptide Eye Serum",
+      "brand": "EyeCare+",
+      "image_url": "https://images.unsplash.com/photo-1598440953871-99c9c397e02d",
+      "price": 1850,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Eye Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Premature aging",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [
+          "ophthalmologist_tested"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight eye serum that targets fine lines and dullness. Helps keep the under-eye area smooth and hydrated.",
+      "how_to_use": "Use a rice-grain amount around the eye contour morning and night, gently tap until absorbed.",
+      "key_ingredients": [
+        "Peptides",
+        "Caffeine",
+        "Hyaluronic Acid"
+      ],
+      "complementary_products": [
+        "p104",
+        "p116"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 260,
+        "rating": 4.4,
+        "review_count": 130
+      }
+    },
+    {
+      "product_id": "p120",
+      "name": "Lightweight Gel Moisturiser",
+      "brand": "AquaVeil",
+      "image_url": "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+      "price": 1300,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Moisturisers"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive to greasy or thick formulas",
+          "Dryness, dehydration, and maintaining the skin's moisture barrier"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "non_comedogenic"
+        ],
+        "contains_irritants": false
+      },
+      "description": "An ultra-light gel moisturiser that gives a burst of hydration without heaviness. Perfect under makeup in humid weather.",
+      "how_to_use": "Use twice daily after toner and serum, apply a pea-sized amount over face.",
+      "key_ingredients": [
+        "Hyaluronic Acid",
+        "Aloe Vera",
+        "Glycerin"
+      ],
+      "complementary_products": [
+        "p102",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 430,
+        "rating": 4.5,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p110",
+      "name": "Clarifying Night Gel for Oily Skin",
+      "brand": "ClearNite",
+      "image_url": "https://images.unsplash.com/photo-1506619216599-9d16d0903dfd",
+      "price": 1500,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Night Cream"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A cooling night gel that refines texture and reduces the look of enlarged pores. Designed to feel weightless on oilier skin.",
+      "how_to_use": "Use at night on cleansed skin, apply a thin layer and avoid eye area. Follow with spot treatments if needed.",
+      "key_ingredients": [
+        "Salicylic Acid",
+        "Niacinamide",
+        "Green Tea"
+      ],
+      "complementary_products": [
+        "p102",
+        "p117"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 335,
+        "rating": 4.4,
+        "review_count": 176
+      }
+    },
+    {
+      "product_id": "p114",
+      "name": "Daily Defense Sunscreen Fluid SPF 50",
+      "brand": "SunSecure",
+      "image_url": "https://images.unsplash.com/photo-1601049313729-4726f8141040",
+      "price": 1350,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Sun Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "sensitive to greasy or thick formulas"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "non_comedogenic"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight high-protection sunscreen fluid that feels comfortable on oily skin. Helps prevent sunburn and future pigmentation.",
+      "how_to_use": "Use as the last step of your morning routine, apply generously 15 minutes before sun exposure and reapply every 2–3 hours.",
+      "key_ingredients": [
+        "Zinc Oxide",
+        "Tinosorb S",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p105",
+        "p120"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 92,
+        "purchase_count": 710,
+        "rating": 4.7,
+        "review_count": 340
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:32:36.117239Z",
+  "conversation_history": [
+    {
+      "user": "Hi",
+      "assistant": "Hi, welcome to Beauty Mart! I'd love to help you find something ✨"
+    },
+    {
+      "user": "Hey i want a shampoo for my oily skin",
+      "assistant": "We've curated a personalized hair care routine to tackle your oily skin concerns, featuring products that will leave your locks looking lush and healthy! Our expert picks are designed to balance and nourish your hair."
+    },
+    {
+      "user": "suggest me a baby product",
+      "assistant": "We have a variety of baby products, what section are you looking for, such as skincare, haircare, or bath time essentials?"
+    },
+    {
+      "user": "Bath time essentials would be great",
+      "assistant": "We've curated a special selection of gentle and effective baby bath and shampoo products perfect for your little one's oily skin! Our recommendations will help keep their skin clean, soft, and healthy."
+    },
+    {
+      "user": "suggest me a product for face care",
+      "assistant": "We've curated a personalized face care routine perfect for your oily skin type, and also found some great baby bath and shampoo products for the little one! Our recommendations are designed to help you achieve a balanced and healthy complexion."
+    }
+  ]
+}

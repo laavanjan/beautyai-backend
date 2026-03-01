@@ -1,0 +1,276 @@
+{
+  "session_id": "834223fc-701d-467b-b65a-47af2f2311ee",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Face",
+    "skin_type": "normal|dry|sensitive",
+    "skin_concern": "Dryness, dehydration, maintaining the skin's moisture barrier, sensitive skin"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p101",
+      "name": "Gentle Hydrating Face Cleanser",
+      "brand": "DermaSoft",
+      "image_url": "https://images.unsplash.com/photo-1585386959984-a4155223f3f8",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Cleansers"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A mild gel-based cleanser that removes impurities without stripping moisture. Ideal for daily use on normal to dry, sensitive skin.",
+      "how_to_use": "Use twice daily on damp face, gently massage in circular motions for 30 seconds, then rinse with lukewarm water.",
+      "key_ingredients": [
+        "Glycerin",
+        "Aloe Vera",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p111",
+        "p119"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 520,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    },
+    {
+      "product_id": "p119",
+      "name": "Barrier Comfort Face Moisturiser",
+      "brand": "DermaCloud",
+      "image_url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
+      "price": 1550,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Moisturisers"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A cushiony moisturiser that wraps skin in long-lasting comfort. Ideal for compromised and dryness-prone skin.",
+      "how_to_use": "Apply morning and night after serums, using upward strokes over face and neck.",
+      "key_ingredients": [
+        "Ceramides",
+        "Shea Butter",
+        "Cholesterol"
+      ],
+      "complementary_products": [
+        "p111",
+        "p109"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 460,
+        "rating": 4.6,
+        "review_count": 230
+      }
+    },
+    {
+      "product_id": "p116",
+      "name": "Hydrating Face Toner Mist",
+      "brand": "MistAura",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Toners"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "alcohol_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A fine facial mist that instantly refreshes and hydrates the skin. Can be used between skincare steps or over makeup.",
+      "how_to_use": "Hold bottle 15–20 cm away and spritz evenly over face whenever skin feels tight or dull.",
+      "key_ingredients": [
+        "Rose Water",
+        "Hyaluronic Acid",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p101",
+        "p111"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 77,
+        "purchase_count": 275,
+        "rating": 4.3,
+        "review_count": 120
+      }
+    },
+    {
+      "product_id": "p107",
+      "name": "Gentle Enzyme Exfoliator",
+      "brand": "SoftPeel",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 1600,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Exfoliators"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin",
+          "eczema",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A non-abrasive exfoliator powered by fruit enzymes to smooth flaky patches. Designed for delicate, easily irritated skin.",
+      "how_to_use": "Apply a thin layer on clean, dry skin once or twice a week, leave on for 5–10 minutes, then rinse off.",
+      "key_ingredients": [
+        "Papaya Enzymes",
+        "Aloe Vera",
+        "Allantoin"
+      ],
+      "complementary_products": [
+        "p103",
+        "p112"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 71,
+        "purchase_count": 210,
+        "rating": 4.2,
+        "review_count": 98
+      }
+    },
+    {
+      "product_id": "p118",
+      "name": "Gentle Facial Cleansing Foam",
+      "brand": "BabySoft",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 650,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "toiletries"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive skin",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "foam",
+        "sensitivity_safe": [
+          "soap_free",
+          "tear_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A very mild foaming cleanser inspired by baby skincare. Suitable for ultra-sensitive and reactive faces.",
+      "how_to_use": "Use a small amount on wet skin, massage gently and rinse thoroughly with lukewarm water.",
+      "key_ingredients": [
+        "Glycerin",
+        "Oat Extract",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p112",
+        "p116"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 69,
+        "purchase_count": 180,
+        "rating": 4.2,
+        "review_count": 90
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T13:40:28.808501Z",
+  "conversation_history": [
+    {
+      "user": "i will give u image screenshot i want u to prepare schema like the below \n{\n    \"product_id\": \"p101\",\n    \"name\": \"Gentle Hydrating Face Cleanser\",\n    \"brand\": \"DermaSoft\",\n    \"image_url\": \"https://images.unsplash.com/photo-1585386959984-a4155223f3f8\",\n    \"price\": 1450,\n    \"currency\": \"Rs\",\n    \"in_stock\": true,\n    \"categories\": { \"main_category\": \"Face\", \"section\": \"Cleansers\" },\n    \"attributes\": {\n      \"skin_types\": [\"normal skin\", \"dry skin\", \"sensitive skin\"],\n      \"hair_types\": [],\n      \"concerns\": [\n        \"Dryness\", \"dehydration\", \"maintaining the skin's moisture barrier\", \"sensitive skin\"\n      ],\n      \"texture\": \"gel\",\n      \"sensitivity_safe\": [\"fragrance_free\", \"soap_free\"],\n      \"contains_irritants\": false\n    },\n    \"description\": \"A mild gel-based cleanser that removes impurities without stripping moisture. Ideal for daily use on normal to dry, sensitive skin.\",\n    \"how_to_use\": \"Use twice daily on damp face, gently massage in circular motions for 30 seconds, then rinse with lukewarm water.\",\n    \"key_ingredients\": [\"Glycerin\", \"Aloe Vera\", \"Panthenol\"],\n    \"complementary_products\": [\"p111\", \"p119\"],\n    \"ranking_signals\": {\n      \"base_score\": 0,\n      \"trending_score\": 88,\n      \"purchase_count\": 520,\n      \"rating\": 4.6,\n      \"review_count\": 210\n    }\n  }",
+      "assistant": "Dry skin can be so uncomfortable! 😊\n\nWe have a range of products that can help with dry skin and maintaining the skin's moisture barrier. You can explore our face care section for gentle and hydrating products."
+    }
+  ]
+}

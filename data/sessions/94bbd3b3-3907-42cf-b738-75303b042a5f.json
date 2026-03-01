@@ -1,0 +1,134 @@
+{
+  "session_id": "94bbd3b3-3907-42cf-b738-75303b042a5f",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_type": "normal"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p129",
+      "name": "Clarifying Scalp & Hair Conditioner",
+      "brand": "ScalpBalance",
+      "image_url": "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+      "price": 1250,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "combination hair",
+          "straight",
+          "curly"
+        ],
+        "concerns": [
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance",
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A lightweight conditioner that balances greasy roots while nourishing dry ends. Ideal for combination and styled hair types.",
+      "how_to_use": "Apply on mid-lengths and ends after shampoo, leave on for 2–3 minutes, then rinse thoroughly.",
+      "key_ingredients": [
+        "Salicylic Acid",
+        "Argan Oil",
+        "Panthenol"
+      ],
+      "complementary_products": [
+        "p136",
+        "p137"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 86,
+        "purchase_count": 410,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p136",
+      "name": "Deep Repair Hair Mask",
+      "brand": "LushStrand",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+      "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Argan Oil",
+        "Hydrolyzed Keratin"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:15:15.295974Z",
+  "conversation_history": [
+    {
+      "user": "Hey i want a shampoo",
+      "assistant": "We have a wide range of shampoos at Beauty Mart. What's your hair type?"
+    },
+    {
+      "user": "I have normal hair",
+      "assistant": "We have a wide range of shampoos for normal hair at Beauty Mart. I'd love to show you some options."
+    },
+    {
+      "user": "I'm looking for a shampoo for daily use",
+      "assistant": "We've curated a personalized hair care routine just for you, featuring the best products for your normal hair type! Get ready to achieve the healthy, vibrant locks you've always wanted."
+    }
+  ]
+}

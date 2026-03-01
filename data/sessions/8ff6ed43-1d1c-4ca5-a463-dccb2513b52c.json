@@ -1,0 +1,17 @@
+{
+  "session_id": "8ff6ed43-1d1c-4ca5-a463-dccb2513b52c",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T14:26:59.211270Z",
+  "conversation_history": [
+    {
+      "user": "hello, how are u",
+      "assistant": "I'm doing great, thanks for asking! 😊"
+    }
+  ]
+}

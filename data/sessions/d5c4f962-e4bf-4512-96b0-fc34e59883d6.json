@@ -1,0 +1,17 @@
+{
+  "session_id": "d5c4f962-e4bf-4512-96b0-fc34e59883d6",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:56:35.428964Z",
+  "conversation_history": [
+    {
+      "user": "Hi",
+      "assistant": "Welcome to Beauty Mart! 😊 What brings you here today?"
+    }
+  ]
+}

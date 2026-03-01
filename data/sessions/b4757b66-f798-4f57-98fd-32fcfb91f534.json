@@ -1,0 +1,73 @@
+{
+  "session_id": "b4757b66-f798-4f57-98fd-32fcfb91f534",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p139",
+      "name": "Shine Boost Hair Gloss Serum",
+      "brand": "LuxeShine",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 990,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "straight",
+          "combination hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A finishing serum that adds instant gloss and smoothness to dull hair. Helps tame flyaways without greasiness.",
+      "how_to_use": "Apply 1–2 pumps on dry or damp hair, concentrating on lengths and ends, avoid roots.",
+      "key_ingredients": [
+        "Silicones",
+        "Argan Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p130",
+        "p136"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 280,
+        "rating": 4.4,
+        "review_count": 145
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T16:02:52.690654Z",
+  "conversation_history": [
+    {
+      "user": "Show me budget picks under Rs.1000.",
+      "assistant": "Here are our best budget-friendly picks under Rs.1000, sorted by category! ✨ Great quality doesn't have to break the bank."
+    },
+    {
+      "user": "Show me budget picks just for hair care.",
+      "assistant": "Here are our top hair budget picks under Rs.1000! 💆"
+    }
+  ]
+}

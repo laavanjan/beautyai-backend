@@ -1,0 +1,17 @@
+{
+  "session_id": "5c5f7fe8-c522-4570-99c2-e16f9e09b162",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:59:35.491587Z",
+  "conversation_history": [
+    {
+      "user": "hi",
+      "assistant": "Sorry, could you repeat that? 😊"
+    }
+  ]
+}

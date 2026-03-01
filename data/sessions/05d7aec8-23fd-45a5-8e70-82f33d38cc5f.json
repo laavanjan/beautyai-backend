@@ -1,0 +1,44 @@
+{
+  "session_id": "05d7aec8-23fd-45a5-8e70-82f33d38cc5f",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_concern": "dryness"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T07:37:49.195266Z",
+  "conversation_history": [
+    {
+      "user": "good evening , i want a shampoo for daily usage",
+      "assistant": "Finding the right shampoo for daily use can be a bit overwhelming!\n\nWe have a wide range of shampoos that cater to different hair types and concerns, let me help you find the perfect one."
+    },
+    {
+      "user": "What are some affordable options within the Rs.420 to Rs.1,950 price range",
+      "assistant": "I completely understand you're looking for affordable hair care options within a specific budget!\n\nWe have a range of hair care products within the Rs.420 to Rs.1,950 price range, let me help you find the perfect one for your hair type."
+    },
+    {
+      "user": "Can you show me hair products with key ingredients that nourish dry hair?",
+      "assistant": "I completely understand how frustrating dry hair can be!\n\nWe have a range of products that nourish dry hair, including those with key ingredients like coconut oil and shea butter. I love this one for you as it provides long-lasting hydration"
+    },
+    {
+      "user": "just show me the shampoo",
+      "assistant": "I'd be happy to show you our shampoo options\n\nWe have a variety of shampoos that can help with dryness, let me show you some options"
+    },
+    {
+      "user": "Show me shampoos priced around Rs.1,000",
+      "assistant": "I'm excited to help you find a great shampoo for your hair!\n\nWe have a range of shampoos priced around Rs.1,000, let me show you some options that might help with dryness. You can find shampoos from various brands within this price range."
+    },
+    {
+      "user": "Can you show me shampoos with prices below Rs.1,200?",
+      "assistant": "I completely understand your concern about dryness, and I'd be happy to help you find a suitable shampoo!\n\nWe have a range of shampoos priced below Rs.1,200, and I can show you some great options that might help with dryness."
+    },
+    {
+      "user": "What are some popular shampoo brands available within my budget of Rs.1,200?",
+      "assistant": "I totally understand that dry hair can be frustrating!\n\nWe have a range of shampoo brands that might help, and I'd be happy to suggest some within your budget of Rs.1,200. We have brands like Pantene, Head & Shoulders, and more that are known for their moisturizing properties."
+    }
+  ]
+}

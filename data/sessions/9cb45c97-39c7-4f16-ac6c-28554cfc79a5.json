@@ -1,0 +1,217 @@
+{
+  "session_id": "9cb45c97-39c7-4f16-ac6c-28554cfc79a5",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Body",
+    "hair_concern": "oily scalp",
+    "hair_type": "oily",
+    "baby_section": "Baby Bath & Shampoo"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p126",
+      "name": "SPF 30 Body Lotion",
+      "brand": "BodyGuard",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "broad_spectrum"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A hydrating body lotion with added SPF for everyday protection. Keeps skin soft while helping prevent tanning and dark spots.",
+      "how_to_use": "Apply generously over exposed body areas 15 minutes before sun exposure and reapply every few hours.",
+      "key_ingredients": [
+        "Avobenzone",
+        "Glycerin",
+        "Shea Butter"
+      ],
+      "complementary_products": [
+        "p131",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 380,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p127",
+      "name": "Deep Moisture Body Cream",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+      "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Sweet Almond Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p133",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 175
+      }
+    },
+    {
+      "product_id": "p131",
+      "name": "Restorative Hand Cream",
+      "brand": "HandTreat",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 420,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Hand and Foot Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A fast-absorbing hand cream that softens dry, overwashed hands. Helps reduce roughness and fine lines over time.",
+      "how_to_use": "Massage a pea-sized amount onto hands whenever needed, focusing on knuckles and cuticles.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p132"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 330,
+        "rating": 4.5,
+        "review_count": 170
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-02-28T20:55:04.758226Z",
+  "conversation_history": [
+    {
+      "user": "Good morning",
+      "assistant": "Good morning! We have a wide range of amazing beauty products at our store. What are you shopping for today?"
+    },
+    {
+      "user": "I need some haircare advice",
+      "assistant": "We have lots of great haircare products. What's your main hair concern?"
+    },
+    {
+      "user": "I'm looking for a good shampoo",
+      "assistant": "We have a variety of shampoos for different hair types. What's your hair type?"
+    },
+    {
+      "user": "I have oily hair",
+      "assistant": "We've curated a personalized hair care routine to tackle your oily scalp concerns, featuring products that will leave your locks looking and feeling their best!"
+    },
+    {
+      "user": "Tell me more about the shampoo you recommended.",
+      "assistant": "Actually, I didn't recommend a shampoo yet, but we have a great clarifying conditioner that can help with oily scalp, it's the Clarifying Scalp & Hair Conditioner by ScalpBalance. "
+    },
+    {
+      "user": "What's the role of Salicylic Acid in the Clarifying Scalp & Hair Conditioner?",
+      "assistant": "Salicylic Acid in the Clarifying Scalp & Hair Conditioner helps to gently exfoliate and purify the scalp, reducing oiliness and flakiness."
+    },
+    {
+      "user": "How does the Argan Oil in the conditioner benefit my hair?",
+      "assistant": "The Argan Oil in the Clarifying Scalp & Hair Conditioner helps to nourish and moisturize your hair, leaving it soft and silky. Would you like to try it?"
+    },
+    {
+      "user": "What are the benefits of using a clarifying conditioner?",
+      "assistant": "A clarifying conditioner can help remove product buildup, reduce oiliness, and purify the scalp, which is perfect for your oily hair. We have the Clarifying Scalp & Hair Conditioner by ScalpBalance that can help with that."
+    },
+    {
+      "user": "Can I use the Deep Repair Hair Mask by LushStrand with the Clarifying Scalp & Hair Conditioner?",
+      "assistant": "Yes, you can use the Deep Repair Hair Mask by LushStrand with the Clarifying Scalp & Hair Conditioner, they can complement each other to nourish and purify your hair. "
+    },
+    {
+      "user": "Can I use the Clarifying Scalp & Hair Conditioner daily?",
+      "assistant": "We recommend using the Clarifying Scalp & Hair Conditioner 1-2 times a week to avoid stripping your hair of its natural oils. Would you like to know more about how to use it, or try a sample, or purchase it today?"
+    },
+    {
+      "user": "show me a baby products",
+      "assistant": "We have a variety of baby products, which section are you interested in?"
+    },
+    {
+      "user": "Baby Bath Products",
+      "assistant": "We have a range of baby bath products, including gentle shampoos and body washes."
+    },
+    {
+      "user": "I'm looking for a gentle body wash",
+      "assistant": "We've curated a personalized body care routine to tackle your oily scalp concerns and gentle baby bath needs! Our expert picks will help you achieve a balanced and nourished body and scalp."
+    }
+  ]
+}

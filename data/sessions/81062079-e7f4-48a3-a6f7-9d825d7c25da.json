@@ -1,0 +1,264 @@
+{
+  "session_id": "81062079-e7f4-48a3-a6f7-9d825d7c25da",
+  "current_node": "conversation",
+  "slots": {},
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p121",
+      "name": "Nourishing Baby Bath & Shampoo",
+      "brand": "TinyCare",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 780,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Bath & Shampoo"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "normal skin"
+        ],
+        "hair_types": [
+          "combination hair"
+        ],
+        "concerns": [
+          "sensitive skin",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "tear_free",
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "An ultra-gentle 2-in-1 bath and shampoo for babies' delicate skin and hair. Cleanses without disrupting the natural barrier.",
+      "how_to_use": "Dilute in warm bath water or apply directly to wet hair and skin, lather lightly and rinse well.",
+      "key_ingredients": [
+        "Oat Extract",
+        "Glycerin",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p122",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 83,
+        "purchase_count": 360,
+        "rating": 4.6,
+        "review_count": 190
+      }
+    },
+    {
+      "product_id": "p127",
+      "name": "Deep Moisture Body Cream",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+      "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Sweet Almond Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p133",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 175
+      }
+    },
+    {
+      "product_id": "p134",
+      "name": "Daily Hydrating Body Wash",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 820,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A creamy body wash that cleanses while respecting the skin barrier. Leaves skin feeling clean yet comfortable.",
+      "how_to_use": "Lather on wet skin with hands or loofah and rinse thoroughly. Follow with body cream or lotion.",
+      "key_ingredients": [
+        "Glycerin",
+        "Coconut-derived Cleansers",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p128"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 180
+      }
+    },
+    {
+      "product_id": "p131",
+      "name": "Restorative Hand Cream",
+      "brand": "HandTreat",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 420,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Hand and Foot Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A fast-absorbing hand cream that softens dry, overwashed hands. Helps reduce roughness and fine lines over time.",
+      "how_to_use": "Massage a pea-sized amount onto hands whenever needed, focusing on knuckles and cuticles.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p132"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 330,
+        "rating": 4.5,
+        "review_count": 170
+      }
+    },
+    {
+      "product_id": "p122",
+      "name": "Soft Baby Lotion",
+      "brand": "TinyCare",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 720,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Baby",
+        "section": "Baby Lotions & creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "sensitive skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin",
+          "eczema"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free",
+          "paraben_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A silky baby lotion that keeps skin soft and comfortable all day. Formulated to support the developing skin barrier.",
+      "how_to_use": "Massage onto baby’s skin after bath or whenever required, focusing on dry areas.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Sunflower Oil"
+      ],
+      "complementary_products": [
+        "p121",
+        "p123"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 150
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T11:18:58.199435Z",
+  "conversation_history": [
+    {
+      "user": "Show me products under Rs.1000.",
+      "assistant": "Let's find some great products for you! 😊\n\nWe have a few lovely products under Rs.1000, including the Nourishing Baby Bath & Shampoo by TinyCare and the Restorative Hand Cream by HandTreat."
+    }
+  ]
+}

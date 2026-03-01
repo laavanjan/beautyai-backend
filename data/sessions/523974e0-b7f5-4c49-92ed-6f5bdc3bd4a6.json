@@ -1,0 +1,40 @@
+{
+  "session_id": "523974e0-b7f5-4c49-92ed-6f5bdc3bd4a6",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Baby",
+    "baby_section": "Baby Bath & Shampoo|Baby Lotions & creams"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T08:19:47.901044Z",
+  "conversation_history": [
+    {
+      "user": "Hi",
+      "assistant": "Welcome to Beauty Mart! 😊 I'd love to help you find the perfect products. What are you shopping for today?"
+    },
+    {
+      "user": "can u suggest me cleansers",
+      "assistant": "I couldn't find a perfect match in our current catalog for those preferences. Would you like to adjust?"
+    },
+    {
+      "user": "ok i want to buy some baby products",
+      "assistant": "We have a wonderful selection of baby products!"
+    },
+    {
+      "user": "Let me show you our baby bath and massage products.",
+      "assistant": "I couldn't find a perfect match in our current catalog for those preferences. Would you like to adjust?"
+    },
+    {
+      "user": "Yes, let me try different preferences.",
+      "assistant": "I couldn't find a perfect match in our current catalog for those preferences. Would you like to adjust?"
+    },
+    {
+      "user": "Yes, let me try different preferences.",
+      "assistant": "I couldn't find a perfect match in our current catalog for those preferences. Would you like to adjust?"
+    }
+  ]
+}

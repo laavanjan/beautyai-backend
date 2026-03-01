@@ -1,0 +1,78 @@
+{
+  "session_id": "f1f8bea5-bc2b-4426-ace6-7d595504e555",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p136",
+      "name": "Deep Repair Hair Mask",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.1-fj3OnU6BJMm7wBw7VOjwHaHa?w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1450,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An intensive weekly mask that restores softness and shine to very dry, damaged strands. Helps reduce the look of split ends.",
+      "how_to_use": "Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Argan Oil",
+        "Hydrolyzed Keratin"
+      ],
+      "complementary_products": [
+        "p130",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 88,
+        "purchase_count": 390,
+        "rating": 4.6,
+        "review_count": 210
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T15:53:56.973844Z",
+  "conversation_history": [
+    {
+      "user": "What categories do you carry?",
+      "assistant": "Welcome to Beauty Mart Sri Lanka! We're excited to introduce you to our wide range of beauty products across four main categories: Face, Hair, Body, and Baby. From Face: our bestselling moisturisers, Eye Care serums, and Makeup Removers. For Hair: nourishing Conditioners and Hair Masks. Body: our popular Body Creams, Deodorants, and Sunscreens. And for Baby: gentle Bath & Shampoo, Lotions & creams, and Baby Milk Powder. Which category would you like to explore first?"
+    },
+    {
+      "user": "I want to explore hair care.",
+      "assistant": "You're looking for some amazing hair care products! 😊\n\nWe have a range of hair care products that can help you achieve healthy and beautiful hair. I found some great options for you, including a deep repair hair mask, a clarifying scalp conditioner, and a repair and shine conditioner."
+    },
+    {
+      "user": "Tell me more about the Deep Repair Hair Mask by LushStrand",
+      "assistant": "Hey! I think you'd really love this one:\n\n**Deep Repair Hair Mask** by LushStrand\nRs.1450\n\nIf you've been struggling with dry, damaged hair that's lost its shine, this is exactly what you need. This intensive weekly mask is like a spa treatment for your locks, restoring softness and shine to very dry, damaged strands.\n\n🌟 **What makes it special for you:**\n• Visibly reduces the look of split ends\n• Leaves hair feeling silky smooth and looking healthy\n• Moisturizes and nourishes dry hair\n• Irritant-free formula\n\n🧴 **Best match for:**\nDry hair → Damaged hair\n\nMain concerns: Dry hair, damaged hair, frizz, dullness\n\n🌿 **The hero ingredients people talk about most:**\n• Shea Butter → Nourishes and moisturizes dry hair\n• Argan Oil → Hydrates and protects hair from damage\n• Hydrolyzed Keratin → Repairs and strengthens hair\n\n**How most people use it:**\n→ Apply on towel-dried hair from mid-lengths to ends, leave on for 10–15 minutes and rinse well\n\n💬 **Real customer love** (from 210 reviews averaging 4.6 ⭐)\nCustomers rave about how soft, smooth, and healthy their hair looks and feels after using this mask.\n\n"
+    }
+  ]
+}

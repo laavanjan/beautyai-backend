@@ -1,0 +1,271 @@
+{
+  "session_id": "8ddd3dfc-9078-499f-92ef-11f896cd240d",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Body",
+    "skin_concern": "dryness"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p127",
+      "name": "Deep Moisture Body Cream",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich, buttery body cream that targets roughness and tightness. Leaves limbs feeling soft and comfortably cushioned.",
+      "how_to_use": "Massage onto body after shower or whenever skin feels dry, focusing on elbows and knees.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Sweet Almond Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p133",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 82,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 175
+      }
+    },
+    {
+      "product_id": "p126",
+      "name": "SPF 30 Body Lotion",
+      "brand": "BodyGuard",
+      "image_url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone",
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "broad_spectrum"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A hydrating body lotion with added SPF for everyday protection. Keeps skin soft while helping prevent tanning and dark spots.",
+      "how_to_use": "Apply generously over exposed body areas 15 minutes before sun exposure and reapply every few hours.",
+      "key_ingredients": [
+        "Avobenzone",
+        "Glycerin",
+        "Shea Butter"
+      ],
+      "complementary_products": [
+        "p131",
+        "p134"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 380,
+        "rating": 4.5,
+        "review_count": 200
+      }
+    },
+    {
+      "product_id": "p134",
+      "name": "Daily Hydrating Body Wash",
+      "brand": "SilkBody",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 820,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Body Creams & Lotions"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "soap_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A creamy body wash that cleanses while respecting the skin barrier. Leaves skin feeling clean yet comfortable.",
+      "how_to_use": "Lather on wet skin with hands or loofah and rinse thoroughly. Follow with body cream or lotion.",
+      "key_ingredients": [
+        "Glycerin",
+        "Coconut-derived Cleansers",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p128"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 340,
+        "rating": 4.5,
+        "review_count": 180
+      }
+    },
+    {
+      "product_id": "p131",
+      "name": "Restorative Hand Cream",
+      "brand": "HandTreat",
+      "image_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "price": 420,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Hand and Foot Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Premature aging"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A fast-absorbing hand cream that softens dry, overwashed hands. Helps reduce roughness and fine lines over time.",
+      "how_to_use": "Massage a pea-sized amount onto hands whenever needed, focusing on knuckles and cuticles.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Glycerin",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p127",
+        "p132"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 80,
+        "purchase_count": 330,
+        "rating": 4.5,
+        "review_count": 170
+      }
+    },
+    {
+      "product_id": "p132",
+      "name": "Overnight Foot Repair Cream",
+      "brand": "FootSpa",
+      "image_url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
+      "price": 520,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Body",
+        "section": "Hand and Foot Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "psoriasis"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A thick overnight cream that softens cracked heels and rough soles. Ideal as a weekly repair treatment.",
+      "how_to_use": "Apply a generous layer on clean feet before bed and wear cotton socks for enhanced absorption.",
+      "key_ingredients": [
+        "Urea",
+        "Shea Butter",
+        "Lactic Acid"
+      ],
+      "complementary_products": [
+        "p127",
+        "p131"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 77,
+        "purchase_count": 260,
+        "rating": 4.4,
+        "review_count": 140
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T09:20:33.001872Z",
+  "conversation_history": [
+    {
+      "user": "hey i want a body moisture crea",
+      "assistant": "Great choice, a good body moisture cream can make all the difference!\n\nWe have some wonderful options like the Deep Moisture Body Cream by SilkBody, which is perfect for dry and normal skin, and the Soothing Body Milk for Sensitive Skin by DermaBody, ideal for sensitive skin types."
+    },
+    {
+      "user": "hey tell me more about Deep Moisture Body Cream",
+      "assistant": "You're interested in the Deep Moisture Body Cream - I just love this one for providing long-lasting hydration! It's a rich, buttery body cream that targets roughness and tightness, leaving your limbs feeling soft and comfortably cushioned. I think it's perfect for those with dry or normal skin, as it addresses concerns like dryness, dehydration, and premature aging. The key ingredients include Shea Butter, which nourishes and moisturizes, Sweet Almond Oil, which soothes and calms, and Vitamin E, which protects your skin from damage. This cream has a lovely texture that's gentle on your skin, and since it doesn't contain irritants, it's a great choice for sensitive skin types too. To get the most out of it, simply massage it onto your body after a shower or whenever your skin feels dry, focusing on areas like your elbows and knees. Customers love it for its effectiveness, with a 4.5 rating from 175 reviews! Loved by 340 shoppers, this is definitely a popular choice. You can get it for Rs.980. "
+    },
+    {
+      "user": "Add Deep Moisture Body Cream to Cart",
+      "assistant": "Great choice! I love this one for dry skin!\n\nWe have added Deep Moisture Body Cream by SilkBody to your cart. This rich cream provides long-lasting hydration for dry skin."
+    }
+  ]
+}

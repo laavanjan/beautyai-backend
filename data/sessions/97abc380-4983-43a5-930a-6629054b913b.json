@@ -1,0 +1,183 @@
+{
+  "session_id": "97abc380-4983-43a5-930a-6629054b913b",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Face",
+    "skin_type": "combination"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p105",
+      "name": "Oil Control Mattifying Day Gel",
+      "brand": "ClarityLab",
+      "image_url": "https://images.unsplash.com/photo-1515444024624-818fe9c52136",
+      "price": 1320,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Day Creams"
+      },
+      "attributes": {
+        "skin_types": [
+          "oily skin",
+          "combination skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "sensitive to greasy or thick formulas",
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone"
+        ],
+        "texture": "gel",
+        "sensitivity_safe": [
+          "oil_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A lightweight gel-cream that instantly absorbs excess sebum. Keeps skin comfortable and shine-free through the day.",
+      "how_to_use": "Use every morning after cleansing and toning, apply a thin layer over face, avoiding eye area.",
+      "key_ingredients": [
+        "Niacinamide",
+        "Silica Micro-Spheres",
+        "Green Tea"
+      ],
+      "complementary_products": [
+        "p102",
+        "p114"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 83,
+        "purchase_count": 430,
+        "rating": 4.5,
+        "review_count": 188
+      }
+    },
+    {
+      "product_id": "p115",
+      "name": "Comfort Cream Sunscreen SPF 30",
+      "brand": "SunHug",
+      "image_url": "https://images.unsplash.com/photo-1585386959984-a4155223f3f8",
+      "price": 1250,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Sun Care"
+      },
+      "attributes": {
+        "skin_types": [
+          "dry skin",
+          "normal skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "Sunburn",
+          "sun damage",
+          "uneven skin tone"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [
+          "fragrance_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A moisturising sunscreen cream that cushions dry skin while protecting from UV rays. Leaves a soft, non-greasy finish.",
+      "how_to_use": "Apply evenly on face and neck every morning after moisturiser, reapply if outdoors for long durations.",
+      "key_ingredients": [
+        "Titanium Dioxide",
+        "Shea Butter",
+        "Glycerin"
+      ],
+      "complementary_products": [
+        "p104",
+        "p111"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 85,
+        "purchase_count": 390,
+        "rating": 4.5,
+        "review_count": 190
+      }
+    },
+    {
+      "product_id": "p116",
+      "name": "Hydrating Face Toner Mist",
+      "brand": "MistAura",
+      "image_url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "price": 980,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Face",
+        "section": "Toners"
+      },
+      "attributes": {
+        "skin_types": [
+          "normal skin",
+          "dry skin",
+          "sensitive skin"
+        ],
+        "hair_types": [],
+        "concerns": [
+          "Dryness",
+          "dehydration",
+          "maintaining the skin's moisture barrier",
+          "sensitive skin"
+        ],
+        "texture": "liquid",
+        "sensitivity_safe": [
+          "alcohol_free"
+        ],
+        "contains_irritants": false
+      },
+      "description": "A fine facial mist that instantly refreshes and hydrates the skin. Can be used between skincare steps or over makeup.",
+      "how_to_use": "Hold bottle 15–20 cm away and spritz evenly over face whenever skin feels tight or dull.",
+      "key_ingredients": [
+        "Rose Water",
+        "Hyaluronic Acid",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p101",
+        "p111"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 77,
+        "purchase_count": 275,
+        "rating": 4.3,
+        "review_count": 120
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-02-28T21:09:45.627762Z",
+  "conversation_history": [
+    {
+      "user": "hi",
+      "assistant": "Hi, welcome to Beauty Mart! I'd love to help you find something beautiful today 😊"
+    },
+    {
+      "user": "i am looking for a face care product",
+      "assistant": "We have a wide range of face care products. What's your skin type?"
+    },
+    {
+      "user": "I have combination skin",
+      "assistant": "We've curated a personalized face care routine tailored to your combination skin type, featuring products to balance and nourish your skin. Get ready to glow with our expertly selected picks!"
+    },
+    {
+      "user": "Can you suggest a more affordable option for one of these?",
+      "assistant": "I'm searching for a more affordable alternative to one of your current face care products."
+    }
+  ]
+}

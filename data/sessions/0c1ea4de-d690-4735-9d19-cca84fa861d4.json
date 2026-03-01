@@ -1,0 +1,174 @@
+{
+  "session_id": "0c1ea4de-d690-4735-9d19-cca84fa861d4",
+  "current_node": "conversation",
+  "slots": {
+    "main_category": "Hair",
+    "hair_concern": "dryness"
+  },
+  "asked_fields": [],
+  "pending_confirmation": null,
+  "products": [
+    {
+      "product_id": "p130",
+      "name": "Repair & Shine Conditioner",
+      "brand": "LushStrand",
+      "image_url": "https://tse4.mm.bing.net/th/id/OIP.KIAykjP-Tl9QvBwx0YaY2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1180,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "dry hair",
+          "damaged hair",
+          "curly"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "and porous hair",
+          "Excess oil",
+          "sebum",
+          "greasy roots",
+          "product build-up",
+          "and scalp imbalance"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A rich conditioner that smooths frizz and repairs surface damage. Leaves hair soft, shiny and easy to detangle.",
+      "how_to_use": "After shampooing, apply generously from mid-lengths to ends, leave for 3–5 minutes and rinse.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Keratin"
+      ],
+      "complementary_products": [
+        "p138",
+        "p139"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 84,
+        "purchase_count": 360,
+        "rating": 4.5,
+        "review_count": 185
+      }
+    },
+    {
+      "product_id": "p140",
+      "name": "Daily Curl Softening Conditioner",
+      "brand": "CurlCraft",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 1150,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Conditioners"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "curly",
+          "dry hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "cream",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "An everyday conditioner that softens and detangles curls. Keeps them hydrated and easier to style.",
+      "how_to_use": "Smooth through freshly washed hair, leave for 2–3 minutes and rinse. Can be used as a leave-in on very dry hair.",
+      "key_ingredients": [
+        "Shea Butter",
+        "Coconut Oil",
+        "Aloe Vera"
+      ],
+      "complementary_products": [
+        "p138",
+        "p129"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 81,
+        "purchase_count": 310,
+        "rating": 4.5,
+        "review_count": 160
+      }
+    },
+    {
+      "product_id": "p139",
+      "name": "Shine Boost Hair Gloss Serum",
+      "brand": "LuxeShine",
+      "image_url": "https://th.bing.com/th?id=OIF.W6Ubd30bSjF8u3ywW%2bD4jw&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "price": 990,
+      "currency": "Rs",
+      "in_stock": true,
+      "categories": {
+        "main_category": "Hair",
+        "section": "Hair Masks & Deep Treatments"
+      },
+      "attributes": {
+        "skin_types": [],
+        "hair_types": [
+          "straight",
+          "combination hair"
+        ],
+        "concerns": [
+          "Dry hair",
+          "damaged hair",
+          "frizz",
+          "dullness",
+          "lifeless",
+          "porous hair"
+        ],
+        "texture": "serum",
+        "sensitivity_safe": [],
+        "contains_irritants": false
+      },
+      "description": "A finishing serum that adds instant gloss and smoothness to dull hair. Helps tame flyaways without greasiness.",
+      "how_to_use": "Apply 1–2 pumps on dry or damp hair, concentrating on lengths and ends, avoid roots.",
+      "key_ingredients": [
+        "Silicones",
+        "Argan Oil",
+        "Vitamin E"
+      ],
+      "complementary_products": [
+        "p130",
+        "p136"
+      ],
+      "ranking_signals": {
+        "base_score": 0,
+        "trending_score": 79,
+        "purchase_count": 280,
+        "rating": 4.4,
+        "review_count": 145
+      }
+    }
+  ],
+  "trigger_recommender": false,
+  "recommender_context": null,
+  "updated_at": "2026-03-01T16:18:26.153978Z",
+  "conversation_history": [
+    {
+      "user": "hey i want a new shampoo for my damaged hair",
+      "assistant": "Sorry to hear about your damaged hair 😊\n\nWe have some great options for damaged hair. I recommend checking out the Repair & Shine Conditioner by LushStrand for intense moisture."
+    }
+  ]
+}
