@@ -1,0 +1,26 @@
+# Python / Backend
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+data/sessions/
+data/users/
+env
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+.env.local
+.env.production.local
+*.tsbuildinfo
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
