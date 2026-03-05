@@ -19,7 +19,7 @@ allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_credentials=False,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -110,6 +110,9 @@ class ChatResponse(BaseModel):
 async def health():
     return {"status": "ok", "service": "BeautyAI Backend"}
 
+@app.options("/chat")
+async def options_chat():
+    return {}
 
 @app.post("/chat", response_model=ChatResponse)
 async def handle_chat(req: ChatRequest):
