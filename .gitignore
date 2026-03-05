@@ -12,6 +12,7 @@ data/sessions/
 data/users/
 env
 
+
 # Node / Frontend
 node_modules/
 .next/

@@ -1,406 +1,458 @@
 """
-products.py — Product search + routine builder for BeautyAI
+products.py — BeautyAI product catalog, routine builder, and search
+
+Responsibilities:
+  - Load products_db.json at startup
+  - Expose PRODUCT_CATALOG, CATALOG_VALUES
+  - build_routine(state)  → scored routine for a user profile
+  - search_products(...)  → filtered + scored product search
+  - get_section_products(section) → ALL products in a section, sorted by rating
 """
+
 import json
-from typing import List, Dict, Any, Optional, Set
-from models import DialogState
-
-PRODUCT_CATALOG: List[Dict[str, Any]] = []
-try:
-    with open("products_db.json", "r", encoding="utf-8") as f:
-        PRODUCT_CATALOG = json.load(f)
-    print(f"[PRODUCTS] Loaded {len(PRODUCT_CATALOG)} products")
-except FileNotFoundError:
-    print("[PRODUCTS] ERROR: products_db.json not found!")
-except json.JSONDecodeError as e:
-    print(f"[PRODUCTS] ERROR: Invalid JSON → {e}")
-
+import os
+from typing import List, Dict, Optional
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CATALOG METADATA — dynamic values extracted from real products
-# Used by the engine to generate accurate follow-up buttons
+# LOAD CATALOG
 # ─────────────────────────────────────────────────────────────────────────────
 
-def get_catalog_values() -> Dict[str, Any]:
-    """Extract all unique queryable values from the catalog."""
-    textures: Set[str]         = set()
-    sensitivity_tags: Set[str] = set()
-    all_concerns: Set[str]     = set()
-    sections: Set[str]         = set()
-    brands: Set[str]           = set()
-    ingredients: Set[str]      = set()
-    categories: Set[str]       = set()
-
-    for p in PRODUCT_CATALOG:
-        attrs = p.get("attributes", {})
-        cats  = p.get("categories", {})
-
-        if attrs.get("texture"):
-            textures.add(attrs["texture"])
-        for tag in attrs.get("sensitivity_safe", []):
-            sensitivity_tags.add(tag)
-        for c in attrs.get("concerns", []):
-            # Normalize — only add short, clean concern terms
-            c_clean = c.strip()
-            if len(c_clean) < 50:
-                all_concerns.add(c_clean)
-        if cats.get("section"):
-            sections.add(cats["section"])
-        if cats.get("main_category"):
-            categories.add(cats["main_category"])
-        if p.get("brand"):
-            brands.add(p["brand"])
-        for ing in p.get("key_ingredients", []):
-            ingredients.add(ing)
-
-    return {
-        "textures":        sorted(textures),
-        "sensitivity_tags": sorted(sensitivity_tags),
-        "concerns":        sorted(all_concerns),
-        "sections":        sorted(sections),
-        "categories":      sorted(categories),
-        "brands":          sorted(brands),
-        "ingredients":     sorted(ingredients),
-    }
-
-CATALOG_VALUES = get_catalog_values()
+def _find_catalog() -> str:
+    """Search common locations for products_db.json."""
+    base = os.path.dirname(__file__)
+    candidates = [
+        os.path.join(base, "products_db.json"),           # same folder as products.py
+        os.path.join(base, "data", "products_db.json"),   # data/ subfolder
+        os.path.join(base, "..", "products_db.json"),     # one level up
+        "products_db.json",                               # cwd
+        "data/products_db.json",                          # cwd/data/
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    return candidates[0]  # fallback — will raise FileNotFoundError with clear message
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# MULTI-FIELD PRODUCT SEARCH
-# ─────────────────────────────────────────────────────────────────────────────
-
-def search_products(
-    query: Optional[str]             = None,      # free-text name search
-    main_category: Optional[str]     = None,      # Face | Hair | Body | Baby
-    section: Optional[str]           = None,      # Cleansers | Toners | etc.
-    brand: Optional[str]             = None,      # brand name (partial)
-    skin_types: Optional[List[str]]  = None,      # e.g. ["oily skin", "dry skin"]
-    hair_types: Optional[List[str]]  = None,      # e.g. ["curly", "dry hair"]
-    concerns: Optional[List[str]]    = None,      # e.g. ["acne", "dryness"]
-    texture: Optional[str]           = None,      # gel | cream | liquid | serum | foam | powder
-    sensitivity_safe: Optional[List[str]] = None, # e.g. ["fragrance_free", "oil_free"]
-    contains_irritants: Optional[bool]   = None,  # True | False
-    key_ingredients: Optional[List[str]] = None,  # e.g. ["Niacinamide", "Vitamin C"]
-    min_price: Optional[float]       = None,
-    max_price: Optional[float]       = None,
-    in_stock_only: bool              = True,
-    limit: int                       = 6,
-) -> List[Dict]:
+def _normalize_product(p: Dict) -> Dict:
     """
-    Search the product catalog across all fields.
-    Returns scored, ranked list of matching products.
+    Normalize a product dict to a consistent internal format.
+
+    Supports two schemas:
+      Schema A (new): p["categories"]["main_category"], p["categories"]["section"]
+      Schema B (old/flat): p["category"] (lowercase), p["subcategory"]
+
+    After normalization, always use:
+      p["_category"] → e.g. "Face"
+      p["_section"]  → e.g. "Cleansers"
     """
-    results = []
+    if "_category" in p:
+        return p  # already normalized
 
-    for product in PRODUCT_CATALOG:
-        if in_stock_only and not product.get("in_stock", True):
-            continue
+    cats = p.get("categories", {})
 
-        attrs = product.get("attributes", {})
-        cats  = product.get("categories", {})
-        score = 0.0
-        matched = True
+    # Schema A
+    if cats.get("main_category"):
+        cat     = cats["main_category"]
+        section = cats.get("section", "")
+    # Schema B (flat)
+    else:
+        raw_cat = p.get("category", p.get("main_category", ""))
+        cat     = raw_cat.capitalize() if raw_cat else ""
+        section = p.get("subcategory", p.get("section", ""))
 
-        # ── Hard filters (must match if specified) ──
+    p["_category"] = cat
+    p["_section"]  = section
+    return p
 
-        # Main category
-        if main_category:
-            if cats.get("main_category", "").lower() != main_category.lower():
-                continue
 
-        # Section
-        if section:
-            if section.lower() not in cats.get("section", "").lower():
-                continue
+def _load_catalog() -> List[Dict]:
+    path = _find_catalog()
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        raw = data if isinstance(data, list) else data.get("products", data.get("items", []))
+        products = [_normalize_product(p) for p in raw]
+        print(f"[CATALOG] Loaded {len(products)} products from {path}")
+        return products
+    except FileNotFoundError:
+        print(f"[CATALOG] WARNING: products_db.json not found in any expected location")
+        print(f"[CATALOG] Searched: same dir as products.py, data/, parent dir, cwd")
+        return []
+    except Exception as e:
+        print(f"[CATALOG] ERROR loading {path}: {e}")
+        return []
 
-        # Brand
-        if brand:
-            if brand.lower() not in product.get("brand", "").lower():
-                continue
 
-        # Price range
-        price = product.get("price", 0)
-        if min_price is not None and price < min_price:
-            continue
-        if max_price is not None and price > max_price:
-            continue
+PRODUCT_CATALOG: List[Dict] = _load_catalog()
 
-        # contains_irritants hard filter
-        if contains_irritants is not None:
-            if attrs.get("contains_irritants") != contains_irritants:
-                continue
 
-        # ── Soft scoring (partial matches boost score) ──
+def _build_catalog_values() -> Dict:
+    categories = sorted({p["_category"] for p in PRODUCT_CATALOG if p.get("_category")})
+    sections   = sorted({p["_section"]  for p in PRODUCT_CATALOG if p.get("_section")})
+    brands     = sorted({p.get("brand", "") for p in PRODUCT_CATALOG if p.get("brand")})
+    return {"categories": categories, "sections": sections, "brands": brands}
 
-        # Name/description free-text
-        if query:
-            q_lower = query.lower()
-            name_lower = product.get("name", "").lower()
-            desc_lower = product.get("description", "").lower()
-            brand_lower = product.get("brand", "").lower()
-            if q_lower in name_lower:
-                score += 80
-            elif any(word in name_lower for word in q_lower.split() if len(word) > 2):
-                score += 40
-            if q_lower in desc_lower:
-                score += 20
-            if q_lower in brand_lower:
-                score += 30
 
-        # Skin types
-        if skin_types:
-            p_skin = [s.lower() for s in attrs.get("skin_types", [])]
-            for st in skin_types:
-                if any(st.lower() in ps for ps in p_skin):
-                    score += 60
-
-        # Hair types
-        if hair_types:
-            p_hair = [h.lower() for h in attrs.get("hair_types", [])]
-            for ht in hair_types:
-                if any(ht.lower() in ph for ph in p_hair):
-                    score += 60
-
-        # Concerns (partial match)
-        if concerns:
-            p_concerns = [c.lower() for c in attrs.get("concerns", [])]
-            for concern in concerns:
-                if any(concern.lower() in pc for pc in p_concerns):
-                    score += 35
-
-        # Texture
-        if texture:
-            if attrs.get("texture", "").lower() == texture.lower():
-                score += 50
-
-        # Sensitivity safe tags
-        if sensitivity_safe:
-            p_safe = [s.lower() for s in attrs.get("sensitivity_safe", [])]
-            for tag in sensitivity_safe:
-                if tag.lower() in p_safe:
-                    score += 30
-
-        # Key ingredients
-        if key_ingredients:
-            p_ings = [i.lower() for i in product.get("key_ingredients", [])]
-            for ing in key_ingredients:
-                if any(ing.lower() in pi for pi in p_ings):
-                    score += 40
-
-        # If NO filters given at all, include everything with base ranking score
-        has_any_filter = any([
-            query, main_category, section, brand, skin_types, hair_types,
-            concerns, texture, sensitivity_safe, key_ingredients,
-            min_price, max_price
-        ])
-        if not has_any_filter:
-            score = 1.0
-
-        # Ranking signals tiebreaker
-        signals = product.get("ranking_signals", {})
-        score += (signals.get("rating") or 0) * 5
-        score += (signals.get("trending_score") or 0) / 10
-
-        # Only include if it scored at all (or no filters)
-        if score > 0 or not has_any_filter:
-            results.append((score, product))
-
-    results.sort(key=lambda x: x[0], reverse=True)
-    return [p for _, p in results[:limit]]
+CATALOG_VALUES: Dict = _build_catalog_values()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ROUTINE BUILDER (unchanged — used only when user explicitly requests routine)
+# ROUTINE CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
 
-FACE_ROUTINE_STEPS = [
-    {"step": "Cleanser",       "sections": ["Cleansers"],                    "purpose": "Removes impurities, oil, and makeup without stripping the skin"},
-    {"step": "Toner",          "sections": ["Toners"],                       "purpose": "Balances skin pH and preps skin to absorb the next steps better"},
-    {"step": "Exfoliator",     "sections": ["Exfoliators"],                  "purpose": "Gently removes dead skin cells for smoother, brighter skin (2–3x per week)"},
-    {"step": "Serum",          "sections": ["Serums & Targeted Treatments"], "purpose": "Delivers concentrated actives targeting your specific skin concerns"},
-    {"step": "Eye Care",       "sections": ["Eye Care"],                     "purpose": "Treats the delicate under-eye area — puffiness, dark circles, fine lines"},
-    {"step": "Moisturiser",    "sections": ["Moisturisers", "Day Creams"],   "purpose": "Locks in hydration and keeps your skin barrier strong all day"},
-    {"step": "Night Cream",    "sections": ["Night Cream"],                  "purpose": "Supports overnight repair and deep nourishment while you sleep"},
-    {"step": "Sun Protection", "sections": ["Sun Care"],                     "purpose": "Shields skin from UV damage — prevents premature aging and dark spots"},
-]
+ROUTINE_CONFIG = {
+    "face": [
+        {"step": 1, "routine_step": "cleanser",        "subcategories": ["Cleansers"]},
+        {"step": 2, "routine_step": "makeup_remover",  "subcategories": ["Makeup Removers"]},
+        {"step": 3, "routine_step": "toner",           "subcategories": ["Toners"]},
+        {"step": 4, "routine_step": "exfoliator",      "subcategories": ["Exfoliators"]},
+        {"step": 5, "routine_step": "treatment_serum", "subcategories": ["Serums & Targeted Treatments"]},
+        {"step": 6, "routine_step": "eye_care",        "subcategories": ["Eye Care"]},
+        {"step": 7, "routine_step": "moisturiser",     "subcategories": ["Moisturisers", "Day Creams"]},
+        {"step": 8, "routine_step": "night_cream",     "subcategories": ["Night Cream"]},
+        {"step": 9, "routine_step": "sun_protection",  "subcategories": ["Sun Care", "Sunscreens"]},
+    ],
+    "hair": [
+        {"step": 1, "routine_step": "shampoo",       "subcategories": ["Shampoos"]},
+        {"step": 2, "routine_step": "pre_treatment",  "subcategories": ["Shampoos"]},
+        {"step": 3, "routine_step": "conditioner",   "subcategories": ["Conditioners"]},
+        {"step": 4, "routine_step": "hair_mask",     "subcategories": ["Hair Masks & Deep Treatments"]},
+        {"step": 5, "routine_step": "hair_serum",    "subcategories": ["Hair Masks & Deep Treatments"]},
+    ],
+    "body": [
+        {"step": 1, "routine_step": "body_wash",        "subcategories": ["Body Washes & Cleansers"]},
+        {"step": 2, "routine_step": "body_moisturiser", "subcategories": ["Body Creams & Lotions"], "texture_filter": ["cream", "lotion", "liquid"]},
+        {"step": 3, "routine_step": "hand_foot_care",   "subcategories": ["Hand and Foot Care"]},
+        {"step": 4, "routine_step": "deodorant",        "subcategories": ["Deodorants & Antiperspirants"]},
+        {"step": 5, "routine_step": "body_sunscreen",   "subcategories": ["Sunscreens"]},
+    ],
+}
 
-BODY_ROUTINE_STEPS = [
-    {"step": "Body Wash",        "sections": ["Body Creams & Lotions"],  "purpose": "Cleanses and nourishes skin during your shower"},
-    {"step": "Body Moisturiser", "sections": ["Body Creams & Lotions"],  "purpose": "Seals in moisture and keeps skin soft all day"},
-    {"step": "Hand & Foot Care", "sections": ["Hand and Foot Care"],     "purpose": "Targets dryness and roughness on hands, heels, and feet"},
-]
+# Human-readable step names
+_STEP_NAMES = {
+    "cleanser":        "Cleanser",
+    "makeup_remover":  "Makeup Remover",
+    "toner":           "Toner",
+    "exfoliator":      "Exfoliator",
+    "treatment_serum": "Serum",
+    "eye_care":        "Eye Care",
+    "moisturiser":     "Moisturiser",
+    "night_cream":     "Night Cream",
+    "sun_protection":  "Sun Protection",
+    "shampoo":         "Shampoo",
+    "pre_treatment":   "Pre-Treatment",
+    "conditioner":     "Conditioner",
+    "hair_mask":       "Hair Mask",
+    "hair_serum":      "Hair Serum",
+    "body_wash":       "Body Wash",
+    "body_moisturiser":"Body Moisturiser",
+    "hand_foot_care":  "Hand & Foot Care",
+    "deodorant":       "Deodorant",
+    "body_sunscreen":  "Body Sunscreen",
+}
 
-HAIR_ROUTINE_STEPS = [
-    {"step": "Conditioner",    "sections": ["Conditioners"],                "purpose": "Softens, detangles and nourishes hair after every wash"},
-    {"step": "Hair Treatment", "sections": ["Hair Masks & Deep Treatments"],"purpose": "Intensively repairs and restores hair — use 1–2x per week"},
-]
-
-BABY_ROUTINE_STEPS = [
-    {"step": "Baby Cleanser",    "sections": ["Baby Bath & Shampoo", "Baby Milk Powder"], "purpose": "Gently cleanses baby's delicate skin and hair without irritation"},
-    {"step": "Baby Moisturiser", "sections": ["Baby Lotions & creams"],                   "purpose": "Keeps baby's skin soft and protected after bath time"},
-]
-
-ROUTINE_MAP = {
-    "Face": FACE_ROUTINE_STEPS,
-    "Body": BODY_ROUTINE_STEPS,
-    "Hair": HAIR_ROUTINE_STEPS,
-    "Baby": BABY_ROUTINE_STEPS,
+# Step purpose descriptions shown in the routine card
+_STEP_PURPOSES = {
+    "cleanser":        "Removes dirt, oil, and impurities without stripping the skin.",
+    "makeup_remover":  "Gently dissolves makeup and sunscreen before cleansing.",
+    "toner":           "Rebalances skin pH and preps skin to absorb serums better.",
+    "exfoliator":      "Removes dead skin cells 1–3× a week for a brighter complexion.",
+    "treatment_serum": "Targets your specific concern with active ingredients.",
+    "eye_care":        "Hydrates and protects the delicate skin around your eyes.",
+    "moisturiser":     "Locks in hydration and keeps your skin barrier healthy.",
+    "night_cream":     "Deep repair and renewal while you sleep.",
+    "sun_protection":  "Protects against UV damage — essential every single morning.",
+    "shampoo":         "Cleanses the scalp and removes product buildup.",
+    "pre_treatment":   "Applied before shampooing to protect and strengthen hair.",
+    "conditioner":     "Smooths the hair cuticle and adds moisture after shampooing.",
+    "hair_mask":       "Intense weekly treatment for deep repair and nourishment.",
+    "hair_serum":      "Finishing treatment to add shine and tame frizz.",
+    "body_wash":       "Cleanses the skin while maintaining moisture balance.",
+    "body_moisturiser":"Seals in moisture right after your shower.",
+    "hand_foot_care":  "Targeted hydration for hands and feet.",
+    "deodorant":       "Keeps you fresh and confident all day.",
+    "body_sunscreen":  "Protects exposed skin from UV rays on sunny days.",
 }
 
 
-def _score_product(product: Dict, state: DialogState) -> float:
-    attrs   = product.get("attributes", {})
-    signals = product.get("ranking_signals", {})
-    slots   = state.slots
-    score   = 0.0
+# ─────────────────────────────────────────────────────────────────────────────
+# PRODUCT SCORER
+# Scores a product against a user profile — higher = better match
+# ─────────────────────────────────────────────────────────────────────────────
 
-    skin_type     = slots.get("skin_type", "")
-    skin_concerns = slots.get("skin_concern", []) or []
-    hair_type     = slots.get("hair_type", "")
-    hair_concerns = slots.get("hair_concern", []) or []
-    sensitivity   = slots.get("sensitivity", "")
+def _score_product(product: Dict, slots: Dict) -> float:
+    score = 0.0
+    attrs = product.get("attributes", {})
 
-    if isinstance(skin_concerns, str): skin_concerns = [skin_concerns]
-    if isinstance(hair_concerns, str): hair_concerns = [hair_concerns]
+    skin_type    = slots.get("skin_type", "")
+    skin_concern = slots.get("skin_concern") or []
+    hair_type    = slots.get("hair_type", "")
+    hair_concern = slots.get("hair_concern") or []
+    exclusions   = slots.get("exclusions") or []
 
-    cat_skin = [s.lower() for s in attrs.get("skin_types", [])]
-    cat_hair = [h.lower() for h in attrs.get("hair_types", [])]
-    cat_conc = [c.lower() for c in attrs.get("concerns", [])]
-    cat_safe = [s.lower() for s in attrs.get("sensitivity_safe", [])]
+    if isinstance(skin_concern, str): skin_concern = [skin_concern]
+    if isinstance(hair_concern, str): hair_concern = [hair_concern]
+    if isinstance(exclusions,   str): exclusions   = [exclusions]
 
-    if skin_type and any(skin_type.lower() in t for t in cat_skin):  score += 60
-    for c in skin_concerns:
-        if any(c.lower() in x for x in cat_conc): score += 25
-    if hair_type and any(hair_type.lower() in t for t in cat_hair):  score += 60
-    for c in hair_concerns:
-        if any(c.lower() in x for x in cat_conc): score += 25
-    if sensitivity and any(sensitivity.lower() in s for s in cat_safe): score += 15
+    # Skin type match
+    skin_types_attr = attrs.get("skin_types") or product.get("skin_types") or []
+    if skin_type and skin_type in skin_types_attr:
+        score += 60
 
-    score += (signals.get("rating") or 0) * 5
-    score += (signals.get("trending_score") or 0) / 10
+    # Skin concern match
+    concerns_attr = attrs.get("concerns") or product.get("concerns") or []
+    for c in skin_concern:
+        if c in concerns_attr:
+            score += 25
+
+    # Hair type match
+    hair_types_attr = attrs.get("hair_types") or product.get("hair_types") or []
+    if hair_type and hair_type in hair_types_attr:
+        score += 60
+
+    # Hair concern match
+    for c in hair_concern:
+        if c in concerns_attr:
+            score += 25
+
+    # Sensitivity / exclusion safety
+    sensitivity_safe = attrs.get("sensitivity_safe") or product.get("sensitivity_safe") or []
+    for tag in sensitivity_safe:
+        score += 15
+
+    # Hard penalty: product contains an excluded ingredient
+    product_exclusions = attrs.get("exclusions") or product.get("exclusions") or []
+    for ex in exclusions:
+        if ex in product_exclusions:
+            score -= 999  # effectively disqualifies
+
+    # Ranking signals as tiebreaker
+    signals = product.get("ranking_signals") or {}
+    rating         = signals.get("rating", product.get("average_rating", 0)) or 0
+    trending_score = signals.get("trending_score", product.get("trending_score", 0)) or 0
+    score += rating * 5 + trending_score / 10
+
     return score
 
 
-def _best_for_step(step_def: Dict, main_cat: str, baby_section: Optional[str],
-                   state: DialogState, used_ids: set) -> Optional[Dict]:
-    candidates = []
-    for product in PRODUCT_CATALOG:
-        if not product.get("in_stock", True): continue
-        if product["product_id"] in used_ids: continue
-        cats  = product.get("categories", {})
-        if cats.get("main_category") != main_cat: continue
-        if cats.get("section", "") not in step_def["sections"]: continue
-        score = _score_product(product, state)
-        candidates.append((score, product))
+# ─────────────────────────────────────────────────────────────────────────────
+# SECTION HELPER — used by search agent for fresh section browsing
+# Returns ALL in-stock products in a section, sorted by rating descending
+# No profile filtering — this is a clean catalog browse
+# ─────────────────────────────────────────────────────────────────────────────
 
-    if not candidates:
-        return None
-
-    candidates.sort(key=lambda x: (
-        x[0],
-        x[1]["ranking_signals"].get("rating") or 0,
-        x[1]["ranking_signals"].get("trending_score") or 0,
-    ), reverse=True)
-
-    best = candidates[0][1]
-    used_ids.add(best["product_id"])
-    return best
+def get_section_products(section: str) -> List[Dict]:
+    """
+    Return all in-stock products in a section, sorted by rating.
+    This is intentionally profile-agnostic — used when user asks for a
+    section directly (e.g. "show me all toners") with no filtering.
+    """
+    products = [
+        p for p in PRODUCT_CATALOG
+        if p.get("_section") == section
+        and p.get("in_stock", True)
+    ]
+    products.sort(key=lambda p: -(
+        (p.get("ranking_signals") or {}).get("rating", p.get("average_rating", 0)) or 0
+    ))
+    return products
 
 
-def build_routine(state: DialogState) -> List[Dict]:
-    main_cat     = state.slots.get("main_category")
-    baby_section = state.slots.get("baby_section")
-    if not main_cat or main_cat not in ROUTINE_MAP:
-        return []
+# ─────────────────────────────────────────────────────────────────────────────
+# ROUTINE BUILDER
+# Builds a scored, profile-matched routine for the user
+# ─────────────────────────────────────────────────────────────────────────────
 
-    used_ids: set = set()
-    routine  = []
-    step_num = 1
+def build_routine(state) -> List[Dict]:
+    """
+    Build a personalised routine based on state.slots.
 
-    for step_def in ROUTINE_MAP[main_cat]:
-        product = _best_for_step(step_def, main_cat, baby_section, state, used_ids)
-        if product:
-            routine.append({
-                "step_number": step_num,
-                "step_name":   step_def["step"],
-                "purpose":     step_def["purpose"],
-                "product":     product,
-            })
-            step_num += 1
+    Returns a list of step dicts:
+    {
+        step_number : int,
+        routine_step: str,   # internal key e.g. "cleanser"
+        step_name   : str,   # display name e.g. "Cleanser"
+        purpose     : str,   # one-line description
+        product     : Dict,  # best-matched product for this step
+    }
+
+    Steps with no matching product are skipped.
+    """
+    slots = state.slots if hasattr(state, "slots") else state
+    category = (slots.get("main_category") or "").lower()
+
+    if category not in ROUTINE_CONFIG:
+        # Try to infer from slots
+        if slots.get("hair_type") or slots.get("hair_concern"):
+            category = "hair"
+        elif slots.get("skin_type") or slots.get("skin_concern"):
+            category = "face"
+        else:
+            return []
+
+    config = ROUTINE_CONFIG[category]
+    routine = []
+
+    # Track which product IDs we've already used so no duplicate products in routine
+    used_ids = set()
+
+    for step_config in config:
+        step_num     = step_config["step"]
+        routine_step = step_config["routine_step"]
+        subcategories = step_config["subcategories"]
+        texture_filter = step_config.get("texture_filter")
+
+        # Gather candidates from all subcategories for this step
+        candidates = []
+        for section in subcategories:
+            for p in PRODUCT_CATALOG:
+                if p.get("product_id") in used_ids:
+                    continue
+                if not p.get("in_stock", True):
+                    continue
+                p_section = p.get("_section", "")
+                if p_section != section:
+                    continue
+                if texture_filter:
+                    p_texture = (p.get("attributes") or {}).get("texture", p.get("texture", ""))
+                    if p_texture not in texture_filter:
+                        continue
+                candidates.append(p)
+
+        if not candidates:
+            continue
+
+        # Score all candidates against user profile
+        scored = sorted(candidates, key=lambda p: _score_product(p, slots), reverse=True)
+        best = scored[0]
+
+        # Skip this step if the product is disqualified (score < -900 means excluded ingredient)
+        if _score_product(best, slots) < -900:
+            continue
+
+        used_ids.add(best.get("product_id"))
+        routine.append({
+            "step_number":  step_num,
+            "routine_step": routine_step,
+            "step_name":    _STEP_NAMES.get(routine_step, routine_step.replace("_", " ").title()),
+            "purpose":      _STEP_PURPOSES.get(routine_step, ""),
+            "product":      best,
+        })
 
     return routine
 
 
-def get_recommendations(state: DialogState) -> List[Dict]:
-    return [s["product"] for s in build_routine(state) if s.get("product")]
-
-
-def format_routine_intro(routine: List[Dict], state: DialogState) -> str:
-    if not routine:
-        return "I wasn't able to find matching products right now. Let me know if you'd like to adjust your preferences! 🔍"
-
-    slots     = state.slots
-    skin_type = slots.get("skin_type", "")
-    concerns  = slots.get("skin_concern") or slots.get("hair_concern") or []
-    cat       = slots.get("main_category", "")
-    baby_sec  = slots.get("baby_section", "")
-
-    if isinstance(concerns, str): concerns = [concerns]
-
-    if skin_type and concerns:
-        profile = f"your **{skin_type}** skin with **{', '.join(concerns)}** concerns"
-    elif skin_type:
-        profile = f"your **{skin_type}** skin"
-    elif concerns:
-        profile = f"your **{', '.join(concerns)}** concerns"
-    elif baby_sec:
-        profile = f"**{baby_sec}**"
-    else:
-        profile = f"**{cat}** care"
-
+def format_routine_intro(routine: List[Dict], state) -> str:
+    """Generate a plain-text intro string for the routine (used as fallback)."""
+    slots = state.slots if hasattr(state, "slots") else state
+    concern = slots.get("skin_concern") or slots.get("hair_concern") or []
+    if isinstance(concern, list):
+        concern = ", ".join(concern)
+    skin_type = slots.get("skin_type") or slots.get("hair_type") or ""
+    steps = len(routine)
     return (
-        f"Here's a routine I built for {profile}. ✨\n\n"
-        "Feel free to ask about any product, request a swap, or tell me your budget!"
+        f"Here's your personalised {steps}-step routine"
+        + (f" for {skin_type} skin" if skin_type else "")
+        + (f" targeting {concern}" if concern else "")
+        + "! Scroll through each step below. ✨"
     )
 
 
-def get_step_alternatives(
-    state: DialogState,
-    step_name: Optional[str],
-    price_direction: Optional[str],
-    exclude_ids: set,
+# ─────────────────────────────────────────────────────────────────────────────
+# SEARCH — profile-aware product search (used when no specific section)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def search_products(
+    query:            Optional[str]       = None,
+    main_category:    Optional[str]       = None,
+    section:          Optional[str]       = None,
+    brand:            Optional[str]       = None,
+    skin_types:       Optional[List[str]] = None,
+    hair_types:       Optional[List[str]] = None,
+    concerns:         Optional[List[str]] = None,
+    texture:          Optional[str]       = None,
+    sensitivity_safe: Optional[List[str]] = None,
+    key_ingredients:  Optional[List[str]] = None,
+    max_price:        Optional[float]     = None,
+    limit:            int                 = 6,
 ) -> List[Dict]:
-    main_cat = state.slots.get("main_category")
-    if not main_cat or main_cat not in ROUTINE_MAP:
-        return []
+    """
+    Filter + score products against search parameters.
+    Returns up to `limit` products sorted by score descending.
+    """
+    results = []
 
-    target_sections = []
-    if step_name:
-        for step_def in ROUTINE_MAP[main_cat]:
-            if step_name.lower() in step_def["step"].lower():
-                target_sections = step_def["sections"]
-                break
-    if not target_sections:
-        target_sections = [s for step in ROUTINE_MAP[main_cat] for s in step["sections"]]
+    for p in PRODUCT_CATALOG:
+        if not p.get("in_stock", True):
+            continue
 
-    current_prices = [p.get("price", 0) for p in state.products]
-    avg_price = sum(current_prices) / len(current_prices) if current_prices else 1500
+        attrs = p.get("attributes", {})
 
-    candidates = []
-    for product in PRODUCT_CATALOG:
-        if not product.get("in_stock", True): continue
-        if product["product_id"] in exclude_ids: continue
-        cats = product.get("categories", {})
-        if cats.get("main_category") != main_cat: continue
-        if cats.get("section") not in target_sections: continue
+        # Hard filters
+        if main_category and p.get("_category", "").lower() != main_category.lower():
+            continue
+        if section and p.get("_section") != section:
+            continue
+        if brand and brand.lower() not in p.get("brand", "").lower():
+            continue
+        if max_price is not None and p.get("price", 999999) > max_price:
+            continue
+        if texture:
+            p_texture = attrs.get("texture", p.get("texture", ""))
+            if p_texture != texture:
+                continue
+        if sensitivity_safe:
+            p_safe = attrs.get("sensitivity_safe", p.get("sensitivity_safe", []))
+            if not all(s in p_safe for s in sensitivity_safe):
+                continue
+        if key_ingredients:
+            p_ings = [i.lower() for i in (p.get("key_ingredients") or attrs.get("key_ingredients") or [])]
+            if not any(k.lower() in p_ings for k in key_ingredients):
+                continue
 
-        price = product.get("price", 0)
-        if price_direction == "lower" and price >= avg_price: continue
-        if price_direction == "higher" and price <= avg_price: continue
+        # Build a score for this product
+        score = 0.0
 
-        score = _score_product(product, state)
-        candidates.append((score, product))
+        # Skin type match
+        p_skin_types = attrs.get("skin_types", p.get("skin_types", []))
+        if skin_types:
+            for st in skin_types:
+                clean = st.replace(" skin", "").strip()
+                if clean in p_skin_types:
+                    score += 60
 
-    candidates.sort(key=lambda x: (x[0], x[1]["ranking_signals"].get("rating") or 0), reverse=True)
-    return [p for _, p in candidates[:3]]
+        # Hair type match
+        p_hair_types = attrs.get("hair_types", p.get("hair_types", []))
+        if hair_types:
+            for ht in hair_types:
+                clean = ht.replace(" hair", "").strip()
+                if clean in p_hair_types:
+                    score += 60
+
+        # Concern match
+        p_concerns = attrs.get("concerns", p.get("concerns", []))
+        if concerns:
+            for c in concerns:
+                if c in p_concerns:
+                    score += 25
+
+        # Query: re-rank (not hard filter)
+        if query:
+            ql = query.lower()
+            name_lower = p.get("name", "").lower()
+            desc_lower = p.get("description", "").lower()
+            if ql in name_lower:
+                score += 50
+            elif ql in desc_lower:
+                score += 20
+
+        # Ranking signals tiebreaker
+        signals        = p.get("ranking_signals") or {}
+        rating         = signals.get("rating", p.get("average_rating", 0)) or 0
+        trending_score = signals.get("trending_score", p.get("trending_score", 0)) or 0
+        score += rating * 5 + trending_score / 10
+
+        results.append((score, p))
+
+    results.sort(key=lambda x: -x[0])
+    return [p for _, p in results[:limit]]

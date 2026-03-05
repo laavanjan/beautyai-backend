@@ -1,106 +1,105 @@
 """
-conversational_engine.py — BeautyAI multi-agent sales engine
+conversational_engine.py — BeautyAI v2
 
-Key behaviours:
-  - React to the user FIRST (empathy/acknowledgement), then help
-  - Search products by any combination of fields (brand, texture, ingredient, concern, etc.)
-  - Buttons are generated from REAL catalog values — never made up
-  - NO unsolicited routines — only show a routine if the user explicitly asks for one
-  - Show individual products or filtered sets when user asks for a specific item
-  - Routine builder is only called when user says "show me a routine" or equivalent
+═══════════════════════════════════════════════════════════════════
+ARCHITECTURE OVERVIEW
+═══════════════════════════════════════════════════════════════════
+
+Every message passes through an INTENT AGENT first.
+The intent agent classifies the message into one of two activities:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  ACTIVITY 1 — Guided Profile Collection + Personalised Output   │
+│                                                                 │
+│  Steps (tracked in slots["_step"]):                             │
+│    ask_concern  → ask user their main skin/hair concern         │
+│    ask_type     → ask skin type (oily/dry…) or hair type        │
+│    ask_allergy  → ask for ingredients to avoid                  │
+│    ask_output   → "Do you want a ROUTINE or a PRODUCT LINE?"    │
+│                                                                 │
+│  Output branches:                                               │
+│    "routine"      → Routine Agent builds personalised steps     │
+│    "product_line" → Section Agent shows the best-fit section    │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  ACTIVITY 2 — Direct Product Discovery                          │
+│                                                                 │
+│  2A  Section Browse   — user names a section/product type       │
+│      → Section Agent: show ALL products in that section         │
+│                                                                 │
+│  2B  Product Detail   — user mentions a specific product name   │
+│      → Detail Agent:  show full product info + complementary    │
+└─────────────────────────────────────────────────────────────────┘
+
+AGENTS (5):
+  1. Intent Agent      — classifies every message (no LLM on casual)
+  2. Collection Agent  — guided Activity 1 flow (chat only, no products)
+  3. Routine Agent     — builds personalised step-by-step routine
+  4. Section Agent     — shows products in a section (browse or profile-filtered)
+  5. Detail Agent      — shows full product details + complementary items
+
+SHARED PIPELINE (process_message):
+  ① Slot extractor    — pulls profile values from every user message
+  ② Intent Agent      — classifies intent
+  ③ Dispatch          — routes to correct agent
+  ④ State save        — persists slots + conversation history
 """
 
 import json
 import time
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Tuple
+from dataclasses import dataclass, field
 from groq import Groq
-from config import GROQ_API_KEY,MODEL
+
+from config import GROQ_API_KEY, MODEL
 from models import DialogState, ConversationTurn
 from products import (
-    build_routine, format_routine_intro, get_step_alternatives,
-    search_products, CATALOG_VALUES, PRODUCT_CATALOG
+    build_routine, format_routine_intro,
+    search_products, get_section_products,
+    PRODUCT_CATALOG,
+)
+from catalog_index import (
+    CATALOG_INDEX,
+    build_search_context,
+    get_valid_values,
+    has_filter_qualifier,
+    detect_section,
+    get_section_valid_filters,
 )
 
 client = Groq(api_key=GROQ_API_KEY)
+CATALOG_SNAPSHOT = build_search_context()
 
-# ─────────────────────────────────────────────────────────────────────────────
-# CATALOG SNAPSHOT — injected into prompts so LLM knows real values
-# ─────────────────────────────────────────────────────────────────────────────
+# ═════════════════════════════════════════════════════════════════════════════
+# INTENT TYPES
+# ═════════════════════════════════════════════════════════════════════════════
 
-CATALOG_SNAPSHOT = f"""
-Available product categories: {', '.join(CATALOG_VALUES['categories'])}
-Available sections: {', '.join(CATALOG_VALUES['sections'])}
-Available textures: {', '.join(CATALOG_VALUES['textures'])}
-Available sensitivity tags: {', '.join(CATALOG_VALUES['sensitivity_tags'])}
-Available brands: {', '.join(CATALOG_VALUES['brands'])}
-Key ingredients in catalog: {', '.join(CATALOG_VALUES['ingredients'][:30])}
-Price range: Rs.420 – Rs.1,950
-"""
+INTENT_COLLECT        = "collect"         # continue guided profile collection
+INTENT_SECTION_BROWSE = "section_browse"  # show products in a section
+INTENT_PRODUCT_DETAIL = "product_detail"  # show details for a specific product
+INTENT_CASUAL         = "casual"          # greeting / chitchat
+INTENT_OFF_TOPIC      = "off_topic"       # non-beauty topic
 
+# Activity 1 collection steps — tracked in slots["_step"]
+STEP_ASK_CONCERN  = "ask_concern"
+STEP_ASK_TYPE     = "ask_type"
+STEP_ASK_ALLERGY  = "ask_allergy"
+STEP_ASK_OUTPUT   = "ask_output"    # NEW — "routine or product line?"
+STEP_DONE         = "done"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _has_enough_to_recommend(state: DialogState) -> bool:
-    s   = state.slots
-    cat = s.get("main_category")
-    if not cat:
-        return False
-    if cat in ("Face", "Body"):
-        return bool(s.get("skin_type") or s.get("skin_concern"))
-    if cat == "Hair":
-        return bool(s.get("hair_type") or s.get("hair_concern"))
-    if cat == "Baby":
-        return bool(s.get("baby_section"))
-    return False
+# Output choices from ask_output step
+OUTPUT_ROUTINE      = "routine"
+OUTPUT_PRODUCT_LINE = "product_line"
 
 
-def _questions_asked(state: DialogState) -> int:
-    return len(state.conversation_history)
+# ═════════════════════════════════════════════════════════════════════════════
+# SHARED HELPERS
+# ═════════════════════════════════════════════════════════════════════════════
 
-
-def _summarize_profile(state: DialogState) -> str:
-    s = state.slots
-    if not s:
-        return "No profile yet."
-    lines = []
-    if s.get("main_category"):  lines.append(f"Category: {s['main_category']}")
-    if s.get("skin_type"):      lines.append(f"Skin type: {s['skin_type']}")
-    if s.get("skin_concern"):
-        c = s["skin_concern"]
-        lines.append(f"Skin concerns: {', '.join(c) if isinstance(c, list) else c}")
-    if s.get("hair_type"):      lines.append(f"Hair type: {s['hair_type']}")
-    if s.get("hair_concern"):
-        c = s["hair_concern"]
-        lines.append(f"Hair concerns: {', '.join(c) if isinstance(c, list) else c}")
-    if s.get("baby_section"):   lines.append(f"Baby section: {s['baby_section']}")
-    if s.get("age_range"):      lines.append(f"Age: {s['age_range']}")
-    if s.get("sensitivity"):    lines.append(f"Sensitivity: {s['sensitivity']}")
-    if s.get("goal"):           lines.append(f"Goal: {s['goal']}")
-    if s.get("exclusions"):     lines.append(f"Exclusions: {s['exclusions']}")
-    return "\n".join(lines) if lines else "No profile yet."
-
-
-def _summarize_products(state: DialogState) -> str:
-    if not state.products:
-        return "No products shown yet."
-    lines = []
-    for p in state.products[:6]:
-        section = p.get("categories", {}).get("section", "")
-        lines.append(f"- [{section}] {p.get('name')} by {p.get('brand')} — Rs.{p.get('price')}")
-    return "\n".join(lines)
-
-
-def _format_history_short(history) -> str:
-    if not history:
-        return "none"
-    return "\n".join(f"U: {t.user[:60]} | B: {t.assistant[:60]}" for t in history)
-
-
-def _merge_slots(existing: Dict, new_slots: Dict) -> Dict:
+def _merge_slots(existing: Dict, incoming: Dict) -> Dict:
     merged = dict(existing)
-    for key, value in new_slots.items():
+    for key, value in incoming.items():
         if value is None:
             continue
         if isinstance(value, list) and isinstance(merged.get(key), list):
@@ -110,20 +109,23 @@ def _merge_slots(existing: Dict, new_slots: Dict) -> Dict:
     return merged
 
 
-def _extract_exclusions(message: str) -> List[str]:
-    keywords = ["no ", "without ", "exclude ", "don't want ", "not want ", "avoid ", "allergic to "]
-    msg_lower = message.lower()
-    result = []
-    for kw in keywords:
-        if kw in msg_lower:
-            idx    = msg_lower.index(kw) + len(kw)
-            phrase = message[idx:idx+30].split(",")[0].split(".")[0].strip()
-            if phrase:
-                result.append(phrase)
-    return result
+def _profile_summary(slots: Dict) -> str:
+    lines = []
+    if slots.get("main_category"):  lines.append(f"Category : {slots['main_category']}")
+    if slots.get("skin_type"):      lines.append(f"Skin type: {slots['skin_type']}")
+    if slots.get("skin_concern"):
+        c = slots["skin_concern"]
+        lines.append(f"Concerns : {', '.join(c) if isinstance(c, list) else c}")
+    if slots.get("hair_type"):      lines.append(f"Hair type: {slots['hair_type']}")
+    if slots.get("hair_concern"):
+        c = slots["hair_concern"]
+        lines.append(f"Concerns : {', '.join(c) if isinstance(c, list) else c}")
+    if slots.get("baby_section"):   lines.append(f"Baby section: {slots['baby_section']}")
+    if slots.get("exclusions"):     lines.append(f"Avoid    : {', '.join(slots['exclusions'])}")
+    return "\n".join(lines) if lines else "No profile yet."
 
 
-def _call_llm_json(messages: List[Dict], temperature: float = 0.4, max_tokens: int = 600) -> Dict:
+def _llm_json(messages: List[Dict], temperature: float = 0.4, max_tokens: int = 500) -> Dict:
     for attempt in range(3):
         try:
             resp = client.chat.completions.create(
@@ -134,629 +136,948 @@ def _call_llm_json(messages: List[Dict], temperature: float = 0.4, max_tokens: i
                 response_format={"type": "json_object"},
             )
             return json.loads(resp.choices[0].message.content.strip())
-        except json.JSONDecodeError as e:
-            print(f"[LLM] JSON error attempt {attempt+1}: {e}")
         except Exception as e:
-            print(f"[LLM] Error attempt {attempt+1}: {e}")
+            print(f"[LLM] attempt {attempt+1} error: {e}")
             if attempt < 2:
                 time.sleep(0.4 * (attempt + 1))
-    return {"message": "Sorry, could you repeat that? 😊", "slots": {}, "buttons": []}
+    return {"message": "Sorry, could you repeat that? 😊", "buttons": []}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SLOT EXTRACTOR
-# ─────────────────────────────────────────────────────────────────────────────
-
-QUICK_SLOT_PROMPT = """Extract beauty product profile slots from this message.
-Current profile: {profile}
-Message: "{message}"
-
-Return ONLY valid JSON (null if not mentioned):
-{{
-  "main_category": "Face|Hair|Body|Baby or null",
-  "skin_type": "oily|dry|combination|normal|sensitive or null",
-  "skin_concern": ["acne","wrinkles","dryness","hyperpigmentation","sensitivity"] or null,
-  "hair_type": "straight|wavy|curly|coily or null",
-  "hair_concern": ["dandruff","hair fall","frizz","dryness","oily scalp"] or null,
-  "baby_section": "Baby Bath & Shampoo|Baby Lotions & creams|Baby Milk Powder or null",
-  "section": "exact section name or null"
-}}
-
-Rules:
-- "milk powder", "baby milk", "baby powder" → main_category: "Baby", baby_section: "Baby Milk Powder"
-- "baby shampoo", "baby bath", "baby wash" → main_category: "Baby", baby_section: "Baby Bath & Shampoo"
-- "baby lotion", "baby cream", "baby moisturiser" → main_category: "Baby", baby_section: "Baby Lotions & creams"
-- "baby" alone (no specific section) → main_category: "Baby"
-- "shampoo", "hair shampoo" → main_category: "Hair", section: "Shampoos"
-- "conditioner", "hair conditioner" → main_category: "Hair", section: "Conditioners"
-- "hair mask", "hair treatment", "hair deep treatment" → main_category: "Hair", section: "Hair Masks & Deep Treatments"
-- "cleanser", "face wash", "foaming wash" → main_category: "Face", section: "Cleansers"
-- "toner" → main_category: "Face", section: "Toners"
-- "serum" → main_category: "Face", section: "Serums & Targeted Treatments"
-- "eye cream", "eye care" → main_category: "Face", section: "Eye Care"
-- "moisturiser", "moisturizer", "day cream" → main_category: "Face", section: "Moisturisers"
-- "night cream" → main_category: "Face", section: "Night Cream"
-- "sunscreen", "spf", "sun protection" → main_category: "Face", section: "Sun Care"
-- "exfoliator", "exfoliant", "scrub" → main_category: "Face", section: "Exfoliators"
-- "body lotion", "body cream", "body wash", "body moisturiser" → main_category: "Body", section: "Body Creams & Lotions"
-- "hand cream", "foot cream", "hand and foot" → main_category: "Body", section: "Hand and Foot Care"
-- "hair products", "hair care" (generic, no specific product) → main_category: "Hair", section: null
-- "face products", "skincare" (generic) → main_category: "Face", section: null
-- "dry hair" → hair_concern: ["dryness"], NOT hair_type
-- concerns MUST be arrays
-- Only extract what is clearly stated"""
-
-
-def _quick_slot_extract(message: str, state: DialogState) -> Dict:
-    profile = _summarize_profile(state)
-    prompt  = QUICK_SLOT_PROMPT.format(profile=profile, message=message)
-    try:
-        resp = client.chat.completions.create(
-            model=MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.0,
-            max_tokens=150,
-            response_format={"type": "json_object"},
-        )
-        parsed = json.loads(resp.choices[0].message.content.strip())
-        return {k: v for k, v in parsed.items() if v is not None}
-    except Exception as e:
-        print(f"[SLOT_EXTRACT] Error: {e}")
-        return {}
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# ROUTER
-# ─────────────────────────────────────────────────────────────────────────────
-
-ROUTER_PROMPT = """Classify this message for a beauty product sales chatbot.
-
-User profile: {profile}
-Products shown: {has_products}
-Bot turns so far: {turns}
-Recent history: {history}
-Message: "{message}"
-
-Catalog info:
-{catalog}
-
-Actions — pick EXACTLY ONE:
-- "casual"          : greeting, thanks, small talk, who are you
-- "off_topic"       : completely unrelated to beauty (weather, sports, etc.)
-- "product_detail"  : user asks for details/description/ingredients/how-to-use about a SPECIFIC product
-                      Examples: "tell me more about the SPF lotion", "what are the ingredients?",
-                      "how do I use this?", "tell me about the DermaSoft cleanser",
-                      "what does this product do?", "describe this product"
-- "search"          : user asks for a product type, brand, ingredient, texture, concern, or price
-                      Examples: "show me a gel cleanser", "I want fragrance-free products",
-                      "recommend a moisturiser for dry skin", "I want something under Rs.1000"
-- "qa"              : general question not about a specific product (e.g. "what is niacinamide?")
-- "rebuild"         : wants to exclude something from shown products ("no retinol", "allergic to X")
-- "refine_step"     : wants more options for a specific shown step ("show me other cleansers")
-- "refine_price"    : wants cheaper or pricier version of shown products
-- "new_category"    : switching category (hair→face, face→baby)
-- "collect"         : need more info before we can do anything (missing category entirely)
-
-IMPORTANT:
-- "product_detail" takes priority over "qa" when user asks about a SPECIFIC product by name/reference
-- "search" is the DEFAULT for any product-related request
-- Only use "collect" if you truly cannot do anything without more info
-
-Reply with ONLY the action word."""
-
-
-def route_message(state: DialogState, message: str) -> str:
-    msg_lower = message.lower().strip()
-
-    # ── CONCERN COLLECT FLOW LOCK ─────────────────────────────────────────────
-    # If the concern collect flow is active, ALWAYS stay in it until complete.
-    # This prevents the router from hijacking button answers mid-flow.
-    if state.slots.get("_concern_step") and state.slots["_concern_step"] != "done":
-        return "concern_collect"
-
-    # Fast local checks
-    casual_phrases = {"hi", "hello", "hey", "thanks", "thank you", "good morning",
-                      "good evening", "good afternoon", "ok", "okay", "great", "nice",
-                      "who are you", "who r u", "what are you", "sup", "yo"}
-    if msg_lower in casual_phrases or len(msg_lower) < 4:
-        return "casual"
-
-    # Catalog overview — "Shop by Category" pill
-    if any(kw in msg_lower for kw in [
-        "what categories", "what do you carry", "show me categories",
-        "what sections", "shop by category", "what products do you have", "what can you help"
-    ]):
-        return "catalog_overview"
-
-    # Concern collect flow — "Shop by Concern" pill
-    if any(kw in msg_lower for kw in [
-        "what concerns do you cover", "shop by concern", "shop by skin", "shop by hair concern"
-    ]):
-        return "concern_collect"
-
-    # Best sellers — all categories OR specific category
-    if any(kw in msg_lower for kw in ["best selling", "best sellers", "most popular", "top rated", "top products"]):
-        # Detect if a specific category is mentioned
-        for cat_kw, cat_val in [("face", "Face"), ("hair", "Hair"), ("body", "Body"), ("baby", "Baby")]:
-            if cat_kw in msg_lower:
-                state.slots["_filter_category"] = cat_val
-                break
-        else:
-            state.slots.pop("_filter_category", None)  # clear — show all
-        return "best_sellers"
-
-    # Budget picks — all categories OR specific category
-    if any(kw in msg_lower for kw in ["under rs.1000", "under rs 1000", "budget picks", "budget picks"]) or \
-       ("budget" in msg_lower and "pick" in msg_lower):
-        for cat_kw, cat_val in [("face", "Face"), ("hair", "Hair"), ("body", "Body"), ("baby", "Baby")]:
-            if cat_kw in msg_lower:
-                state.slots["_filter_category"] = cat_val
-                break
-        else:
-            state.slots.pop("_filter_category", None)
-        return "budget"
-
-    # Refine actions (only if products already shown)
-    detail_keywords = ["tell me more", "more about", "describe this", "describe the",
-                       "what are the ingredients", "ingredients in", "how do i use",
-                       "how to use", "what does this", "what does the", "details about",
-                       "info about", "information about", "explain this", "explain the",
-                       "what is in", "what's in this", "tell me about the"]
-    if any(kw in msg_lower for kw in detail_keywords):
-        return "product_detail"
-
-    # Refine actions (only if products already shown)
-    if state.products:
-        refine_step_kw = ["other cleanser", "more serum", "different moistur", "other option",
-                          "show me more", "other toner", "other mask", "swap"]
-        refine_price_kw = ["cheaper", "more affordable", "budget option", "less expensive",
-                           "pricier", "premium option", "luxury option", "higher end"]
-        if any(kw in msg_lower for kw in refine_step_kw):
-            return "refine_step"
-        if any(kw in msg_lower for kw in refine_price_kw):
-            return "refine_price"
-
-    # Exclusion/rebuild
-    if state.products and any(kw in msg_lower for kw in
-                               ["no retinol", "allergic", "without ", "exclude ", "avoid "]):
-        return "rebuild"
-
-    # Category switch
-    category_switch = ["instead", "actually i want", "switch to", "what about"]
-    if state.slots.get("main_category") and any(kw in msg_lower for kw in category_switch):
-        return "new_category"
-
-    # FORCE SEARCH if user has given a category or any product hint
-    # Don't keep asking questions — show products
-    product_keywords = [
-        "shampoo", "cleanser", "toner", "serum", "moisturiser", "moisturizer", "sunscreen",
-        "spf", "mask", "conditioner", "wash", "cream", "lotion", "gel", "foam", "exfoliat",
-        "eye cream", "product", "something", "show me", "what do you have", "do you have",
-        "ingredient", "niacinamide", "vitamin c", "hyaluronic", "retinol", "fragrance",
-        "oil-free", "paraben", "sulfate", "affordable", "cheap", "budget", "premium",
-        "luxury", "under rs", "brand", "recommend", "suggest", "find me", "looking for",
-        "want", "need", "buy", "purchase", "hair care", "skincare", "skin care",
-        "face care", "body care", "daily", "everyday", "for my", "for oily", "for dry",
-        "for sensitive", "for combination", "for normal", "for curly", "for frizzy"
-    ]
-    if any(kw in msg_lower for kw in product_keywords):
-        return "search"
-
-    # If category is already known → search, don't collect more
-    if state.slots.get("main_category"):
-        return "search"
-
-    # After 2+ turns with no category → still collect (need at minimum a category)
-    if _questions_asked(state) >= 2 and not state.slots.get("main_category"):
-        return "collect"
-
-    # LLM routing for ambiguous cases
-    profile      = _summarize_profile(state)
-    has_products = "yes" if state.products else "no"
-    history      = _format_history_short(state.conversation_history[-3:])
-    turns        = len(state.conversation_history)
-
-    prompt = ROUTER_PROMPT.format(
-        profile=profile,
-        has_products=has_products,
-        turns=turns,
-        history=history,
-        message=message,
-        catalog=CATALOG_SNAPSHOT
-    )
-
-    valid = {"casual", "off_topic", "qa", "search", "rebuild", "product_detail",
-             "refine_step", "refine_price", "new_category", "collect",
-             "catalog_overview", "concern_collect", "best_sellers", "budget"}
-
-    for attempt in range(2):
+def _llm_text(messages: List[Dict], temperature: float = 0.5, max_tokens: int = 300) -> str:
+    for attempt in range(3):
         try:
             resp = client.chat.completions.create(
                 model=MODEL,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-                max_tokens=10,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
             )
-            action = resp.choices[0].message.content.strip().lower().strip('"').strip("'")
-            if action in valid:
-                print(f"[ROUTER] → {action}")
-                return action
+            return resp.choices[0].message.content.strip()
         except Exception as e:
-            print(f"[ROUTER] Error: {e}")
-            time.sleep(0.3)
+            print(f"[LLM] attempt {attempt+1} error: {e}")
+            if attempt < 2:
+                time.sleep(0.4 * (attempt + 1))
+    return "Sorry, could you repeat that? 😊"
 
-    return "search" if state.slots.get("main_category") else "collect"
+
+# ═════════════════════════════════════════════════════════════════════════════
+# SLOT EXTRACTOR
+# Runs on EVERY message — pulls profile values before any routing decision.
+# ═════════════════════════════════════════════════════════════════════════════
+
+def _detect_message_category(message: str) -> str:
+    """
+    Detect which product category a message is about.
+    Uses CATALOG_INDEX section keywords + per-category concern lists
+    so it automatically stays in sync with products_db.json.
+    """
+    msg = message.lower()
+
+    # Baby — explicit word is always reliable
+    if "baby" in msg:
+        return "baby"
+
+    # Build category signal words from live catalog on first call
+    # (cached at module level after first invocation)
+    cat_signals = _get_category_signals()
+
+    # Check body before hair/face because "body wash" > "wash" ambiguity
+    if any(w in msg for w in cat_signals["body"]):
+        return "body"
+    if any(w in msg for w in cat_signals["hair"]):
+        return "hair"
+    if any(w in msg for w in cat_signals["face"]):
+        return "face"
+    return "unknown"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT 1: SEARCH AGENT
-# Handles: search — finds products matching user's request
-# ─────────────────────────────────────────────────────────────────────────────
+def _get_category_signals() -> Dict[str, set]:
+    """
+    Build category → signal words from CATALOG_INDEX.
+    Combines:
+      - per-category subcategory names (lowercased words)
+      - per-category concerns
+      - per-category hair/skin types
+    Cached at module level after first build.
+    """
+    if hasattr(_get_category_signals, "_cache"):
+        return _get_category_signals._cache  # type: ignore[attr-defined]
 
-SEARCH_EXTRACT_PROMPT = """Extract search parameters from the user's message for a beauty product catalog.
+    signals: Dict[str, set] = {"face": set(), "hair": set(), "body": set(), "baby": set()}
 
-Catalog available:
-{catalog}
+    for cat in ("face", "hair", "body", "baby"):
+        bc = CATALOG_INDEX.get("by_category", {}).get(cat, {})
 
-User profile so far: {profile}
+        # Section keyword map already scoped — pull subcategory name words
+        for subcat in bc.get("subcategories", []):
+            for word in subcat.lower().split():
+                if len(word) > 3:
+                    signals[cat].add(word)
+
+        # Concerns are strong signals
+        signals[cat].update(bc.get("concerns", []))
+
+        # Hair/skin types
+        signals[cat].update(bc.get("skin_types", []))
+        signals[cat].update(bc.get("hair_types", []))
+
+    # Add high-value explicit signals that might be too short or missed above
+    signals["hair"].update({"hair", "scalp", "frizz", "dandruff", "shampoo",
+                             "conditioner", "curly", "wavy", "coily", "straight"})
+    signals["face"].update({"skin", "face", "acne", "pimple", "serum",
+                             "toner", "cleanser", "moisturis", "sunscreen", "spf"})
+    signals["body"].update({"body", "deodorant", "shower", "lotion"})
+    signals["baby"].add("baby")
+
+    # Prevent cross-contamination: remove "hair" words from face signals, etc.
+    signals["face"] -= signals["hair"]
+    signals["body"] -= signals["hair"]
+    signals["body"] -= signals["face"]
+
+    _get_category_signals._cache = signals  # type: ignore[attr-defined]
+    return signals
+
+
+def _build_slot_prompt(message: str, profile: str) -> str:
+    msg_cat = _detect_message_category(message)
+
+    # ── Pull ALL values live from CATALOG_INDEX — zero hardcoding ─────────────
+    skin_types  = ", ".join(get_valid_values("skin_types"))       or "oily, dry, combination, normal, sensitive"
+    hair_types  = ", ".join(get_valid_values("hair_types"))       or "straight, wavy, curly, coily"
+
+    # Use per-category concern lists — catalog_index already separates them
+    face_concerns = get_valid_values("concerns", "face")
+    hair_concerns = get_valid_values("concerns", "hair")
+    body_concerns = get_valid_values("concerns", "body") or face_concerns  # body re-uses face concerns
+
+    # Fallback: if catalog doesn't have per-category concerns, split globally
+    if not face_concerns or not hair_concerns:
+        all_concerns = get_valid_values("concerns")
+        hair_kw = {"frizz", "breakage", "dandruff", "hair", "scalp", "split",
+                   "porosity", "shine", "volume", "sebum", "oily scalp"}
+        hair_concerns = hair_concerns or [c for c in all_concerns if any(h in c.lower() for h in hair_kw)]
+        face_concerns = face_concerns or [c for c in all_concerns if c not in hair_concerns]
+
+    face_str = ", ".join(face_concerns) or "acne, dryness, dullness, hyperpigmentation, redness, wrinkles"
+    hair_str = ", ".join(hair_concerns) or "frizz, dryness, dandruff, breakage, hair loss"
+    body_str = ", ".join(body_concerns) or "dryness, irritation, sensitivity"
+
+    # Sensitivity tags — strip _free suffix for readability in prompts
+    def _excl_tags(cat: Optional[str] = None) -> str:
+        tags = get_valid_values("sensitivity_safe", cat) or get_valid_values("sensitivity_safe")
+        # Remove _free suffix so LLM extracts "sulfate" not "sulfate_free"
+        bare = [t.replace("_free", "").replace("_", " ") for t in tags]
+        return ", ".join(bare) or "sulfate, fragrance, paraben, alcohol, silicone"
+
+    # Baby sections live from catalog
+    baby_sections = ", ".join(
+        CATALOG_INDEX.get("by_category", {}).get("baby", {}).get("subcategories", [])
+    ) or "Baby Bath & Shampoo, Baby Lotions & Creams, Baby Milk Powder"
+
+    if msg_cat == "baby":
+        schema = (
+            '{\n'
+            '  "main_category": "Baby",\n'
+            f'  "baby_section" : "{baby_sections}  or null",\n'
+            f'  "exclusions"   : ["{_excl_tags("baby")}"] or null\n'
+            '}\n'
+            'Rules:\n'
+            '- "baby shampoo" / "baby wash" → baby_section: first baby section\n'
+            '- "baby lotion" / "baby cream" → baby_section: second baby section\n'
+            '- "baby milk" / "formula"      → baby_section: third baby section\n'
+            '- NEVER set skin_type, skin_concern, hair_type, hair_concern'
+        )
+    elif msg_cat == "hair":
+        schema = (
+            '{\n'
+            '  "main_category": "Hair",\n'
+            f'  "hair_type"    : "{hair_types}  or null",\n'
+            f'  "hair_concern" : [{hair_str}]  or null,\n'
+            f'  "exclusions"   : ["{_excl_tags("hair")}"] or null\n'
+            '}\n'
+            'Rules:\n'
+            '- "frizzy" → hair_concern: ["frizz"]\n'
+            '- "dry hair" → hair_concern: ["dryness"]\n'
+            '- "hair fall" / "hair loss" → hair_concern: ["hair loss"]\n'
+            '- "dandruff" / "itchy scalp" → hair_concern: ["dandruff"]\n'
+            '- concerns MUST be arrays. NEVER set skin_type or skin_concern.'
+        )
+    elif msg_cat == "body":
+        schema = (
+            '{\n'
+            '  "main_category": "Body",\n'
+            f'  "skin_type"    : "{skin_types}  or null",\n'
+            f'  "skin_concern" : [{body_str}]  or null,\n'
+            f'  "exclusions"   : ["{_excl_tags("body")}"] or null\n'
+            '}\n'
+            'Rules: Only extract if explicitly mentioned. NEVER set hair fields.'
+        )
+    else:
+        # Face (default)
+        schema = (
+            '{\n'
+            '  "main_category": "Face | Hair | Body | Baby  or null",\n'
+            f'  "skin_type"    : "{skin_types}  or null",\n'
+            f'  "skin_concern" : [{face_str}]  or null,\n'
+            f'  "exclusions"   : ["{_excl_tags("face")}"] or null\n'
+            '}\n'
+            'Rules:\n'
+            '- "oily skin" → skin_type: "oily"\n'
+            '- "sensitive skin" → skin_type: "sensitive", skin_concern: ["sensitivity"]\n'
+            '- "acne" / "pimples" / "breakouts" → skin_concern: ["acne"]\n'
+            '- "dark spots" / "pigmentation"    → skin_concern: ["hyperpigmentation"]\n'
+            '- "wrinkles" / "fine lines"        → skin_concern: ["aging"]\n'
+            '- concerns MUST be arrays. NEVER set hair fields.'
+        )
+
+    return (
+        f'Extract beauty profile slots.\nCurrent profile: {profile}\nMessage: "{message}"\n\n'
+        'Return ONLY valid JSON matching this schema. Use null for anything not mentioned.\n'
+        + schema +
+        '\n\nCRITICAL: Only extract what is EXPLICITLY stated. Never infer or assume.\n'
+        '"no allergies" / "none" / "nothing" → exclusions: null\n'
+        'exclusions must be arrays: ["sulfate"] not "sulfate"'
+    )
+
+
+def _extract_slots(message: str, state: DialogState) -> Dict:
+    try:
+        resp = client.chat.completions.create(
+            model=MODEL,
+            messages=[{"role": "user", "content": _build_slot_prompt(
+                message=message,
+                profile=_profile_summary(state.slots),
+            )}],
+            temperature=0.0,
+            max_tokens=200,
+            response_format={"type": "json_object"},
+        )
+        parsed = json.loads(resp.choices[0].message.content.strip())
+        result = {k: v for k, v in parsed.items() if v is not None}
+
+        # ── Sanitise exclusions against real catalog values ────────────────────
+        # The LLM halluccinates values like "soap", "tear", "water", "no more tears".
+        # Only keep values that exist in CATALOG_INDEX["sensitivity_safe"].
+        # Also: skip exclusion extraction entirely for baby products — the LLM
+        # extracts product marketing language ("no more tears", "soap-free") as
+        # exclusions, which is always wrong.
+        is_baby = (
+            result.get("main_category", "").lower() == "baby"
+            or state.slots.get("main_category", "").lower() == "baby"
+        )
+        if is_baby and "exclusions" in result:
+            print(f"[SLOT_EXTRACT] Dropping all exclusions for baby category: {result['exclusions']}")
+            del result["exclusions"]
+        elif "exclusions" in result:
+            valid_bare = {
+                tag.lower().removesuffix("_free").replace("_", " ")
+                for tag in CATALOG_INDEX.get("sensitivity_safe", [])
+            }
+            raw_excl = result["exclusions"]
+            if isinstance(raw_excl, str):
+                raw_excl = [raw_excl]
+            clean = []
+            for e in raw_excl:
+                bare = e.lower().replace("-", "_").replace(" ", "_").removesuffix("_free").replace("_", " ")
+                if bare in valid_bare:
+                    clean.append(bare.replace(" ", "_"))   # store as "sulfate"
+                else:
+                    print(f"[SLOT_EXTRACT] Dropped unrecognised exclusion: '{e}'")
+            if clean:
+                result["exclusions"] = clean
+            else:
+                del result["exclusions"]   # all were garbage — remove the key
+
+        # ── Sanitise hair_type — LLM sometimes returns "dry hair" not "dry" ────
+        if "hair_type" in result:
+            raw_ht = str(result["hair_type"]).lower().strip()
+            valid_hair_types = set(CATALOG_INDEX.get("hair_types", []))
+            # Strip "hair" suffix — "dry hair" → "dry", "wavy hair" → "wavy"
+            cleaned_ht = raw_ht.replace(" hair", "").strip()
+            if cleaned_ht in valid_hair_types:
+                result["hair_type"] = cleaned_ht
+            elif raw_ht in valid_hair_types:
+                result["hair_type"] = raw_ht
+            else:
+                print(f"[SLOT_EXTRACT] Dropped unrecognised hair_type: '{raw_ht}'")
+                del result["hair_type"]
+
+        # ── Sanitise hair_concern — deduplicate and validate ───────────────────
+        if "hair_concern" in result:
+            raw_hc = result["hair_concern"]
+            if isinstance(raw_hc, str):
+                raw_hc = [raw_hc]
+            valid_concerns = set(CATALOG_INDEX.get("concerns", []))
+            clean_hc = []
+            for c in raw_hc:
+                c_clean = c.lower().replace(" ", "_")
+                # Try both with and without underscore
+                if c_clean in valid_concerns:
+                    clean_hc.append(c_clean)
+                elif c.lower() in valid_concerns:
+                    clean_hc.append(c.lower())
+                else:
+                    # "dry hair" → "dryness" mapping
+                    mapped = {"dry hair": "dryness", "frizzy": "frizz",
+                              "hair fall": "hair_loss", "thinning": "hair_loss"}.get(c.lower())
+                    if mapped and mapped in valid_concerns:
+                        clean_hc.append(mapped)
+                    else:
+                        print(f"[SLOT_EXTRACT] Dropped unrecognised hair_concern: '{c}'")
+            if clean_hc:
+                result["hair_concern"] = list(dict.fromkeys(clean_hc))  # dedup, preserve order
+            else:
+                del result["hair_concern"]
+
+        return result
+
+    except Exception as e:
+        print(f"[SLOT_EXTRACT] {e}")
+        return {}
+
+
+def _detect_category_from_slots(slots: Dict) -> Optional[str]:
+    if slots.get("main_category"):      return slots["main_category"]
+    if slots.get("hair_type") or slots.get("hair_concern"):  return "Hair"
+    if slots.get("skin_type") or slots.get("skin_concern"):  return "Face"
+    if slots.get("baby_section"):                            return "Baby"
+    return None
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# INTENT AGENT
+#
+# Classifies every user message into an intent.
+# Uses a mix of fast keyword rules (no LLM) + LLM call for ambiguous cases.
+#
+# Outputs one of: collect | section_browse | product_detail | casual | off_topic
+# ═════════════════════════════════════════════════════════════════════════════
+
+_CASUAL_PHRASES = {
+    "hi", "hello", "hey", "good morning", "good evening", "good afternoon",
+    "thanks", "thank you", "ok", "okay", "sure", "great", "awesome", "nice",
+    "bye", "goodbye", "see you", "haha", "lol", "cool", "wow",
+}
+
+_OFF_TOPIC_WORDS = {
+    "weather", "football", "cricket", "sports", "news", "movie",
+    "music", "recipe", "food", "restaurant", "travel", "hotel",
+    "politics", "stock", "bitcoin", "crypto", "game", "coding",
+}
+
+# ── All beauty signal words built from CATALOG_INDEX — not hardcoded ──────────
+# Covers every concern, type, section keyword, brand, and ingredient in the DB.
+_BEAUTY_WORDS: set = (
+    set(CATALOG_INDEX.get("concerns", []))
+    | set(CATALOG_INDEX.get("skin_types", []))
+    | set(CATALOG_INDEX.get("hair_types", []))
+    | set(w.lower() for w in CATALOG_INDEX.get("brands", []))
+    | set(CATALOG_INDEX.get("section_keywords", {}).keys())
+    | {"skin", "hair", "face", "body", "baby", "product", "routine",
+       "beauty", "allerg", "sensitiv", "moisturis", "cleanser", "sunscreen",
+       "spf", "lotion", "wash", "concern", "dry", "oily", "pimple"}
+)
+
+_DETAIL_PHRASES = {
+    "tell me more about", "more about", "what is", "tell me about",
+    "describe", "ingredients in", "ingredients of", "what are the ingredients",
+    "how do i use", "how to use", "is it good for", "who is it for",
+    "suitable for", "what does it do", "details about", "info on",
+    "information about", "can you explain", "review of", "tell me about the",
+}
+
+_PROFILE_WORDS = {
+    "my skin", "my hair", "i have", "i want", "i need", "i struggle",
+    "my concern", "my problem", "i get", "prone to", "i suffer",
+    "my scalp", "my face", "dealing with", "help me with",
+    "recommend", "suggest", "looking for a routine",
+}
+
+# ── All section keywords + brand names live from catalog ──────────────────────
+_SECTION_KEYWORDS: set = set(CATALOG_INDEX.get("section_keywords", {}).keys())
+_BRAND_NAMES:      set = {b.lower() for b in CATALOG_INDEX.get("brands", []) if len(b) > 3}
+
+# ── Product type words: section keywords + concern/type signals ───────────────
+# These are words that suggest the user wants to SEE products in a category.
+# Built from real catalog values so adding products auto-expands this set.
+_PRODUCT_TYPE_WORDS: set = (
+    _SECTION_KEYWORDS
+    | set(CATALOG_INDEX.get("concerns", []))
+    | set(CATALOG_INDEX.get("skin_types", []))
+    | set(CATALOG_INDEX.get("hair_types", []))
+    | {"show me", "do you have", "looking for", "find me", "got any"}
+)
+
+
+@dataclass
+class IntentResult:
+    intent:  str                      # one of the INTENT_* constants
+    section: Optional[str] = None     # resolved section name (Activity 2A)
+    product_name: Optional[str] = None  # product name hint (Activity 2B)
+    output_pref:  Optional[str] = None  # "routine" | "product_line" (ask_output answer)
+    reason:  str = ""                 # for debug logging
+
+
+def classify_intent(
+    message: str,
+    state: DialogState,
+    new_slots: Dict,
+) -> IntentResult:
+    """
+    Classify user intent. Priority order:
+      1. Casual/greeting — fast keyword (no LLM)
+      2. Off-topic — fast keyword (no LLM)
+      3. Product detail — detail phrase + products shown
+      4. Output preference (routine vs product line) — if step=ask_output
+      5. Section browse — section keyword detected
+      6. Profile collection — profile words or collection step active
+      7. LLM fallback — short LLM call for ambiguous cases
+    """
+    msg   = message.lower().strip()
+    slots = state.slots
+    step  = slots.get("_step", "")
+
+    # ── 1. Casual ─────────────────────────────────────────────────────────────
+    if msg in _CASUAL_PHRASES or (len(msg.split()) <= 3 and msg in _CASUAL_PHRASES):
+        return IntentResult(INTENT_CASUAL, reason="casual phrase match")
+
+    # ── 2. Off-topic ──────────────────────────────────────────────────────────
+    has_beauty = any(w in msg for w in _BEAUTY_WORDS)
+    has_offtopic = any(w in msg for w in _OFF_TOPIC_WORDS)
+    if has_offtopic and not has_beauty:
+        return IntentResult(INTENT_OFF_TOPIC, reason="off-topic keywords, no beauty words")
+
+    # ── 3. Product detail ─────────────────────────────────────────────────────
+    has_shown = bool(slots.get("_shown_products"))
+    is_detail_phrase = any(phrase in msg for phrase in _DETAIL_PHRASES)
+    if is_detail_phrase and has_shown:
+        return IntentResult(INTENT_PRODUCT_DETAIL, reason="detail phrase + products shown")
+
+    # ── 4. Output preference (answer to "routine or product line?") ───────────
+    if step == STEP_ASK_OUTPUT:
+        pref = _detect_output_preference(msg)
+        if pref:
+            return IntentResult(INTENT_COLLECT, output_pref=pref,
+                                reason=f"output preference: {pref}")
+        # If step=ask_output but no clear preference, re-ask
+        return IntentResult(INTENT_COLLECT, reason="ask_output: preference unclear")
+
+    # ── 5. Section browse ─────────────────────────────────────────────────────
+    # CRITICAL: If the user's category is Baby, the section must come from
+    # the baby_section slot — never from generic keyword detection which
+    # would map "shampoo" → "Shampoos" (adult) instead of "Baby Bath & Shampoo".
+    inferred_cat = (
+        new_slots.get("main_category")
+        or slots.get("main_category", "")
+    ).lower()
+
+    if inferred_cat == "baby":
+        baby_section = (
+            new_slots.get("baby_section")
+            or slots.get("baby_section")
+        )
+        if baby_section:
+            return IntentResult(
+                INTENT_SECTION_BROWSE, section=baby_section,
+                reason=f"baby category → slot-derived section: {baby_section}"
+            )
+        # baby category but no specific section yet → keep collecting
+        return IntentResult(INTENT_COLLECT, reason="baby category, no section yet")
+
+    section = detect_section(message)
+    if section:
+        return IntentResult(INTENT_SECTION_BROWSE, section=section,
+                            reason=f"section keyword → {section}")
+
+    # Brand name mention → section browse in that brand's range
+    if any(brand in msg for brand in _BRAND_NAMES):
+        brand_name = next(b for b in _BRAND_NAMES if b in msg)
+        return IntentResult(INTENT_SECTION_BROWSE, reason=f"brand mention: {brand_name}")
+
+    # ── 6. Profile collection signals ─────────────────────────────────────────
+    # Active collection step: keep collecting
+    if step in (STEP_ASK_CONCERN, STEP_ASK_TYPE, STEP_ASK_ALLERGY):
+        return IntentResult(INTENT_COLLECT, reason=f"active step: {step}")
+
+    # Profile words detected → Activity 1
+    has_profile_word = any(w in msg for w in _PROFILE_WORDS)
+    has_new_profile  = bool(new_slots.get("skin_type") or new_slots.get("skin_concern") or
+                            new_slots.get("hair_type") or new_slots.get("hair_concern"))
+    if has_profile_word or has_new_profile:
+        return IntentResult(INTENT_COLLECT, reason="profile words / new profile slots detected")
+
+    # Product type word but NO section and NO profile → could be section browse
+    if any(w in msg for w in _PRODUCT_TYPE_WORDS):
+        return IntentResult(INTENT_SECTION_BROWSE, reason="product type word without section match")
+
+    # ── 7. LLM fallback for ambiguous messages ─────────────────────────────────
+    return _classify_intent_llm(message, state, new_slots)
+
+
+OUTPUT_EXPLAIN = "explain"   # user wants an explanation of the difference
+
+def _detect_output_preference(msg: str) -> Optional[str]:
+    """
+    Detect whether the user wants a routine, a product line, or an explanation.
+
+    Called when step == STEP_ASK_OUTPUT.
+
+    Returns: OUTPUT_ROUTINE | OUTPUT_PRODUCT_LINE | OUTPUT_EXPLAIN | None
+    """
+    m = msg.lower().strip()
+
+    # ── Check for QUESTION / EXPLAIN first ───────────────────────────────────
+    # Must come before keyword checks — "what's the difference between a routine
+    # and a product line?" contains "routine" but is NOT a preference answer.
+    question_triggers = (
+        "difference", "what's the difference", "whats the difference",
+        "explain", "what do you mean", "what is a routine", "what is a product line",
+        "how does", "tell me more", "can you explain", "what does", "versus", " vs ",
+    )
+    if any(t in m for t in question_triggers):
+        return OUTPUT_EXPLAIN
+
+    # ── Routine ───────────────────────────────────────────────────────────────
+    routine_triggers = (
+        "routine", "step by step", "steps", "build me a routine",
+        "my routine", "full routine", "all the steps", "personalized routine",
+        "personalised routine",
+    )
+    if any(t in m for t in routine_triggers):
+        return OUTPUT_ROUTINE
+
+    # ── Product line ──────────────────────────────────────────────────────────
+    # Original triggers (explicit product_line language)
+    product_line_triggers = (
+        "product line", "product list", "products only", "just products",
+        "show me products", "list of products", "all products",
+    )
+    # Also catch the ACTUAL button text we generate:
+    # "Show me the best products for my main concern."
+    # "Show me the best [section] products."
+    concern_browse_triggers = (
+        "best products", "products for my", "show me the best",
+        "for my concern", "for my main concern", "products for my concern",
+        "show me products", "for my skin", "for my hair",
+    )
+    if any(t in m for t in product_line_triggers + concern_browse_triggers):
+        return OUTPUT_PRODUCT_LINE
+
+    # Single word answers
+    if m in ("routine", "routines"):
+        return OUTPUT_ROUTINE
+    if m in ("products", "product", "line", "browse", "concern"):
+        return OUTPUT_PRODUCT_LINE
+
+    return None
+
+
+def _classify_intent_llm(message: str, state: DialogState, new_slots: Dict) -> IntentResult:
+    """LLM-based fallback for ambiguous messages."""
+    # Use full subcategory list from catalog — not a truncated keyword sample
+    all_sections    = ", ".join(CATALOG_INDEX.get("subcategories", []))
+    all_brands      = ", ".join(CATALOG_INDEX.get("brands", []))
+    profile_summary = _profile_summary(state.slots)
+
+    prompt = f"""You are classifying a user message for a beauty chatbot.
+
+Current conversation step: {state.slots.get("_step", "none")}
+Current user profile: {profile_summary}
 Message: "{message}"
 
-Return ONLY valid JSON:
-{{
-  "query": "free text product name search or null",
-  "main_category": "Face|Hair|Body|Baby or null",
-  "section": "MUST be one of the exact section names listed in catalog or null",
-  "brand": "brand name or null",
-  "skin_types": ["oily skin", "dry skin", etc.] or null,
-  "hair_types": ["curly", "dry hair", etc.] or null,
-  "concerns": ["acne", "dryness", "frizz", etc.] or null,
-  "texture": "gel|cream|liquid|serum|foam|powder or null",
-  "sensitivity_safe": ["fragrance_free", "oil_free", "paraben_free", etc.] or null,
-  "contains_irritants": false or null,
-  "key_ingredients": ["Niacinamide", "Vitamin C", etc.] or null,
-  "min_price": number or null,
-  "max_price": number or null
-}}
+Available product sections: {all_sections}
+Available brands: {all_brands}
 
-CRITICAL Rules:
-- "milk powder", "baby milk", "baby powder" → main_category: "Baby", section: "Baby Milk Powder"
-- "baby shampoo", "baby bath", "baby wash" → main_category: "Baby", section: "Baby Bath & Shampoo"
-- "baby lotion", "baby cream" → main_category: "Baby", section: "Baby Lotions & creams"
-- "baby" alone → main_category: "Baby", section: null
-- "shampoo" → main_category: "Hair", section: "Shampoos"
-- "conditioner" → main_category: "Hair", section: "Conditioners"
-- "hair mask" → main_category: "Hair", section: "Hair Masks & Deep Treatments"
-- "gel cleanser" → section: "Cleansers", texture: "gel"
-- "fragrance-free" → sensitivity_safe: ["fragrance_free"]
-- "under Rs.1000" or "budget" → max_price: 1000
-- "affordable" → max_price: 1200
-- "premium" or "luxury" → min_price: 1600
-- "for oily skin" → skin_types: ["oily skin"]
-- "dry and frizzy hair" → hair_types: ["dry hair"], concerns: ["frizz"]
-- section MUST exactly match one of: {sections}
-- If unsure about section, set it to null — never guess a section name"""
-
-SEARCH_RESPONSE_PROMPT = """You are BeautyAI — a warm, enthusiastic beauty sales assistant at Beauty Mart Sri Lanka.
-
-User profile: {profile}
-Products found: {products_found}
-User's message: "{message}"
-Action: search
-
-━━━ YOUR JOB ━━━
-1. FIRST react to the user's message with empathy or enthusiasm (1 sentence)
-   - If they mentioned a skin/hair concern: show understanding ("Dry skin can be so uncomfortable!")
-   - If they asked for a specific product: show excitement ("Great choice!")
-   - If they mentioned a problem: sympathise first
-2. THEN give a short description of what you found (1-2 sentences)
-3. Suggest 3 follow-up buttons based on REAL catalog values
-
-Catalog info (use these for buttons — don't make up values):
-{catalog}
-
-━━━ BUTTON RULES ━━━
-- Must be full sentences a shopper would actually say
-- Buttons must be DIRECTLY about the products just shown — reference specific product names, brands, or properties
-- Examples of GOOD buttons after showing shampoos:
-  * "Tell me more about the Garnier Honey Water Shampoo"
-  * "Show me something for damaged hair too"
-  * "Do you have a matching conditioner for this?"
-- Examples of GOOD buttons after showing conditioners:
-  * "Tell me more about the Deep Repair Hair Mask"
-  * "Do you have a fragrance-free option?"
-  * "Show me something cheaper"
-- NEVER generate generic buttons like "Let's find you a new favorite product" or "What brings you to our store"
-- NEVER repeat buttons from previous turns
-- NEVER use made-up ingredients or brands
-- At least one button should ask about a specific product shown by name
-
-━━━ TONE ━━━
-- Warm, friendly, sales-focused
-- Short replies — don't over-explain
-- Use: "we have", "I love this one for you", "this is a great pick for..."
-- Emojis sparingly: ✨ 💧 🌿 😊
+Classify the intent as ONE of:
+- "collect"        — user is providing skin/hair profile info (concern, type, allergy)
+- "section_browse" — user wants to see products in a category/section/brand
+- "product_detail" — user is asking about a specific named product
+- "casual"         — greeting or general chitchat
+- "off_topic"      — completely unrelated to beauty/skincare/haircare
 
 Return ONLY valid JSON:
-{{
-  "empathy": "One warm reaction to their message",
-  "message": "Short description of what you found + any tips",
-  "slots": {{
-    "main_category": null, "skin_type": null, "skin_concern": null,
-    "hair_type": null, "hair_concern": null, "baby_section": null,
-    "age_range": null, "sensitivity": null, "goal": null
-  }},
-  "buttons": ["Full sentence 1", "Full sentence 2", "Full sentence 3"]
-}}"""
+{{"intent": "collect|section_browse|product_detail|casual|off_topic", "section": "exact section name from list or null", "product_name": "product name or null"}}"""
 
-
-def run_search_agent(state: DialogState, message: str, section_override: str = None) -> Dict:
-    profile = _summarize_profile(state)
-    sections_list = ", ".join(CATALOG_VALUES["sections"])
-
-    # Step 1: Extract search parameters from message
-    extract_resp = _call_llm_json(
-        messages=[{"role": "user", "content": SEARCH_EXTRACT_PROMPT.format(
-            catalog=CATALOG_SNAPSHOT,
-            profile=profile,
-            message=message,
-            sections=sections_list,
-        )}],
+    result = _llm_json(
+        messages=[{"role": "user", "content": prompt}],
         temperature=0.0,
-        max_tokens=300,
+        max_tokens=80,
     )
 
+    intent = result.get("intent", INTENT_COLLECT)
+    if intent not in (INTENT_COLLECT, INTENT_SECTION_BROWSE, INTENT_PRODUCT_DETAIL,
+                      INTENT_CASUAL, INTENT_OFF_TOPIC):
+        intent = INTENT_COLLECT
+
+    return IntentResult(
+        intent=intent,
+        section=result.get("section"),
+        product_name=result.get("product_name"),
+        reason="LLM classification",
+    )
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# COLLECTION AGENT (Activity 1)
+#
+# Manages the guided profile collection flow.
+# Steps: ask_concern → ask_type → ask_allergy → ask_output
+#
+# ask_output is the NEW final step: "Would you like a full routine
+# or would you prefer to browse a product line for your main concern?"
+#
+# After ask_output → Routine Agent OR Section Agent
+# ═════════════════════════════════════════════════════════════════════════════
+
+def _next_collection_step(slots: Dict) -> str:
+    """Determine the next step needed based on what's been collected."""
+    cat = slots.get("main_category")
+
+    # Baby — only need category + section, no type/concern questions
+    if cat == "Baby" and slots.get("baby_section"):
+        return STEP_ASK_OUTPUT
+
+    has_concern = bool(slots.get("skin_concern") or slots.get("hair_concern"))
+    has_type    = bool(slots.get("skin_type") or slots.get("hair_type"))
+
+    # Body — only needs one of concern or type
+    if cat == "Body" and (has_concern or has_type):
+        if slots.get("_allergy_asked"):
+            return STEP_ASK_OUTPUT
+        return STEP_ASK_ALLERGY
+
+    if not has_concern:
+        return STEP_ASK_CONCERN
+    if not has_type:
+        return STEP_ASK_TYPE
+    if not slots.get("_allergy_asked"):
+        return STEP_ASK_ALLERGY
+    return STEP_ASK_OUTPUT
+
+
+def _build_collection_prompt(state: DialogState, message: str, step: str) -> str:
     slots = state.slots
+    cat   = (slots.get("main_category") or "").lower() or None
 
-    # Validate section — prefer section_override (from slot extractor), then LLM extraction
-    requested_section = section_override or extract_resp.get("section")
-    if requested_section and requested_section not in CATALOG_VALUES["sections"]:
-        print(f"[SEARCH] Invalid section '{requested_section}' — ignoring")
-        requested_section = None
+    concerns_list    = ", ".join(get_valid_values("concerns", cat))         or "dryness, acne, frizz, dullness, sensitivity"
+    skin_types_list  = ", ".join(get_valid_values("skin_types"))            or "oily, dry, combination, normal, sensitive"
+    hair_types_list  = ", ".join(get_valid_values("hair_types"))            or "straight, wavy, curly, coily"
+    sensitivity_list = ", ".join(get_valid_values("sensitivity_safe", cat)) or "sulfate_free, fragrance_free, paraben_free"
 
-    search_params = {
-        "query":              extract_resp.get("query"),
-        "main_category":      extract_resp.get("main_category") or slots.get("main_category"),
-        "section":            requested_section,
-        "brand":              extract_resp.get("brand"),
-        "skin_types":         extract_resp.get("skin_types") or (
-            [f"{slots['skin_type']} skin"] if slots.get("skin_type") else None
-        ),
-        "hair_types":         extract_resp.get("hair_types") or (
-            [slots["hair_type"]] if slots.get("hair_type") else None
-        ),
-        "concerns":           extract_resp.get("concerns") or (
-            slots.get("skin_concern") or slots.get("hair_concern")
-        ),
-        "texture":            extract_resp.get("texture"),
-        "sensitivity_safe":   extract_resp.get("sensitivity_safe"),
-        "contains_irritants": extract_resp.get("contains_irritants"),
-        "key_ingredients":    extract_resp.get("key_ingredients"),
-        "min_price":          extract_resp.get("min_price"),
-        "max_price":          extract_resp.get("max_price"),
-        "limit":              5,
-    }
+    if step == STEP_ASK_CONCERN:
+        task = f"""
+TASK: Warmly greet the customer and ask for their main skin or hair concern.
 
-    print(f"[SEARCH] Params: { {k:v for k,v in search_params.items() if v is not None} }")
+STRUCTURE:
+1. EMPATHISE — 1 warm personalised greeting
+2. EDUCATE   — 1 sentence on why the right product match matters
+3. ASK       — "What's your main skin or hair concern?"
 
-    # Step 2: Search — try full params first, then progressively broaden
-    found_products = search_products(**{k: v for k, v in search_params.items() if v is not None})
+BUTTONS (4 full sentences from catalog concerns):
+Valid concerns: {concerns_list}
+Examples:
+  "My skin feels very dry and dehydrated."
+  "I have oily skin and frequent breakouts."
+  "My hair is frizzy and hard to manage."
+  "I want to reduce dark spots and dullness."
+"""
+    elif step == STEP_ASK_TYPE:
+        concern_str = ", ".join(
+            slots.get("skin_concern") or slots.get("hair_concern") or ["your concern"]
+        )
+        is_hair = bool(slots.get("hair_concern") or slots.get("hair_type") or
+                       (cat and "hair" in cat))
+        if is_hair:
+            task = f"""
+TASK: Acknowledge their hair concern and ask their hair type.
+Concern collected: {concern_str}
 
-    if not found_products:
-        # Drop section constraint and retry
-        search_params["section"] = None
-        found_products = search_products(**{k: v for k, v in search_params.items() if v is not None})
+STRUCTURE:
+1. EMPATHISE — acknowledge their specific concern with warmth
+2. EDUCATE   — why hair type changes which ingredients work best
+3. ASK       — "What's your hair type?"
 
-    if not found_products:
-        # Drop price constraints and retry
-        search_params["min_price"] = None
-        search_params["max_price"] = None
-        found_products = search_products(**{k: v for k, v in search_params.items() if v is not None})
+BUTTONS (4 full sentences):
+Valid hair types: {hair_types_list}
+  "My hair is curly and tends to be dry."
+  "I have straight hair — fine and flat."
+  "My hair is wavy and gets frizzy in humidity."
+  "My hair is coily and very tightly coiled."
+"""
+        else:
+            task = f"""
+TASK: Acknowledge their skin concern and ask their skin type.
+Concern collected: {concern_str}
 
-    if not found_products and search_params.get("main_category"):
-        # Last resort: just show everything in category
-        found_products = search_products(main_category=search_params["main_category"], limit=5)
+STRUCTURE:
+1. EMPATHISE — acknowledge their specific concern with warmth
+2. EDUCATE   — why skin type determines the right ingredients
+3. ASK       — "What's your skin type?"
 
-    # Step 3: Detect if user asked for something we don't carry
-    no_carry_msg = None
-    msg_lower = message.lower()
-    if not found_products:
-        no_carry_msg = "we don't carry that specific product type yet"
+BUTTONS (4 full sentences):
+Valid skin types: {skin_types_list}
+  "I have oily skin — shiny by midday."
+  "My skin is dry and feels tight after washing."
+  "I have combination skin — oily T-zone, dry cheeks."
+  "My skin is sensitive and reacts to most products."
+"""
+    elif step == STEP_ASK_ALLERGY:
+        concern_str = ", ".join(slots.get("skin_concern") or slots.get("hair_concern") or [])
+        type_str    = slots.get("skin_type") or slots.get("hair_type") or ""
+        task = f"""
+TASK: Ask about ingredient allergies before building the routine.
+Profile so far — concern: {concern_str}, type: {type_str}
 
-    products_summary = "\n".join([
-        f"- {p['name']} by {p['brand']} | Rs.{p['price']} | "
-        f"Section: {p['categories'].get('section','N/A')} | "
-        f"Texture: {p['attributes'].get('texture', 'N/A')} | "
-        f"For: {', '.join(p['attributes'].get('skin_types', p['attributes'].get('hair_types', [])))}"
-        for p in found_products
-    ]) if found_products else "No products found."
+STRUCTURE:
+1. EMPATHISE — acknowledge their profile warmly
+2. EDUCATE   — why knowing allergies makes the routine safer
+3. ASK       — "Are there any ingredients you're allergic to or want to avoid?"
 
-    # Step 4: Generate empathetic response
-    no_carry_context = f"\nIMPORTANT: {no_carry_msg}. Be honest about this but pivot warmly to what we DO have." if no_carry_msg else ""
+BUTTONS (4 full sentences):
+Valid sensitivity tags: {sensitivity_list}
+  "I'm sensitive to fragrances — please avoid them."
+  "I prefer sulfate-free products for my hair."
+  "I'm allergic to parabens."
+  "I don't have any specific allergies or sensitivities."
+"""
+    elif step == STEP_ASK_OUTPUT:
+        profile_str = _profile_summary(slots)
+        task = f"""
+TASK: Profile collection is complete. Ask whether the user wants a ROUTINE or a PRODUCT LINE.
 
-    result = _call_llm_json(
-        messages=[{"role": "user", "content": SEARCH_RESPONSE_PROMPT.format(
-            profile=profile,
-            products_found=products_summary,
-            message=message,
-            catalog=CATALOG_SNAPSHOT,
-        ) + no_carry_context}],
-        temperature=0.5,
-        max_tokens=400,
-    )
+Profile collected:
+{profile_str}
 
-    empathy  = result.get("empathy", "")
-    main_msg = result.get("message", "")
-    full_reply = f"{empathy}\n\n{main_msg}".strip() if empathy else main_msg
+STRUCTURE:
+1. CELEBRATE — acknowledge their complete profile with genuine excitement
+2. EXPLAIN   — briefly explain the difference:
+   - Routine = personalised step-by-step plan (Cleanser → Toner → Serum → Moisturiser etc.)
+   - Product Line = browse the best products for their #1 concern in one category
+3. ASK       — "Would you like a personalised routine, or would you prefer to browse a product line?"
 
-    return {
-        "reply_text":    full_reply,
-        "new_slots":     result.get("slots", {}),
-        "buttons":       result.get("buttons", []),
-        "show_products": bool(found_products),
-        "routine":       [],
-        "products":      found_products,
-    }
+BUTTONS (exactly 2 + 1 extra):
+  "Build me a personalised routine with all the steps."
+  "Show me the best products for my main concern."
+  "What's the difference between a routine and a product line?"
+"""
+    else:
+        task = "TASK: Warmly greet and ask for their main skin or hair concern."
 
+    return f"""You are BeautyAI — a warm, empathetic beauty sales assistant at Beauty Mart Sri Lanka.
+Your goal is to find the perfect products for this customer.
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT 2: CHAT AGENT
-# Handles: casual, qa, collect, off_topic, new_category
-# ─────────────────────────────────────────────────────────────────────────────
+Current profile:
+{_profile_summary(slots)}
 
-CHAT_SYSTEM = """You are BeautyAI — a friendly, upbeat sales assistant at Beauty Mart, Sri Lanka's go-to beauty store.
-Your job is to help customers find products they'll love. You are NOT a medical consultant.
+{task}
 
-User profile: {profile}
-Products shown: {products_shown}
-Mode: {mode}
+TONE: Warm, specific, empathetic. React to what they said FIRST. 2–4 sentences max.
+Emojis sparingly: ✨ 💧 🌿 😊 💆 🫶
 
-Catalog info:
-{catalog}
-
-━━━ TONE ━━━
-• Warm, enthusiastic, sales-focused
-• Short replies — don't over-explain
-• ALWAYS react to what the user said FIRST before asking anything
-  - Concern mentioned → sympathise ("Oily skin in Sri Lanka's heat — totally understand! 😅")
-  - Preference mentioned → validate ("Love that you know what you want!")
-  - Question asked → acknowledge before answering
-• Use "we have", "our store carries", "I'd love to show you"
-• Emojis sparingly: ✨ 💧 🌿 😊 💆
-
-━━━ MODE RULES ━━━
-
-"casual": Short warm reply (1-2 sentences). Reference profile if possible. 3 natural next-step buttons that help them discover products — e.g. "I'm looking for a moisturiser for dry skin", "Show me your best sellers for hair", "I need something for oily skin". NEVER generate generic buttons like "Let's find you a new favorite" or "What brings you to our store".
-
-"off_topic": Briefly acknowledge, pivot to beauty. 3 beauty-related buttons.
-
-"qa": Answer question about shown product/ingredient. Concise. 3 relevant follow-up buttons.
-  Current products: {products_shown}
-
-"collect": React to what they said, THEN ask the ONE most important missing piece.
-  → Need category first, then EITHER skin type OR concern
-  → Ask ONE question only. Buttons = real example answers from catalog values below.
-  → NEVER ask about price, sulfate-free etc before showing products
-
-"new_category": Enthusiastically acknowledge the switch. Ask ONE question about new category.
-
-━━━ BUTTON RULES ━━━
-- Always full sentences
-- Use REAL values from the catalog when suggesting options
-- Available concerns: Dryness, dehydration, acne, Hyperpigmentation, Premature aging, sensitive skin, frizz, dandruff
-- Available skin types: oily skin, dry skin, combination skin, normal skin, sensitive skin
-- Available hair types: curly, straight, wavy, dry hair, combination hair
-
-━━━ OUTPUT — valid JSON only ━━━
-{{
-  "message": "Your reply (react first, then help)",
-  "slots": {{
-    "main_category": null, "skin_type": null, "skin_concern": null,
-    "hair_type": null, "hair_concern": null, "baby_section": null,
-    "age_range": null, "sensitivity": null, "goal": null
-  }},
-  "buttons": ["Full sentence 1", "Full sentence 2", "Full sentence 3"]
-}}
-
-Slots: only fill what you KNOW. null = don't know. Concerns = arrays always."""
+Return ONLY valid JSON:
+{{"message": "your reply", "buttons": ["Button 1", "Button 2", "Button 3", "Button 4"]}}"""
 
 
-def run_chat_agent(state: DialogState, message: str, mode: str) -> Dict:
-    profile        = _summarize_profile(state)
-    products_shown = _summarize_products(state)
+def run_collection_agent(state: DialogState, message: str) -> Dict:
+    """Activity 1: guided collection. Determines next step from collected slots."""
+    step = _next_collection_step(state.slots)
 
-    system = CHAT_SYSTEM.format(
-        profile=profile,
-        products_shown=products_shown,
-        mode=mode,
-        catalog=CATALOG_SNAPSHOT,
-    )
+    # Mark allergy step as asked so we don't loop back
+    if step == STEP_ASK_ALLERGY:
+        state.slots["_allergy_asked"] = True
 
-    messages = [{"role": "system", "content": system}]
-    for turn in state.conversation_history[-8:]:
+    state.slots["_step"] = step
+
+    prompt = _build_collection_prompt(state, message, step)
+    messages = [{"role": "system", "content": prompt}]
+    for turn in state.conversation_history[-6:]:
         messages.append({"role": "user",      "content": turn.user})
         messages.append({"role": "assistant", "content": turn.assistant})
     messages.append({"role": "user", "content": message})
 
-    result = _call_llm_json(messages, temperature=0.5, max_tokens=500)
+    result = _llm_json(messages, temperature=0.5, max_tokens=500)
+
+    # ── CRITICAL: ask_output buttons must be EXACT strings ────────────────────
+    # The intent dispatcher uses _detect_output_preference() which matches against
+    # specific trigger words. If the LLM paraphrases these buttons (e.g. "Show me
+    # products" instead of "Show me the best products for my main concern."),
+    # the buttons silently fail. We hardcode them here so they can never drift.
+    if step == STEP_ASK_OUTPUT:
+        buttons = [
+            "Build me a personalised routine with all the steps.",
+            "Show me the best products for my main concern.",
+            "What's the difference between a routine and a product line?",
+        ]
+    else:
+        buttons = result.get("buttons", [])
 
     return {
         "reply_text":    result.get("message", ""),
-        "new_slots":     result.get("slots", {}),
-        "buttons":       result.get("buttons", []),
+        "buttons":       buttons,
+        "show_products": False,
+        "routine":       [],
+        "products":      [],
+        "_next_step":    step,
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CASUAL AGENT
+# Handles greetings and chitchat — always redirects to the beauty flow.
+# ═════════════════════════════════════════════════════════════════════════════
+
+def _build_casual_system(is_off_topic: bool = False) -> str:
+    """Build casual/off-topic system prompt with live category list from catalog."""
+    # Real categories from catalog — capitalised for display
+    cats = [c.title() for c in CATALOG_INDEX.get("categories", ["face", "hair", "body", "baby"])]
+    cat_str = ", ".join(cats)  # "Face, Hair, Body, Baby"
+
+    if is_off_topic:
+        return f"""You are BeautyAI at Beauty Mart Sri Lanka.
+The user went off-topic (not about beauty/skincare/haircare).
+
+1. Acknowledge briefly with humour or warmth (1 sentence)
+2. Redirect gently: "I specialise in {cat_str} care — happy to help there!"
+
+Return ONLY valid JSON:
+{{"message": "your reply", "buttons": ["Let's talk skincare!", "Help me with my hair.", "Show me your product range."]}}"""
+    else:
+        return f"""You are BeautyAI at Beauty Mart Sri Lanka — a warm beauty sales assistant.
+The user just said something casual or said hello.
+
+We carry: {cat_str} care products.
+
+Respond warmly (1–2 sentences) then naturally invite them into the beauty flow.
+Suggest they tell you their skin or hair concern to get started.
+
+Return ONLY valid JSON:
+{{"message": "your reply", "buttons": ["I want help with my skincare routine.", "My hair needs some serious help!", "Show me what products you carry."]}}"""
+
+
+def run_casual_agent(state: DialogState, message: str, is_off_topic: bool = False) -> Dict:
+    result = _llm_json(
+        messages=[
+            {"role": "system", "content": _build_casual_system(is_off_topic)},
+            {"role": "user",   "content": message},
+        ],
+        temperature=0.6,
+        max_tokens=200,
+    )
+    return {
+        "reply_text":    result.get("message", "Hey! Let's find you the perfect products. 😊"),
+        "buttons":       result.get("buttons", [
+            "Help me with my skincare.",
+            "My hair needs attention!",
+            "Show me what you carry.",
+        ]),
         "show_products": False,
         "routine":       [],
         "products":      [],
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT 3: ROUTINE AGENT (only called when user explicitly asks for a routine)
-# ─────────────────────────────────────────────────────────────────────────────
+# ═════════════════════════════════════════════════════════════════════════════
+# ROUTINE AGENT (Activity 1 → "routine" branch)
+#
+# Called after full profile is collected AND user chose "routine".
+# Builds a personalised step-by-step routine from the catalog.
+# ═════════════════════════════════════════════════════════════════════════════
 
-ROUTINE_INTRO_SYSTEM = """You are BeautyAI. User explicitly asked for a personalised routine.
+def _build_routine_intro_prompt(profile: str, routine_summary: str, slots: Dict) -> str:
+    """Build routine intro prompt with catalog-driven follow-up buttons."""
+    cat = (slots.get("main_category") or "face").lower()
 
-Profile: {profile}
+    # Real concerns for this category — for personalised follow-up button suggestions
+    cat_concerns  = get_valid_values("concerns", cat)
+    user_concerns = slots.get("skin_concern") or slots.get("hair_concern") or []
 
-Write a SHORT (1-2 sentence) enthusiastic intro for their routine.
-Then 3 follow-up buttons a shopper would click AFTER seeing a routine.
+    # Pick a concern the user has NOT already mentioned for the "update" button
+    unused_concerns = [c for c in cat_concerns if c not in user_concerns]
+    extra_concern   = unused_concerns[0].replace("_", " ") if unused_concerns else "redness"
 
-Good buttons:
-  "Tell me more about the serum you recommended."
-  "Can you suggest a more affordable option for the moisturiser?"
-  "What order should I apply these products in?"
+    # Real sensitivity filters for this category for the "avoid" button
+    cat_safety = get_valid_values("sensitivity_safe", cat)
+    avoid_tag  = cat_safety[0].replace("_free", "").replace("_", " ") if cat_safety else "fragrance"
+
+    # Price range context
+    price_range = CATALOG_INDEX.get("by_category", {}).get(cat, {}).get("price_range", {})
+    price_hint  = f"Price range for {cat}: Rs.{price_range['min']:,} – Rs.{price_range['max']:,}" if price_range else ""
+
+    return f"""You are BeautyAI at Beauty Mart Sri Lanka.
+
+User profile:
+{profile}
+{price_hint}
+
+Routine built:
+{routine_summary}
+
+Write a warm intro following this structure:
+1. EMPATHISE  — acknowledge their specific concern + skin/hair type by name
+2. EDUCATE    — 1 sentence on why a layered routine works better than a single product
+3. HANDOFF    — tell them their routine is ready, scroll through each step below 👇
+
+Keep to 3 sentences total. Warm and specific, never generic.
+
+Then EXACTLY 3 follow-up buttons — use the real values from their profile:
+  "I want to avoid {avoid_tag} in my routine."
+  "Can I get a cheaper option for one of the steps?"
+  "I also struggle with {extra_concern} — can you update that?"
 
 Return ONLY valid JSON:
-{{
-  "message": "Short enthusiastic intro",
-  "buttons": ["Button 1", "Button 2", "Button 3"]
-}}"""
+{{"message": "intro", "buttons": ["Button 1", "Button 2", "Button 3"]}}"""
 
 
-def run_routine_agent(state: DialogState, exclusions: List[str] = None) -> Dict:
-    exclusions = exclusions or []
-    if exclusions:
-        existing = state.slots.get("exclusions", [])
-        state.slots["exclusions"] = list(set(existing + exclusions))
-
-    # Check we have enough to build a routine
-    if not _has_enough_to_recommend(state):
-        return run_chat_agent(state, "I want a routine", mode="collect")
-
+def run_routine_agent(state: DialogState) -> Dict:
     routine  = build_routine(state)
     products = [s["product"] for s in routine if s.get("product")]
     state.products = products
 
-    if not routine:
+    if not products:
+        # Fallback buttons use real category sections from catalog
+        cat = (state.slots.get("main_category") or "face").lower()
+        first_section = (
+            CATALOG_INDEX.get("by_category", {}).get(cat, {}).get("subcategories", ["face care products"])[0]
+        )
         return {
-            "reply_text":    "I couldn't find a perfect match in our catalog for your preferences. Would you like to adjust?",
-            "new_slots":     {},
-            "buttons":       [
-                "Yes, let me try different preferences.",
-                "Show me all available face products.",
-                "What categories do you carry?"
+            "reply_text": "I couldn't find a perfect match for your profile right now — let me know if you'd like to adjust your preferences.",
+            "buttons": [
+                "Let me update my skin type.",
+                f"Show me all {first_section}.",
+                "Show me your best sellers.",
             ],
             "show_products": False,
-            "routine":       [],
-            "products":      [],
+            "routine": [],
+            "products": [],
         }
 
-    profile = _summarize_profile(state)
-    result  = _call_llm_json(
-        messages=[
-            {"role": "system", "content": ROUTINE_INTRO_SYSTEM.format(profile=profile)},
-            {"role": "user",   "content": "Generate intro and follow-up buttons."}
-        ],
-        temperature=0.4,
-        max_tokens=250,
+    routine_summary = "\n".join(
+        f"Step {s['step_number']}: {s['step_name']} — "
+        f"{s['product'].get('name')} by {s['product'].get('brand')} "
+        f"(Rs.{s['product'].get('price'):,})"
+        for s in routine if s.get("product")
     )
 
+    result = _llm_json(
+        messages=[{"role": "user", "content": _build_routine_intro_prompt(
+            profile=_profile_summary(state.slots),
+            routine_summary=routine_summary,
+            slots=state.slots,
+        )}],
+        temperature=0.4,
+        max_tokens=300,
+    )
+
+    # Fallback buttons also use real catalog values
+    cat         = (state.slots.get("main_category") or "face").lower()
+    cat_safety  = get_valid_values("sensitivity_safe", cat)
+    avoid_tag   = cat_safety[0].replace("_free", "").replace("_", " ") if cat_safety else "fragrance"
     return {
         "reply_text":    result.get("message", format_routine_intro(routine, state)),
-        "new_slots":     {},
         "buttons":       result.get("buttons", [
-            "Tell me more about the serum you recommended.",
-            "Can you suggest a more affordable option?",
-            "What order should I apply these products in?"
+            f"I want to avoid {avoid_tag} in my routine.",
+            "Can I get a cheaper option for one of the steps?",
+            "Can I update my skin concern?",
         ]),
         "show_products": True,
         "routine":       routine,
@@ -764,807 +1085,858 @@ def run_routine_agent(state: DialogState, exclusions: List[str] = None) -> Dict:
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT 4: REFINE AGENT
-# ─────────────────────────────────────────────────────────────────────────────
+# ═════════════════════════════════════════════════════════════════════════════
+# SECTION AGENT (Activity 1 → "product_line" branch + Activity 2A)
+#
+# Two modes:
+#   Profile-filtered  — called from Activity 1 product_line path
+#                       → scores by collected concern + type
+#   Plain browse      — called from Activity 2A (user asked for a section)
+#                       → returns full section sorted by rating
+#
+# Always honours profile exclusions (never shows excluded ingredients).
+# ═════════════════════════════════════════════════════════════════════════════
 
-REFINE_SYSTEM = """You are BeautyAI. User wants to refine their existing recommendations.
+def _product_has_excluded_ingredient(product: Dict, exclusions: List[str]) -> bool:
+    """
+    Return True if the product CONTAINS an ingredient the user wants to avoid.
 
-Profile: {profile}
-Current products: {products}
-Request: "{request}"
+    Logic:
+      The product schema stores what a product IS FREE FROM in two places:
+        - New schema : product["exclusions"]          e.g. ["fragrance", "paraben"]
+        - Old schema : product["attributes"]["sensitivity_safe"] e.g. ["fragrance_free"]
+
+      We check BOTH. A product is only excluded when it positively lacks the
+      "free from" marker AND the exclusion is a real catalog value.
+
+      IMPORTANT: We only block if the product fails ALL of the following:
+        1. Product explicitly lists the exclusion in its "free from" set
+        2. We never block because a product simply doesn't advertise a badge —
+           most products don't list every ingredient they avoid. Only block when
+           the product's own ingredient list positively contains the ingredient.
+
+      Simplified safe rule used here:
+        - Build the product's "free from" set from both schema paths
+        - If the user says "avoid sulfate" and the product has sulfate_free → safe (show it)
+        - If the product has NO free_from data at all → show it (benefit of doubt)
+        - If the product DOES have free_from data AND the user's exclusion is NOT covered → skip it
+
+      This prevents false positives where well-stocked products with partial
+      safety tagging get incorrectly hidden.
+    """
+    if not exclusions:
+        return False
+
+    # Valid catalog exclusion values — only filter on real values
+    valid_excl = set(CATALOG_INDEX.get("sensitivity_safe", []))
+
+    attrs = product.get("attributes") or {}
+
+    # Build free_from set from BOTH schema paths, normalised to "sulfate_free" format
+    free_from: set = set()
+
+    # Old schema: attributes.sensitivity_safe → already in "sulfate_free" format
+    for tag in (attrs.get("sensitivity_safe") or []):
+        free_from.add(tag.lower())
+
+    # New schema: product["exclusions"] → bare names like "fragrance", "paraben"
+    for tag in (product.get("exclusions") or []):
+        bare = tag.lower().replace("-", "_").replace(" ", "_")
+        free_from.add(bare)                          # "sulfate"
+        free_from.add(f"{bare}_free")                # "sulfate_free"
+
+    # If the product has NO free_from data at all → benefit of the doubt, show it
+    if not free_from:
+        return False
+
+    for excl in exclusions:
+        excl_clean = excl.lower().replace("-", "_").replace(" ", "_")
+
+        # Normalise to bare name (strip _free if already tagged)
+        bare_excl = excl_clean.removesuffix("_free")
+        free_tag  = f"{bare_excl}_free"
+
+        # Skip exclusions that aren't real catalog values (hallucinated by LLM)
+        if free_tag not in valid_excl and bare_excl not in valid_excl:
+            print(f"[EXCL_FILTER] Skipping unrecognised exclusion: '{excl}'")
+            continue
+
+        # Product has free_from data AND doesn't cover this exclusion → block it
+        if free_tag not in free_from and bare_excl not in free_from:
+            return True
+
+    return False
+
+
+def _resolve_section_for_profile(slots: Dict) -> Optional[str]:
+    """
+    For Activity 1 product_line path: find the best section for this profile.
+    Uses CATALOG_INDEX to validate section names — if the catalog doesn't have
+    "Serums & Targeted Treatments", this won't point there.
+    """
+    cat = (slots.get("main_category") or "").lower()
+    concern_list = slots.get("skin_concern") or slots.get("hair_concern") or []
+
+    # Live subcategories for this category — used to validate all lookups below
+    valid_sections: set = set(
+        CATALOG_INDEX.get("by_category", {}).get(cat, {}).get("subcategories", [])
+        or CATALOG_INDEX.get("subcategories", [])
+    )
+
+    def _valid(section: str) -> Optional[str]:
+        """Return section only if it exists in catalog, else None."""
+        return section if section in valid_sections else None
+
+    # Category default section — first subcategory in catalog order is most popular
+    cat_first_section = (
+        CATALOG_INDEX.get("by_category", {}).get(cat, {}).get("subcategories", [None])[0]
+    )
+
+    # Concern → most relevant section (validated against live catalog)
+    concern_section_map = {
+        "acne":              _valid("Cleansers"),
+        "dullness":          _valid("Serums & Targeted Treatments"),
+        "hyperpigmentation": _valid("Serums & Targeted Treatments"),
+        "dark spots":        _valid("Serums & Targeted Treatments"),
+        "dark_spots":        _valid("Serums & Targeted Treatments"),
+        "dryness":           _valid("Moisturisers") or _valid("Body Creams & Lotions"),
+        "dehydration":       _valid("Moisturisers"),
+        "wrinkles":          _valid("Night Cream"),
+        "aging":             _valid("Night Cream"),
+        "sun damage":        _valid("Sun Care"),
+        "sun_damage":        _valid("Sun Care"),
+        "frizz":             _valid("Conditioners"),
+        "hair loss":         _valid("Hair Masks & Deep Treatments"),
+        "hair_loss":         _valid("Hair Masks & Deep Treatments"),
+        "dandruff":          _valid("Shampoos"),
+        "breakage":          _valid("Hair Masks & Deep Treatments"),
+        "sensitivity":       _valid("Cleansers") or _valid("Moisturisers"),
+        "redness":           _valid("Serums & Targeted Treatments") or _valid("Moisturisers"),
+        "large pores":       _valid("Toners"),
+        "blackheads":        _valid("Exfoliators"),
+        "oiliness":          _valid("Toners") or _valid("Cleansers"),
+        "oily scalp":        _valid("Shampoos"),
+        "split ends":        _valid("Conditioners"),
+    }
+
+    for concern in concern_list:
+        mapped = concern_section_map.get(concern)
+        if mapped:
+            return mapped
+
+    # Baby — use the exact section they told us
+    if cat == "baby" and slots.get("baby_section"):
+        return slots["baby_section"]
+
+    # Fall back to first subcategory for category (catalog-ordered)
+    return cat_first_section
+
+
+def _build_section_reply_prompt(
+    message: str,
+    mode: str,
+    section: str,
+    count: int,
+    products_list: str,
+    first_product_name: str,
+    slots: Dict,
+) -> str:
+    """
+    Build the section agent reply prompt.
+    Injects real sensitivity filters from catalog_index for the specific section
+    so Button 2 always suggests a filter that ACTUALLY EXISTS in this section.
+    """
+    # Valid filters for THIS section — e.g. Shampoos → ["sulfate_free", "paraben_free"]
+    valid_filters = get_section_valid_filters(section)
+    filter_examples = ""
+    if valid_filters:
+        # Human-readable: "sulfate_free" → "sulfate-free"
+        readable = [f.replace("_free", "-free").replace("_", " ") for f in valid_filters[:3]]
+        filter_examples = f"Valid filters for {section}: {', '.join(readable)}"
+    else:
+        # Fallback to global sensitivity tags
+        global_tags = get_valid_values("sensitivity_safe")[:3]
+        readable = [f.replace("_free", "-free").replace("_", " ") for f in global_tags]
+        filter_examples = f"Available sensitivity filters: {', '.join(readable)}"
+
+    # Price context from catalog
+    cat = (slots.get("main_category") or "face").lower()
+    price_range = CATALOG_INDEX.get("by_category", {}).get(cat, {}).get("price_range", {})
+    budget_hint = ""
+    if price_range:
+        mid = int((price_range["min"] + price_range["max"]) / 2)
+        budget_hint = f"Mid-range price for {cat}: Rs.{mid:,}"
+
+    # Concern context for profile_filtered mode
+    concerns = slots.get("skin_concern") or slots.get("hair_concern") or []
+    concern_hint = f"User concern: {', '.join(concerns)}" if concerns and mode == "profile_filtered" else ""
+
+    return f"""You are BeautyAI at Beauty Mart Sri Lanka.
+
+User message: "{message}"
+Mode: {mode}  (profile_filtered = personalised for their concern | plain_browse = they asked to see this section)
+{concern_hint}
+
+Showing {section} ({count} products):
+{products_list}
+
+Top product: {first_product_name}
+{filter_examples}
+{budget_hint}
+
+Write a warm 2-sentence reply:
+1. Acknowledge their request with enthusiasm — mention their specific concern if mode=profile_filtered
+2. Tell them you're showing the {section} range, sorted best-match first
+
+Then EXACTLY 3 buttons:
+- Button 1: "Tell me more about the {first_product_name}."
+- Button 2: A relevant follow-up using ONE of the valid filters listed above (e.g. "Show me only sulfate-free {section.lower()}.")
+- Button 3: "Build me a full routine with this as one of the steps."
 
 Return ONLY valid JSON:
-{{
-  "target_step": "step name or null",
-  "price_direction": "lower|higher or null",
-  "message": "Warm 1-sentence acknowledgement"
-}}"""
+{{"message": "reply", "buttons": ["Button 1", "Button 2", "Button 3"]}}"""
 
 
-def run_refine_agent(state: DialogState, message: str) -> Dict:
-    profile  = _summarize_profile(state)
-    products = _summarize_products(state)
+def run_section_agent(
+    state: DialogState,
+    message: str,
+    section: Optional[str] = None,
+    mode: str = "plain_browse",
+    brand_filter: Optional[str] = None,
+) -> Dict:
+    """
+    Section Agent — show products in a section.
 
-    result          = _call_llm_json(
-        messages=[{"role": "system", "content": REFINE_SYSTEM.format(
-            profile=profile, products=products, request=message)},
-            {"role": "user", "content": message}],
-        temperature=0.2,
-        max_tokens=150,
-    )
-    target_step     = result.get("target_step")
-    price_direction = result.get("price_direction")
-    ack             = result.get("message", "Let me find some alternatives! ✨")
+    mode="profile_filtered"  → Activity 1 product_line path (ranked by profile)
+    mode="plain_browse"      → Activity 2A (user asked for section directly)
+    """
+    slots       = state.slots
+    exclusions  = slots.get("exclusions") or []
+    cat         = (slots.get("main_category") or "").lower()
 
-    alternatives = get_step_alternatives(
-        state=state,
-        step_name=target_step,
-        price_direction=price_direction,
-        exclude_ids={p["product_id"] for p in state.products}
-    )
+    # ── SAFETY GUARD: Baby category must only show baby sections ──────────────
+    # The intent agent may resolve "shampoo" → "Shampoos" (adult) before seeing
+    # the baby_section slot. Correct this here as a final gate.
+    if cat == "baby" and section:
+        baby_subcats = set(
+            CATALOG_INDEX.get("by_category", {}).get("baby", {}).get("subcategories", [])
+        )
+        if section not in baby_subcats:
+            # Override with the slot-derived baby section
+            slot_section = slots.get("baby_section")
+            print(f"[SECTION] Baby category mismatch — overriding '{section}' → '{slot_section}'")
+            section = slot_section
 
-    if not alternatives:
+    # Also ensure baby category ALWAYS uses baby_section slot if no section given
+    if cat == "baby" and section is None:
+        section = slots.get("baby_section")
+        print(f"[SECTION] Baby category — using slot-derived section: {section}")
+
+    # ── Resolve which section to show ─────────────────────────────────────────
+    if section is None:
+        if mode == "profile_filtered":
+            section = _resolve_section_for_profile(slots)
+        if section is None:
+            # LLM extraction as last resort — scoped to known category if available
+            known_cat = slots.get("main_category")
+            params = _llm_json(
+                messages=[{"role": "user", "content": _build_search_extract_prompt(
+                    message, category=known_cat
+                )}],
+                temperature=0.0,
+                max_tokens=200,
+            )
+            section = params.get("section")
+
+    if not section:
+        # Could not resolve a section — ask for clarification
         return {
-            "reply_text":    ack + " Unfortunately I couldn't find other matches — would you like to adjust your preferences?",
-            "new_slots":     {},
+            "reply_text": "I'm not sure which product range you're looking for. Could you tell me more? 😊",
+            "buttons": [
+                "Show me face care products.",
+                "Show me hair care products.",
+                "Show me all available sections.",
+            ],
+            "show_products": False,
+            "routine":  [],
+            "products": [],
+        }
+
+    # ── Fetch and filter products ──────────────────────────────────────────────
+    skin_type    = slots.get("skin_type")
+    skin_concern = slots.get("skin_concern")
+    hair_type    = slots.get("hair_type")
+    hair_concern = slots.get("hair_concern")
+    has_profile  = skin_type or skin_concern or hair_type or hair_concern
+
+    if mode == "profile_filtered" and has_profile:
+        # Use scoring to rank by profile
+        profile_excl_tags = [
+            (e.lower().replace("-","_").replace(" ","_") + "_free"
+             if not e.lower().endswith("_free") else e.lower())
+            for e in exclusions
+        ]
+        search_kwargs = {k: v for k, v in {
+            "section":          section,
+            "skin_types":       [skin_type]    if skin_type    else None,
+            "hair_types":       [hair_type]    if hair_type    else None,
+            "concerns":         skin_concern or hair_concern or None,
+            "sensitivity_safe": profile_excl_tags or None,
+            "brand":            brand_filter,
+            "limit":            8,
+        }.items() if v is not None}
+        print(f"[SECTION] profile-filtered kwargs: {search_kwargs}")
+        products_to_show = search_products(**search_kwargs)
+
+        # Fallback to plain section if scoring returns nothing
+        if not products_to_show:
+            products_to_show = [
+                p for p in get_section_products(section)
+                if not _product_has_excluded_ingredient(p, exclusions)
+            ]
+    else:
+        # Plain browse — all products in section, exclusions filtered, sorted by rating
+        print(f"[SECTION] plain browse: {section}")
+        all_products = get_section_products(section)
+        if brand_filter:
+            all_products = [p for p in all_products
+                            if (p.get("brand") or "").lower() == brand_filter.lower()]
+        if exclusions:
+            products_to_show = [
+                p for p in all_products
+                if not _product_has_excluded_ingredient(p, exclusions)
+            ]
+        else:
+            products_to_show = all_products
+
+    if not products_to_show:
+        return {
+            "reply_text":    f"I couldn't find products in the {section} range matching your preferences. Shall I show you the full range?",
             "buttons":       [
-                "Yes, let me change my preferences.",
-                "Show me the original recommendations.",
-                "What other products do you carry?"
+                f"Show me all {section}.",
+                "Let me update my preferences.",
+                "Show me a different section.",
             ],
             "show_products": False,
             "routine":       [],
             "products":      [],
         }
 
-    mini_routine = [{
-        "step_number": i + 1,
-        "step_name":   target_step or "Alternative",
-        "purpose":     "Alternative option based on your request",
-        "product":     p
-    } for i, p in enumerate(alternatives)]
+    # ── Generate reply ─────────────────────────────────────────────────────────
+    products_list      = "\n".join(
+        f"- {p['name']} by {p['brand']}  Rs.{p.get('price', 0):,}"
+        for p in products_to_show[:8]
+    )
+    first_product_name = products_to_show[0]["name"]
+
+    result = _llm_json(
+        messages=[{"role": "user", "content": _build_section_reply_prompt(
+            message=message,
+            mode=mode,
+            section=section,
+            count=len(products_to_show),
+            products_list=products_list,
+            first_product_name=first_product_name,
+            slots=slots,
+        )}],
+        temperature=0.5,
+        max_tokens=300,
+    )
+
+    # Guarantee Button 1 references the first product
+    buttons = result.get("buttons", [])
+    if not buttons or first_product_name.lower() not in buttons[0].lower():
+        b2 = buttons[1] if len(buttons) > 1 else f"Do you have a fragrance-free {section.lower()} option?"
+        b3 = buttons[2] if len(buttons) > 2 else "Build me a full routine with this as one of the steps."
+        buttons = [f"Tell me more about the {first_product_name}.", b2, b3]
 
     return {
-        "reply_text":    ack,
-        "new_slots":     {},
-        "buttons":       [
-            "Tell me more about the first option.",
-            "Can you suggest something even more budget-friendly?",
-            "What are the key differences between these options?"
-        ],
+        "reply_text":    result.get("message", f"Here's our {section} range! ✨"),
+        "buttons":       buttons[:3],
         "show_products": True,
-        "routine":       mini_routine,
-        "products":      alternatives,
+        "routine":       [],
+        "products":      products_to_show[:8],
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT 5: PRODUCT DETAIL AGENT
-# Triggered when user asks "tell me more about X", "what are the ingredients", etc.
-# Pulls structured data directly from the product JSON — no hallucination possible
-# ─────────────────────────────────────────────────────────────────────────────
+def _build_search_extract_prompt(message: str, category: Optional[str] = None) -> str:
+    """
+    Build extraction prompt for the section agent LLM fallback.
+    Uses category-scoped catalog context when category is known —
+    gives the LLM a tighter, more accurate set of valid values.
+    """
+    # Scoped context if category is known, global otherwise
+    cat_context = build_search_context(category) if category else build_search_context()
 
-DETAIL_SYSTEM = """You are BeautyAI — a warm, enthusiastic beauty sales assistant at Beauty Mart Sri Lanka.
+    # Category-specific fields for tighter prompting
+    if category:
+        cat_lower = category.lower()
+        bc = CATALOG_INDEX.get("by_category", {}).get(cat_lower, {})
+        valid_sections = ", ".join(bc.get("subcategories", CATALOG_INDEX["subcategories"]))
+        valid_brands   = ", ".join(bc.get("brands",        CATALOG_INDEX["brands"]))
+        valid_concerns = ", ".join(bc.get("concerns",      CATALOG_INDEX.get("concerns", [])))
+        valid_safety   = ", ".join(bc.get("sensitivity_safe", CATALOG_INDEX.get("sensitivity_safe", [])))
+        skin_types_str = ", ".join(bc.get("skin_types",    CATALOG_INDEX.get("skin_types", [])))
+        hair_types_str = ", ".join(bc.get("hair_types",    CATALOG_INDEX.get("hair_types", [])))
+    else:
+        valid_sections = ", ".join(CATALOG_INDEX["subcategories"])
+        valid_brands   = ", ".join(CATALOG_INDEX["brands"])
+        valid_concerns = ", ".join(CATALOG_INDEX.get("concerns", []))
+        valid_safety   = ", ".join(CATALOG_INDEX.get("sensitivity_safe", []))
+        skin_types_str = ", ".join(CATALOG_INDEX.get("skin_types", []))
+        hair_types_str = ", ".join(CATALOG_INDEX.get("hair_types", []))
 
-The user wants details about a specific product. You have the FULL product data below.
-Write a rich, conversational description that sells the product through benefits and emotion — NOT a catalog card.
-Do NOT invent anything not in the data.
+    pr = CATALOG_INDEX.get("price_range", {})
 
-Product data:
-{product_json}
+    return f"""Extract search parameters for a beauty product catalog.
 
-━━━ OUTPUT FORMAT ━━━
-Follow this EXACT structure. Use markdown exactly as shown:
+Catalog context:
+{cat_context}
 
-Hey! ✨ I think you'd really love this one:
+Valid sections        : {valid_sections}
+Valid brands          : {valid_brands}
+Valid concerns        : {valid_concerns}
+Valid sensitivity tags: {valid_safety}
+Valid skin types      : {skin_types_str}
+Valid hair types      : {hair_types_str}
+Price range           : Rs.{pr.get('min', 0):,} – Rs.{pr.get('max', 0):,}
 
-**[Product Name]** by [Brand]
-[price]
+Message: "{message}"
 
-[2-3 sentences: what makes this product exciting RIGHT NOW for this customer. Lead with the emotional benefit — "If you've been struggling with X, this is exactly what you need." Draw from the description field. Make it feel personal, not generic.]
+Return ONLY valid JSON using values EXACTLY as listed above:
+{{
+  "main_category"   : "face | hair | body | baby  or null",
+  "section"         : "exact section name from list or null",
+  "brand"           : "brand name or null",
+  "skin_types"      : ["oily","dry",...] or null,
+  "hair_types"      : ["curly","wavy",...] or null,
+  "concerns"        : ["concern from list",...] or null,
+  "sensitivity_safe": ["tag_free from list",...] or null,
+  "max_price"       : number or null,
+  "query"           : "specific product name or null"
+}}
 
-🌟 **What makes it special for you:**
-• [Benefit 1 — customer outcome, not feature. E.g. "Visibly evens skin tone — many customers see results in 3–4 weeks"]
-• [Benefit 2 — outcome-focused]
-• [Benefit 3 — outcome-focused]
-• [Texture/formula benefit — e.g. "Lightweight gel texture — absorbs instantly, never feels heavy or greasy"]
-[Add sensitivity_safe tags as benefits: e.g. "Fragrance-free — no risk of irritation for reactive skin"]
+Only set section if clearly implied. Use null otherwise.
+sensitivity_safe values MUST end in _free: "sulfate_free" not "sulfate"."""
 
-🧴 **Best match for:**
-[skin types listed naturally, e.g. "Normal ↔ Combination skin" or "Dry → Sensitive skin"]
-Main concerns: [list the top 3-4 concerns from the data, comma-separated, keep short]
 
-🌿 **The hero ingredients people talk about most:**
-• [Ingredient 1] → [what it does — 1 punchy phrase, e.g. "brightens + boosts glow"]
-• [Ingredient 2] → [what it does]
-• [Ingredient 3] → [what it does]
+# ═════════════════════════════════════════════════════════════════════════════
+# DETAIL AGENT (Activity 2B)
+#
+# Triggered when user asks about a specific product by name.
+# Looks up from shown products first, then full catalog.
+# Returns full product info + complementary products.
+# ═════════════════════════════════════════════════════════════════════════════
 
-**How most people use it:**
-→ [Step/tip 1 — paraphrase how_to_use naturally, e.g. "Morning and evening on clean skin"]
-→ [Step/tip 2]
-→ [Step/tip 3 if applicable]
-[Add any important usage note, e.g. "Always follow with sunscreen if using actives!"]
+_DETAIL_EXTRACT_PROMPT = """A user is asking about a specific beauty product.
 
-💬 **Real customer love** (from [review_count]+ reviews averaging [rating] ⭐)
-[One warm sentence about what customers consistently praise — infer from rating/purchase_count/description]
+Message: "{message}"
+Currently shown products:
+{products_list}
 
-━━━ TONE RULES ━━━
-- Conversational, warm, benefit-first — like a knowledgeable friend recommending something
-- Lead with WHY this is good FOR THE USER, not just what it contains
-- Avoid dry catalog language like "This product contains..." or "Suitable for..."
-- Keep bullets SHORT and punchy — max 10 words each
-- Use → arrows for how-to steps (feels more natural than numbered lists)
-- Do NOT add sections if the data is empty (e.g. no hair_types → skip hair section)
-- Do NOT make up ingredients, claims, or review content
-- if contains_irritants is false → mention "Irritant-free formula" as a trust signal
+Which product are they asking about?
+Return ONLY valid JSON:
+{{"product_id": "id or null", "product_name": "name or null"}}
 
-━━━ BUTTONS ━━━
-Generate exactly 3 follow-up buttons. NO buy/cart buttons.
-- One asking about complementary products that pair well with this
-- One about a specific concern this product addresses
-- One about seeing an alternative (different price range or texture)
+Match by name — partial or approximate matches count.
+If they say "the first one" or "the serum" pick the most likely match."""
 
-All buttons must be full natural sentences a real shopper would say.
+def _build_detail_reply_prompt(
+    name: str, brand: str, price: int, stock_label: str,
+    best_for: str, free_from: str, section: str,
+) -> str:
+    """Build detail reply prompt with real section filters from catalog for Button 2."""
+    section_filters = get_section_valid_filters(section)
+    if section_filters:
+        # Pick first available filter for this section
+        readable_filter = section_filters[0].replace("_free", "-free").replace("_", " ")
+        alt_button_hint = f'"Show me a {readable_filter} alternative in {section}."'
+    else:
+        alt_button_hint = '"Show me similar products at a lower price."'
+
+    # Price context
+    pr = CATALOG_INDEX.get("price_range", {})
+    price_hint = f"Catalog price range: Rs.{pr.get('min',0):,} – Rs.{pr.get('max',0):,}" if pr else ""
+
+    return f"""You are BeautyAI at Beauty Mart Sri Lanka.
+
+Product being described:
+Name     : {name}
+Brand    : {brand}
+Price    : Rs.{price:,} {stock_label}
+Best for : {best_for}
+Free from: {free_from}
+Section  : {section}
+{price_hint}
+
+Write ONE warm enthusiastic intro sentence.
+The frontend renders full details as a card — don't repeat ingredients or how-to-use.
+
+EXACTLY 3 follow-up buttons:
+- Button 1: "I'd like to buy the {name}."
+- Button 2: {alt_button_hint}
+- Button 3: "Show me my full routine." or "Show me other {section} options."
 
 Return ONLY valid JSON:
-{{
-  "message": "Your full product description using markdown exactly as structured above",
-  "buttons": ["Full sentence 1", "Full sentence 2", "Full sentence 3"]
-}}"""
+{{"message": "one intro sentence", "buttons": ["Button 1", "Button 2", "Button 3"]}}"""
 
 
-def _find_product_in_catalog(name_or_id: str, shown_products: List[Dict]) -> Optional[Dict]:
-    """Find a product by name or ID. Check shown products first, then full catalog."""
-    name_lower = name_or_id.lower().strip()
-
-    # Check shown products first (most likely what user is asking about)
-    for p in shown_products:
-        if (name_lower in p.get("name", "").lower() or
-                name_lower in p.get("product_id", "").lower() or
-                name_lower in p.get("brand", "").lower()):
-            return p
-
-    # Fall back to full catalog
-    for p in PRODUCT_CATALOG:
-        if (name_lower in p.get("name", "").lower() or
-                p.get("product_id", "").lower() == name_lower or
-                name_lower in p.get("brand", "").lower()):
-            return p
-
-    return None
-
-
-def _extract_product_name_from_message(message: str, shown_products: List[Dict]) -> Optional[str]:
-    """
-    Extract which product the user is asking about.
-    First check if any shown product name/brand appears in the message.
-    """
-    msg_lower = message.lower()
-
-    # Check shown products first
-    for p in shown_products:
-        name_lower = p.get("name", "").lower()
-        brand_lower = p.get("brand", "").lower()
-        # Match on significant words (skip short words)
-        name_words = [w for w in name_lower.split() if len(w) > 3]
-        if any(w in msg_lower for w in name_words):
-            return p.get("name")
-        if brand_lower and brand_lower in msg_lower:
-            return p.get("name")
-
-    # If only one product is shown and user says "this product", "it", "that one" etc
-    vague_refs = ["this product", "this one", "it ", "that product", "that one",
-                  "this lotion", "this cream", "this serum", "the product"]
-    if shown_products and any(ref in msg_lower for ref in vague_refs):
-        return shown_products[0].get("name")
-
-    return None
-
-
-def run_product_detail_agent(state: DialogState, message: str) -> Dict:
-    """
-    Generates a rich product description using the product's JSON data directly.
-    No hallucination — everything comes from the catalog.
-    """
-    # Find which product the user is asking about
-    product_name = _extract_product_name_from_message(message, state.products)
-    product = None
-
+def _find_product_in_context(
+    product_id: Optional[str],
+    product_name: Optional[str],
+    shown_products: List[Dict],
+) -> Optional[Dict]:
+    if not shown_products:
+        return None
+    if product_id:
+        for p in shown_products:
+            if p.get("product_id") == product_id:
+                return p
     if product_name:
-        product = _find_product_in_catalog(product_name, state.products)
+        name_lower = product_name.lower()
+        for p in shown_products:
+            if name_lower in p.get("name", "").lower():
+                return p
+        for p in shown_products:
+            if p.get("name", "").lower() in name_lower:
+                return p
+    return shown_products[0] if shown_products else None
 
-    # If we couldn't identify the product, fall back to the most recently shown one
-    if not product and state.products:
-        product = state.products[0]
+
+def run_detail_agent(state: DialogState, message: str) -> Dict:
+    """Activity 2B: full product detail view."""
+    shown = state.slots.get("_shown_products", [])
+
+    products_list = "\n".join(
+        f"- product_id: {p.get('product_id')}  name: {p.get('name')}"
+        for p in shown[:10]
+    ) if shown else "No products currently shown."
+
+    extraction = _llm_json(
+        messages=[{"role": "user", "content": _DETAIL_EXTRACT_PROMPT.format(
+            message=message,
+            products_list=products_list,
+        )}],
+        temperature=0.0,
+        max_tokens=100,
+    )
+
+    product = _find_product_in_context(
+        extraction.get("product_id"),
+        extraction.get("product_name"),
+        shown,
+    )
+
+    # Fallback: search full catalog by name
+    if not product and extraction.get("product_name"):
+        name_q = extraction["product_name"].lower()
+        for p in PRODUCT_CATALOG:
+            if name_q in p.get("name", "").lower():
+                product = p
+                break
 
     if not product:
-        return run_chat_agent(state, message, mode="qa")
-
-    # Build clean product JSON for the LLM (include all useful fields)
-    product_data = {
-        "name":          product.get("name"),
-        "brand":         product.get("brand"),
-        "price":         f"Rs.{product.get('price')} {product.get('currency', '')}",
-        "in_stock":      product.get("in_stock"),
-        "description":   product.get("description"),
-        "how_to_use":    product.get("how_to_use"),
-        "key_ingredients": product.get("key_ingredients", []),
-        "for_skin_types":  product["attributes"].get("skin_types", []),
-        "for_hair_types":  product["attributes"].get("hair_types", []),
-        "concerns_it_addresses": product["attributes"].get("concerns", []),
-        "texture":         product["attributes"].get("texture"),
-        "sensitivity_safe_tags": product["attributes"].get("sensitivity_safe", []),
-        "contains_irritants":    product["attributes"].get("contains_irritants"),
-        "rating":          product["ranking_signals"].get("rating"),
-        "review_count":    product["ranking_signals"].get("review_count"),
-        "purchase_count":  product["ranking_signals"].get("purchase_count"),
-        "section":         product["categories"].get("section"),
-    }
-
-    result = _call_llm_json(
-        messages=[
-            {"role": "system", "content": DETAIL_SYSTEM.format(
-                product_json=json.dumps(product_data, indent=2)
-            )},
-            {"role": "user", "content": message},
-        ],
-        temperature=0.4,
-        max_tokens=1000,
-    )
-
-    return {
-        "reply_text":    result.get("message", ""),
-        "new_slots":     {},
-        "buttons":       result.get("buttons", [
-            "I'd like to add this to my cart.",
-            "Show me products that work well with this.",
-            "Can you suggest a more affordable option?",
-        ]),
-        "show_products": True,   # Keep the product card visible
-        "routine":       [],
-        "products":      [product],  # Show the product card alongside description
-    }
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# MAIN PROCESS
-# ─────────────────────────────────────────────────────────────────────────────
-
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT: GROUPED SEARCH (Best Sellers / Budget Picks)
-# Returns product_groups: [{category, products[]}] — 3 products per category
-# Frontend renders each group with a heading + carousel
-# ─────────────────────────────────────────────────────────────────────────────
-
-def run_grouped_search_agent(state: DialogState, message: str, mode: str) -> Dict:
-    """
-    mode = "best_sellers" | "budget"
-
-    If state.slots["_filter_category"] is set → show only that category (flat carousel).
-    Otherwise → show all 4 categories grouped.
-    """
-    ALL_CATEGORIES = ["Face", "Hair", "Body", "Baby"]
-    filter_cat = state.slots.pop("_filter_category", None)  # consume and clear
-
-    CAT_EMOJI = {"Face": "✨", "Hair": "💆", "Body": "🧴", "Baby": "🍼"}
-
-    # ── SINGLE CATEGORY ───────────────────────────────────────────────────────
-    if filter_cat:
-        if mode == "budget":
-            products = search_products(main_category=filter_cat, max_price=1000, limit=6)
-        else:
-            products = search_products(main_category=filter_cat, limit=6)
-
-        emoji = CAT_EMOJI.get(filter_cat, "🛍️")
-        label = "budget picks" if mode == "budget" else "best sellers"
-
-        if not products:
-            return {
-                "reply_text":     f"Sorry, we don't have any {label} in {filter_cat} right now. Try another category!",
-                "new_slots":      {},
-                "buttons":        [
-                    f"Show me {label} for Face.",
-                    f"Show me {label} for Hair.",
-                    f"Show me {label} for Body.",
-                ],
-                "show_products":  False,
-                "product_groups": [],
-                "routine":        [],
-                "products":       [],
-            }
-
-        price_note = " under Rs.1000" if mode == "budget" else ""
-        reply = f"Here are our top {filter_cat.lower()} {label}{price_note}! {emoji}"
-
-        # Suggest the other 3 categories as follow-up buttons
-        other_cats = [c for c in ALL_CATEGORIES if c != filter_cat]
-        buttons = [f"Show me {label} for {c}." for c in other_cats[:3]]
-
         return {
-            "reply_text":     reply,
-            "new_slots":      {},
-            "buttons":        buttons,
-            "show_products":  True,
-            "product_groups": [],               # flat — no group headers needed
-            "routine":        [],
-            "products":       products,
+            "reply_text":    "I'm not sure which product you mean — could you tell me the name? 😊",
+            "buttons":       [
+                "Tell me about the first product shown.",
+                "Show me all products in this section.",
+                "Start over and build my routine.",
+            ],
+            "show_products": False,
+            "routine":       [],
+            "products":      [],
         }
 
-    # ── ALL CATEGORIES GROUPED ────────────────────────────────────────────────
-    groups = []
-    for cat in ALL_CATEGORIES:
-        if mode == "budget":
-            products = search_products(main_category=cat, max_price=1000, limit=3)
-        else:
-            products = search_products(main_category=cat, limit=3)
-        if products:
-            groups.append({"category": cat, "products": products})
+    attrs       = product.get("attributes", {})
+    skin_types  = attrs.get("skin_types",       product.get("skin_types",  []))
+    hair_types  = attrs.get("hair_types",        product.get("hair_types",  []))
+    concerns    = attrs.get("concerns",          product.get("concerns",    []))
+    safety_tags = attrs.get("sensitivity_safe",  product.get("sensitivity_safe", []))
+    ingredients = product.get("key_ingredients", attrs.get("key_ingredients", []))
 
-    all_products = [p for g in groups for p in g["products"]]
+    type_list = skin_types or hair_types or []
+    best_for  = ""
+    if type_list:
+        best_for += ", ".join(t.title() for t in type_list) + " skin/hair"
+    if concerns:
+        best_for += (" — " if best_for else "") + "targets " + ", ".join(concerns)
 
-    if mode == "budget":
-        reply = "Here are our best budget-friendly picks under Rs.1000, sorted by category! ✨ Great quality doesn't have to break the bank."
-        buttons = [
-            "Show me budget picks just for face care.",
-            "Show me budget picks just for hair care.",
-            "Do you have anything even cheaper?",
-        ]
-    else:
-        reply = "Here are our top-rated products across every category! 🌟 These are what our customers love most."
-        buttons = [
-            "Show me only the best sellers for face care.",
-            "Show me only the best sellers for hair care.",
-            "Show me only the best sellers for body care.",
-        ]
+    free_from   = ", ".join(tag.replace("_", "-").title() for tag in safety_tags) if safety_tags else "No specific exclusions listed"
+    in_stock    = product.get("in_stock", True)
+    stock_label = "· In Stock ✅" if in_stock else "· Out of Stock ❌"
+    section     = product.get("_section", "products")
 
-    return {
-        "reply_text":     reply,
-        "new_slots":      {},
-        "buttons":        buttons,
-        "show_products":  True,
-        "product_groups": groups,
-        "routine":        [],
-        "products":       all_products,
-    }
+    result = _llm_json(
+        messages=[{"role": "user", "content": _build_detail_reply_prompt(
+            name=product.get("name", ""),
+            brand=product.get("brand", ""),
+            price=product.get("price", 0),
+            stock_label=stock_label,
+            best_for=best_for or "All skin types",
+            free_from=free_from,
+            section=section,
+        )}],
+        temperature=0.4,
+        max_tokens=250,
+    )
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# AGENT: CONCERN COLLECT FLOW (Shop by Concern pill)
-# Step 1: Ask category (Face / Hair / Body / Baby)
-# Step 2: Ask their main concern for that category
-# Step 3: Ask skin/hair type
-# Then hand off to search
-# ─────────────────────────────────────────────────────────────────────────────
-
-CONCERN_COLLECT_PROMPTS = {
-    # ── Step 1: Category ──────────────────────────────────────────────────────
-    "ask_category": {
-        "message": "I'd love to help you find exactly what you need! 😊\n\nFirst, which area are you shopping for?",
-        "buttons": [
-            "I'm shopping for face care.",
-            "I need something for my hair.",
-            "I'm looking for body care products.",
-            # Baby intentionally excluded — Baby flow goes direct to search after category
-        ],
-    },
-
-    # ── Step 2: Concern per category ─────────────────────────────────────────
-    "ask_concern_face": {
-        "message": "Great — face care it is! ✨\n\nWhat's your main skin concern right now?",
-        "buttons": [
-            "My skin is very dry and dehydrated.",
-            "I have oily skin and frequent breakouts.",
-            "I want to reduce dark spots and uneven skin tone.",
-        ],
-    },
-    "ask_concern_hair": {
-        "message": "Love it! 💆 Hair care coming right up.\n\nWhat's your main hair concern?",
-        "buttons": [
-            "My hair is dry, frizzy and damaged.",
-            "I have an oily scalp and greasy roots.",
-            "I want to reduce hair fall and strengthen my hair.",
-        ],
-    },
-    "ask_concern_body": {
-        "message": "Perfect — let's find you the best body care! 🧴\n\nWhat's your main body care concern?",
-        "buttons": [
-            "My skin is very dry and needs deep moisture.",
-            "I have sensitive skin that gets irritated easily.",
-            "I want sun protection for my body.",
-        ],
-    },
-
-    # ── Step 3: Type per category ─────────────────────────────────────────────
-    "ask_type_face": {
-        "message": "Almost there! One last thing — what's your skin type?",
-        "buttons": [
-            "I have oily skin.",
-            "My skin is dry.",
-            "I have combination or sensitive skin.",
-        ],
-    },
-    "ask_type_hair": {
-        "message": "One more thing — what's your hair type?",
-        "buttons": [
-            "My hair is curly or coily.",
-            "I have straight hair.",
-            "My hair is wavy or slightly wavy.",
-        ],
-    },
-}
-
-# Slot keywords to extract from button answers
-_CATEGORY_MAP = {
-    "face": "Face", "facial": "Face",
-    "hair": "Hair",
-    "body": "Body",
-    "baby": "Baby",
-}
-_CONCERN_MAP = {
-    "dry":          {"skin_concern": ["Dryness", "dehydration"]},
-    "dehydrat":     {"skin_concern": ["Dryness", "dehydration"]},
-    "oily":         {"skin_concern": ["acne"], "skin_type": "oily"},
-    "breakout":     {"skin_concern": ["acne"]},
-    "acne":         {"skin_concern": ["acne"]},
-    "dark spot":    {"skin_concern": ["Hyperpigmentation"]},
-    "pigment":      {"skin_concern": ["Hyperpigmentation"]},
-    "uneven":       {"skin_concern": ["Hyperpigmentation"]},
-    "frizz":        {"hair_concern": ["frizz", "dryness"]},
-    "damaged":      {"hair_concern": ["dryness", "frizz"]},
-    "greasy":       {"hair_concern": ["greasy roots"]},
-    "scalp":        {"hair_concern": ["greasy roots"]},
-    "hair fall":    {"hair_concern": ["hair fall"]},
-    "strengthen":   {"hair_concern": ["hair fall"]},
-    "sensitive":    {"skin_concern": ["sensitive skin"], "skin_type": "sensitive"},
-    "sun":          {"skin_concern": ["Sunburn", "sun damage"]},
-    "moisture":     {"skin_concern": ["Dryness", "dehydration"]},
-}
-_TYPE_MAP = {
-    "oily":        {"skin_type": "oily"},
-    "dry":         {"skin_type": "dry"},
-    "combination": {"skin_type": "combination"},
-    "sensitive":   {"skin_type": "sensitive"},
-    "curly":       {"hair_type": "curly"},
-    "coily":       {"hair_type": "coily"},
-    "straight":    {"hair_type": "straight"},
-    "wavy":        {"hair_type": "wavy"},
-}
-
-
-def _extract_slots_from_concern_answer(message: str, step: str) -> Dict:
-    """Extract slots from user's button answer during concern collect flow."""
-    msg_lower = message.lower()
-    extracted = {}
-
-    if step == "ask_category":
-        for kw, cat in _CATEGORY_MAP.items():
-            if kw in msg_lower:
-                extracted["main_category"] = cat
-                break
-
-    elif step.startswith("ask_concern"):
-        for kw, slots in _CONCERN_MAP.items():
-            if kw in msg_lower:
-                extracted.update(slots)
-
-    elif step.startswith("ask_type"):
-        for kw, slots in _TYPE_MAP.items():
-            if kw in msg_lower:
-                extracted.update(slots)
-                break
-
-    return extracted
-
-
-def _empty_collect_response(prompt_key: str, next_step: str) -> Dict:
-    """Build a no-product collect response for a given prompt."""
-    p = CONCERN_COLLECT_PROMPTS[prompt_key]
-    return {
-        "reply_text":     p["message"],
-        "new_slots":      {"_concern_step": next_step},
-        "buttons":        p["buttons"],
-        "show_products":  False,
-        "product_groups": [],
-        "routine":        [],
-        "products":       [],
-    }
-
-
-def run_concern_collect_agent(state: DialogState, message: str) -> Dict:
-    """
-    Strict 3-step guided flow using _concern_step flag in state.slots.
-
-    _concern_step values:
-      "ask_category"     → waiting for user to pick category
-      "ask_concern_face" → waiting for face concern
-      "ask_concern_hair" → waiting for hair concern
-      "ask_concern_body" → waiting for body concern
-      "ask_type_face"    → waiting for skin type
-      "ask_type_hair"    → waiting for hair type
-      "done"             → flow complete, search runs
-      (absent)           → first time, start from step 1
-    """
-    slots     = state.slots
-    step      = slots.get("_concern_step", "")   # current step
-    msg_lower = message.lower()
-
-    # ── ENTRY: First time (no step yet) ───────────────────────────────────────
-    if not step:
-        return _empty_collect_response("ask_category", next_step="ask_category")
-
-    # ── Process answer for current step, then advance ─────────────────────────
-    extracted = _extract_slots_from_concern_answer(message, step)
-    # Merge extracted slots into state immediately so next step sees them
-    if extracted:
-        state.slots = _merge_slots(state.slots, extracted)
-
-    slots = state.slots   # re-read after merge
-    cat   = slots.get("main_category")
-
-    # ── STEP: ask_category → advance to ask_concern ───────────────────────────
-    if step == "ask_category":
-        if not cat:
-            # Couldn't extract category — ask again
-            return _empty_collect_response("ask_category", next_step="ask_category")
-
-        if cat == "Baby":
-            # Baby skips concern+type steps — search immediately
-            state.slots["_concern_step"] = "done"
-            return run_search_agent(state, message)
-
-        concern_key = f"ask_concern_{cat.lower()}"
-        return _empty_collect_response(concern_key, next_step=concern_key)
-
-    # ── STEP: ask_concern_* → advance to ask_type or search ──────────────────
-    if step.startswith("ask_concern"):
-        has_concern = bool(
-            slots.get("skin_concern") or slots.get("hair_concern")
+    buttons = result.get("buttons", [])
+    if len(buttons) < 3:
+        # Fallback buttons also use real catalog data
+        section_filters = get_section_valid_filters(section)
+        alt_label = (
+            f"Show me a {section_filters[0].replace('_free','').replace('_',' ')}-free alternative."
+            if section_filters else "Show me similar products at a lower price."
         )
-        if not has_concern:
-            # Couldn't extract concern — ask again
-            concern_key = f"ask_concern_{cat.lower()}" if cat else "ask_category"
-            return _empty_collect_response(concern_key, next_step=concern_key)
+        buttons = [
+            f"I'd like to buy the {product.get('name')}.",
+            alt_label,
+            f"Show me other {section} options.",
+        ]
 
-        if cat == "Body":
-            # Body skips type step — search now
-            state.slots["_concern_step"] = "done"
-            return run_search_agent(state, message)
+    # Complementary products from same section
+    complementary = sorted(
+        [p for p in PRODUCT_CATALOG
+         if p.get("_section") == section
+         and p.get("product_id") != product.get("product_id")
+         and p.get("in_stock", True)],
+        key=lambda p: -((p.get("ranking_signals") or {}).get("rating", 0)),
+    )[:4]
 
-        type_key = f"ask_type_{cat.lower()}"   # ask_type_face or ask_type_hair
-        return _empty_collect_response(type_key, next_step=type_key)
+    product_detail = {
+        "product_id":      product.get("product_id"),
+        "name":            product.get("name"),
+        "brand":           product.get("brand"),
+        "image_url":       product.get("image_url", ""),
+        "price":           product.get("price", 0),
+        "description":     product.get("description", ""),
+        "how_to_use":      product.get("how_to_use", ""),
+        "key_ingredients": ingredients,
+        "attributes": {
+            "skin_types":  skin_types,
+            "hair_types":  hair_types,
+            "concerns":    concerns,
+            "texture":     attrs.get("texture", product.get("texture", "")),
+            "free_from":   safety_tags,
+        },
+        "ranking_signals": {
+            "rating":         (product.get("ranking_signals") or {}).get("rating", product.get("average_rating", 0)),
+            "review_count":   (product.get("ranking_signals") or {}).get("review_count", product.get("review_count", 0)),
+            "purchase_count": (product.get("ranking_signals") or {}).get("purchase_count", product.get("purchase_count", 0)),
+        },
+        "in_stock": in_stock,
+    }
 
-    # ── STEP: ask_type_* → search ─────────────────────────────────────────────
-    if step.startswith("ask_type"):
-        has_type = bool(slots.get("skin_type") or slots.get("hair_type"))
-        if not has_type:
-            # Couldn't extract type — ask again
-            type_key = f"ask_type_{cat.lower()}" if cat else "ask_category"
-            return _empty_collect_response(type_key, next_step=type_key)
-
-        state.slots["_concern_step"] = "done"
-        return run_search_agent(state, message)
-
-    # ── DONE: flow complete ────────────────────────────────────────────────────
-    if step == "done":
-        return run_search_agent(state, message)
-
-    # Fallback
-    return _empty_collect_response("ask_category", next_step="ask_category")
+    return {
+        "reply_text":             result.get("message", f"Here's everything about the {product.get('name')}! ✨"),
+        "buttons":                buttons[:3],
+        "show_products":          False,
+        "show_product_detail":    True,
+        "product_detail":         product_detail,
+        "complementary_products": complementary,
+        "routine":                [],
+        "products":               [],
+    }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Triggered by "Shop by Category" and "Shop by Concern" pills
-# Gives a warm structured overview of what we carry + actionable buttons
-# ─────────────────────────────────────────────────────────────────────────────
-
-def run_catalog_overview_agent(state: DialogState, message: str) -> Dict:
+def _run_explain_agent(state: DialogState) -> Dict:
     """
-    Responds to "what do you carry" / "shop by concern" type queries.
-    Determines whether the user wants categories or concerns and responds accordingly.
+    Called when user asks 'what's the difference between a routine and a product line?'
+    at the STEP_ASK_OUTPUT step.
+    Explains both options clearly, then re-asks for their preference.
+    Does NOT advance the step — still waits for a real preference answer.
     """
-    msg_lower = message.lower()
-    is_concern_query = any(kw in msg_lower for kw in [
-        "concern", "problem", "issue", "condition", "treat", "help with"
-    ])
+    cat = (state.slots.get("main_category") or "face").lower()
+    # Get a real routine step example from catalog for this category
+    cat_steps = CATALOG_INDEX.get("by_category", {}).get(cat, {}).get("subcategories", [])
+    step_example = " → ".join(cat_steps[:3]) + "…" if cat_steps else "Cleanser → Toner → Serum…"
 
-    # Build real data from catalog
-    cats = sorted(CATALOG_VALUES["categories"])  # Face, Hair, Body, Baby
-    top_concerns = [
-        "Dryness & dehydration", "Acne & oily skin", "Hyperpigmentation & dark spots",
-        "Premature aging & fine lines", "Sensitive skin & eczema",
-        "Frizz & damaged hair", "Dandruff & oily scalp", "Hair fall & breakage"
-    ]
-    sections_by_cat = {}
-    for p in PRODUCT_CATALOG:
-        cat = p["categories"].get("main_category")
-        sec = p["categories"].get("section")
-        if cat and sec:
-            sections_by_cat.setdefault(cat, set()).add(sec)
+    # Get a real section example from catalog for the concern
+    concerns = state.slots.get("skin_concern") or state.slots.get("hair_concern") or []
+    section_example = _resolve_section_for_profile(state.slots) or (cat_steps[0] if cat_steps else "Serums")
 
-    catalog_detail = "\n".join([
-        f"- {cat}: {', '.join(sorted(secs))}"
-        for cat, secs in sorted(sections_by_cat.items())
-    ])
-    concerns_list = "\n".join([f"- {c}" for c in top_concerns])
+    result = _llm_json(
+        messages=[{"role": "user", "content": f"""You are BeautyAI at Beauty Mart Sri Lanka.
 
-    if is_concern_query:
-        prompt = f"""You are BeautyAI, a friendly beauty sales assistant at Beauty Mart Sri Lanka.
-The user wants to shop by skin or hair concern.
+The user asked what the difference is between a ROUTINE and a PRODUCT LINE.
 
-Our catalog covers these concerns:
-{concerns_list}
+Explain clearly in 3–4 sentences:
+- A ROUTINE = a personalised step-by-step plan built for their skin/hair type.
+  Example for {cat}: {step_example}
+  Each step has one recommended product, ordered so they work together.
 
-Our categories: {', '.join(cats)}
+- A PRODUCT LINE = browsing all products in ONE category they care about most.
+  Example for concern "{', '.join(concerns) or cat}": showing all {section_example} products.
+  Great if they just want to pick one product, not commit to a full routine.
 
-Write a warm, enthusiastic response (3-4 sentences max) that:
-1. Lists the main concerns we cover in a natural conversational way
-2. Invites them to pick one so you can show matching products
+End with: "Which would you like to try?"
 
-Then generate exactly 3 buttons — each one is a specific concern the user might pick, e.g.:
-"I want products for dry and dehydrated skin."
-"Show me something for frizzy, damaged hair."
-"I need help with dark spots and hyperpigmentation."
+Then EXACTLY 2 buttons (their actual choices):
+  "Build me a personalised routine — all the steps."
+  "Show me the best {section_example} for my {concerns[0] if concerns else cat}."
 
 Return ONLY valid JSON:
-{{
-  "message": "Your warm response listing concerns",
-  "buttons": ["Concern button 1", "Concern button 2", "Concern button 3"]
-}}"""
-    else:
-        prompt = f"""You are BeautyAI, a friendly beauty sales assistant at Beauty Mart Sri Lanka.
-The user wants to know what categories and products we carry.
-
-Our catalog:
-{catalog_detail}
-
-Write a warm, enthusiastic response (3-4 sentences max) that:
-1. Briefly introduces our 4 main categories: Face, Hair, Body, Baby
-2. Mentions a few highlights from each
-3. Invites them to pick a category to explore
-
-Then generate exactly 3 buttons — each one picks a specific category to browse:
-"Show me your face care products."
-"I want to explore hair care."
-"What do you have for body care?"
-
-Return ONLY valid JSON:
-{{
-  "message": "Your warm overview of what we carry",
-  "buttons": ["Category button 1", "Category button 2", "Category button 3"]
-}}"""
-
-    result = _call_llm_json(
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.5,
-        max_tokens=400,
+{{"message": "explanation", "buttons": ["Button 1", "Button 2"]}}"""}],
+        temperature=0.4,
+        max_tokens=350,
     )
 
     return {
-        "reply_text":    result.get("message", "We carry Face, Hair, Body and Baby products — just tell me what you're looking for!"),
-        "new_slots":     {},
-        "buttons":       result.get("buttons", [
-            "Show me your face care products.",
-            "I want to explore hair care.",
-            "Show me products for dry skin.",
-        ]),
+        "reply_text":    result.get("message", "A routine gives you a full step-by-step plan. A product line shows the best single category for your concern. Which would you prefer?"),
+        # Hardcoded — must match trigger words in _detect_output_preference exactly
+        "buttons":       [
+            "Build me a personalised routine with all the steps.",
+            "Show me the best products for my main concern.",
+        ],
         "show_products": False,
         "routine":       [],
         "products":      [],
     }
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# MAIN ENTRY POINT
+# ═════════════════════════════════════════════════════════════════════════════
+
 async def process_message(state: DialogState, user_message: str) -> Dict:
-    """Main entry: extract slots → route → dispatch agent → merge state → respond."""
+    """
+    Single pipeline for every message:
 
-    # Always extract slots first
-    slots_from_message = _quick_slot_extract(user_message, state)
+      ① Slot extraction     — pull profile values from the message
+      ② Intent Agent        — classify intent (collect / section_browse / product_detail / casual)
+      ③ Dispatch            — route to correct agent
+      ④ Post-processing     — update _shown_products, save turn, format buttons
+    """
 
-    # ── CATEGORY SWITCH DETECTION ─────────────────────────────────────────────
-    # Skip category switch during concern collect flow — the flow handles category internally
-    new_cat = slots_from_message.get("main_category")
-    old_cat = state.slots.get("main_category")
-    in_concern_flow = state.slots.get("_concern_step") and state.slots["_concern_step"] != "done"
-
-    if new_cat and old_cat and new_cat != old_cat and not in_concern_flow:
-        print(f"[CATEGORY SWITCH] {old_cat} → {new_cat} — clearing stale slots & products")
-        state.slots = {"main_category": new_cat}
-        state.products = []
-        slots_from_message = {k: v for k, v in slots_from_message.items()}
-    elif slots_from_message:
-        state.slots = _merge_slots(state.slots, slots_from_message)
-
-    if slots_from_message:
-        print(f"[SLOTS] Extracted: {slots_from_message}")
-
-    # Route
-    action = route_message(state, user_message)
-
-    # OVERRIDE: If we've had 2+ collect turns and have any useful slot → force search
-    collect_turns = sum(1 for t in state.conversation_history if t.assistant and
-                        any(q in t.assistant for q in ["?", "What's", "What is", "Which", "How"]))
-    if action == "collect" and collect_turns >= 2 and (
-        state.slots.get("main_category") or state.slots.get("skin_type") or
-        state.slots.get("hair_type") or state.slots.get("skin_concern") or
-        state.slots.get("hair_concern")
-    ):
-        print(f"[OVERRIDE] Too many collect turns — forcing search")
-        action = "search"
-
-    print(f"[ACTION] {action}")
-
-    # ── Clear stale products before any new search ────────────────────────────
-    if action == "search":
-        state.products = []
-        # Save section extracted THIS message before clearing, pass it into search
-        # Section is per-message only — don't carry it into future searches
-        _current_section = state.slots.pop("section", None)
-    else:
-        _current_section = None
-
-    # Dispatch
-    if action == "catalog_overview":
-        agent_result = run_catalog_overview_agent(state, user_message)
-
-    elif action == "concern_collect":
-        agent_result = run_concern_collect_agent(state, user_message)
-
-    elif action == "best_sellers":
-        agent_result = run_grouped_search_agent(state, user_message, mode="best_sellers")
-
-    elif action == "budget":
-        agent_result = run_grouped_search_agent(state, user_message, mode="budget")
-
-    elif action == "product_detail":
-        agent_result = run_product_detail_agent(state, user_message)
-
-    elif action == "search":
-        agent_result = run_search_agent(state, user_message, section_override=_current_section)
-
-    elif action == "rebuild":
-        exclusions = _extract_exclusions(user_message)
-        state.products = []
-        if exclusions:
-            existing = state.slots.get("exclusions", [])
-            state.slots["exclusions"] = list(set(existing + exclusions))
-        agent_result = run_search_agent(state, user_message)
-
-    elif action in ("refine_step", "refine_price"):
-        agent_result = run_refine_agent(state, user_message)
-
-    elif action in ("casual", "off_topic", "qa", "collect", "new_category"):
-        agent_result = run_chat_agent(state, user_message, mode=action)
-
-    else:
-        agent_result = run_chat_agent(state, user_message, mode="collect")
-
-    # Merge new slots
-    new_slots = agent_result.get("new_slots", {})
+    # ── ① Slot extraction ─────────────────────────────────────────────────────
+    prev_category = state.slots.get("main_category")
+    new_slots     = _extract_slots(user_message, state)
     if new_slots:
         state.slots = _merge_slots(state.slots, new_slots)
+        print(f"[SLOTS] {new_slots}")
 
-    # Update products in state
-    if agent_result.get("show_products") and agent_result.get("products"):
-        state.products = agent_result["products"]
+    # Auto-detect category from slot signals if still missing
+    if not state.slots.get("main_category"):
+        cat = _detect_category_from_slots(state.slots)
+        if cat:
+            state.slots["main_category"] = cat
 
-    # Save turn
+    # Track category changes for detecting category switches
+    if prev_category and prev_category != state.slots.get("main_category"):
+        state.slots["_prev_category"] = prev_category
+        # Reset collection when user switches category
+        state.slots["_step"] = ""
+        state.slots.pop("_allergy_asked", None)
+        print(f"[PIPELINE] Category switched {prev_category} → {state.slots['main_category']} — resetting collection")
+    elif not state.slots.get("_prev_category"):
+        state.slots["_prev_category"] = state.slots.get("main_category")
+
+    # ── ② Intent Agent ────────────────────────────────────────────────────────
+    intent_result = classify_intent(user_message, state, new_slots)
+    print(f"[INTENT] {intent_result.intent}"
+          + (f" section={intent_result.section}" if intent_result.section else "")
+          + f" ← {intent_result.reason}")
+
+    # ── ③ Dispatch ────────────────────────────────────────────────────────────
+    step = state.slots.get("_step", "")
+
+    if intent_result.intent == INTENT_CASUAL:
+        agent_result = run_casual_agent(state, user_message, is_off_topic=False)
+
+    elif intent_result.intent == INTENT_OFF_TOPIC:
+        agent_result = run_casual_agent(state, user_message, is_off_topic=True)
+
+    elif intent_result.intent == INTENT_PRODUCT_DETAIL:
+        agent_result = run_detail_agent(state, user_message)
+
+    elif intent_result.intent == INTENT_SECTION_BROWSE:
+        # Activity 2A — direct section browse
+        # Detect brand name from message for brand filtering
+        msg_lower  = user_message.lower()
+        brand_hit  = next((b for b in _BRAND_NAMES if b in msg_lower and len(b) > 3), None)
+        brand_name = brand_hit.title() if brand_hit else None
+
+        agent_result = run_section_agent(
+            state,
+            user_message,
+            section=intent_result.section,
+            mode="plain_browse",
+            brand_filter=brand_name,
+        )
+
+    elif intent_result.intent == INTENT_COLLECT:
+        # Activity 1 — guided collection flow
+
+        output_pref = intent_result.output_pref
+
+        # Handle output preference answer (routine vs product line)
+        if output_pref == OUTPUT_ROUTINE or (step == STEP_ASK_OUTPUT and output_pref == OUTPUT_ROUTINE):
+            state.slots["_step"] = STEP_DONE
+            agent_result = run_routine_agent(state)
+
+        elif output_pref == OUTPUT_PRODUCT_LINE or (step == STEP_ASK_OUTPUT and output_pref == OUTPUT_PRODUCT_LINE):
+            state.slots["_step"] = STEP_DONE
+            agent_result = run_section_agent(
+                state,
+                user_message,
+                section=None,
+                mode="profile_filtered",
+            )
+
+        elif output_pref == OUTPUT_EXPLAIN or (step == STEP_ASK_OUTPUT and output_pref == OUTPUT_EXPLAIN):
+            # User asked "what's the difference?" — explain and re-ask
+            agent_result = _run_explain_agent(state)
+
+        else:
+            # Still collecting — determine next step
+            next_step = _next_collection_step(state.slots)
+
+            if next_step == STEP_ASK_OUTPUT:
+                # Profile complete — ask for preference
+                agent_result = run_collection_agent(state, user_message)
+
+            elif next_step == STEP_DONE:
+                # Should not happen but handle gracefully — go to ask_output
+                state.slots["_step"] = STEP_ASK_OUTPUT
+                agent_result = run_collection_agent(state, user_message)
+
+            else:
+                # Still need more profile info
+                agent_result = run_collection_agent(state, user_message)
+
+    else:
+        # Unknown intent — fallback to collection
+        agent_result = run_collection_agent(state, user_message)
+
+    # ── ④ Post-processing ─────────────────────────────────────────────────────
+
+    # Remember shown products for Detail Agent
+    if agent_result.get("products"):
+        state.slots["_shown_products"] = agent_result["products"]
+    elif agent_result.get("routine"):
+        state.slots["_shown_products"] = [
+            s["product"] for s in agent_result["routine"] if s.get("product")
+        ]
+
+    # Save conversation turn
     state.conversation_history.append(
         ConversationTurn(user=user_message, assistant=agent_result.get("reply_text", ""))
     )
 
-    # Format buttons
+    # Format suggested buttons
     buttons = [
         {"label": b, "payload": {"slot": "_text", "value": b}}
-        for b in agent_result.get("buttons", [])[:3]
+        for b in agent_result.get("buttons", [])[:4]
     ]
 
     return {
-        "reply_text":          agent_result.get("reply_text", ""),
-        "suggested_options":   buttons,
-        "current_node":        "conversation",
-        "routine":             agent_result.get("routine", []),
-        "products":            agent_result.get("products", []) if agent_result.get("show_products") else [],
-        "product_groups":      agent_result.get("product_groups", []),
-        "trigger_recommender": False,
-        "recommender_context": None,
+        "reply_text":             agent_result.get("reply_text", ""),
+        "suggested_options":      buttons,
+        "current_node":           "conversation",
+        "routine":                agent_result.get("routine", []),
+        "products":               agent_result.get("products", []) if agent_result.get("show_products") else [],
+        "show_product_detail":    agent_result.get("show_product_detail", False),
+        "product_detail":         agent_result.get("product_detail", None),
+        "complementary_products": agent_result.get("complementary_products", []),
     }
